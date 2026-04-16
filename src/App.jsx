@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import B2BInfo from './components/B2BInfo';
@@ -15,12 +15,26 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState('designer');
   const [initialRole, setInitialRole] = useState('designer');
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // 평점 관리를 위한 통합 상태
   const [packages, setPackages] = useState(mockDb.packages);
   const [adminDesigners, setAdminDesigners] = useState(mockDb.admin.designers);
   const [adminStats, setAdminStats] = useState(mockDb.admin.stats);
   const [selectedRegion, setSelectedRegion] = useState('전체');
+
+  // 스크롤 이벤트 감지
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // 리뷰 추가 핸들러
   const handleAddReview = (designerName, nickname, newRating, comment) => {
@@ -73,18 +87,21 @@ function App() {
     setIsLoggedIn(false);
     setUserRole('designer');
     setView('home');
+    window.scrollTo({ top: 0 });
   };
 
   // 로그인 화면 진입 핸들러
   const handleLoginEnter = (role) => {
     setInitialRole(role);
     setView('login');
+    window.scrollTo({ top: 0 });
   };
 
   // 로그인 성공 핸들러
   const handleLoginSuccess = (role) => {
     setUserRole(role);
     setIsLoggedIn(true);
+    window.scrollTo({ top: 0 });
   };
 
   // 필터링된 패키지 리스트 (방어 코드 추가)
@@ -95,29 +112,38 @@ function App() {
 
   // 1. 대시보드 및 어드민 뷰 (로그인 된 경우)
   if (isLoggedIn) {
-    if (userRole === 'admin') {
-      return <AdminPanel
-        onLogout={handleLogout}
-        designers={adminDesigners}
-        setDesigners={setAdminDesigners}
-        stats={adminStats}
-      />;
-    }
-    return <DesignerDashboard onLogout={handleLogout} />;
+    return (
+      <div className="page-fade-in">
+        {userRole === 'admin' ? (
+          <AdminPanel
+            onLogout={handleLogout}
+            designers={adminDesigners}
+            setDesigners={setAdminDesigners}
+            stats={adminStats}
+          />
+        ) : (
+          <DesignerDashboard onLogout={handleLogout} />
+        )}
+      </div>
+    );
   }
 
   // 2. 로그인 화면 뷰
   if (view === 'login') {
-    return <Login
-      onBack={() => setView('home')}
-      onLoginSuccess={handleLoginSuccess}
-      initialRole={initialRole}
-    />;
+    return (
+      <div className="page-fade-in">
+        <Login
+          onBack={() => setView('home')}
+          onLoginSuccess={handleLoginSuccess}
+          initialRole={initialRole}
+        />
+      </div>
+    );
   }
 
   // 3. 메인 랜더링 (홈 화면)
   return (
-    <div className="app-main">
+    <div className="app-main page-fade-in">
       {/* Premium Background System */}
       <div className="bg-mesh-container">
         <div className="mesh-circle mesh-1"></div>

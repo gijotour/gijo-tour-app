@@ -777,3 +777,658 @@ button, .btn {
     display: none;
   }
 }
+
+/* Video Integration Premium Styles */
+.video-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 10;
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.video-icon {
+  font-size: 0.85rem;
+  filter: drop-shadow(0 0 5px var(--accent-color));
+}
+
+.video-container-wrap {
+  position: relative;
+  background: #000;
+  border-bottom: 1px solid var(--glass-border);
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.video-container-wrap iframe {
+  display: block;
+  border: none;
+}
+
+.form-tip {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .video-container-wrap iframe {
+    height: 250px;
+  }
+}
+
+/* ============================================================
+   GIJO TOUR Elite Portal System (Login & Dashboards)
+   ============================================================ */
+
+/* 1. Cinematic Login Screen */
+.login-screen-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-color);
+  position: relative;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.login-screen-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 150%; height: 150%;
+  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.btn-back-home {
+  position: absolute;
+  top: 3rem; left: 3rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+}
+
+.login-cinema-container {
+  width: 100%;
+  max-width: 500px;
+  z-index: 5;
+}
+
+.login-card-elite {
+  padding: 4rem;
+  text-align: center;
+}
+
+.elite-badge {
+  color: var(--accent-color);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.login-header-elite h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+
+.login-header-elite p {
+  opacity: 0.6;
+  margin-bottom: 2.5rem;
+  font-size: 1.05rem;
+}
+
+.role-switcher {
+  display: flex;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 0.3rem;
+  margin-bottom: 2.5rem;
+}
+
+.role-switcher button {
+  flex: 1;
+  padding: 0.8rem;
+  border-radius: 9px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: transparent;
+}
+
+.role-switcher button.active {
+  background: var(--accent-brand);
+  color: #000;
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2);
+}
+
+.elite-input-group {
+  text-align: left;
+  margin-bottom: 1.8rem;
+}
+
+.elite-input-group label {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.05em;
+}
+
+.elite-input-group input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.2rem;
+  color: #fff;
+  font-size: 1rem;
+  transition: var(--transition-smooth);
+}
+
+.elite-input-group input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.1);
+}
+
+.elite-form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  font-size: 0.9rem;
+}
+
+.btn-login-elite {
+  width: 100%;
+  padding: 1.3rem;
+  background: var(--accent-brand);
+  color: #000;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+}
+
+.login-footer-elite {
+  border-top: 1px solid var(--glass-border);
+  padding-top: 2.5rem;
+  font-size: 0.95rem;
+}
+
+.btn-apply-designer {
+  margin-top: 1rem;
+  color: var(--accent-color);
+  font-weight: 700;
+  background: none;
+}
+
+/* 2. Elite Dashboard Layout */
+.dashboard-elite-layout {
+  display: flex;
+  height: 100vh;
+  background: var(--bg-color);
+  overflow: hidden;
+}
+
+.elite-sidebar {
+  width: 280px;
+  height: calc(100vh - 40px);
+  margin: 20px 0 20px 20px;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1rem 3rem;
+}
+
+.brand-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: #ff3366; /* Admin Color */
+  box-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+}
+
+.brand-dot.designer {
+  background: var(--accent-color);
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+}
+
+.sidebar-brand h2 {
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+}
+
+.sidebar-nav-elite {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item-elite {
+  width: 100%;
+  padding: 1.1rem 1.5rem;
+  text-align: left;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: var(--transition-smooth);
+  background: transparent;
+}
+
+.nav-item-elite:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+}
+
+.nav-item-elite.active {
+  background: rgba(0, 210, 255, 0.08);
+  color: var(--accent-color);
+  border: 1px solid rgba(0, 210, 255, 0.15);
+}
+
+.btn-logout-elite {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: #ff4d4d;
+  font-weight: 800;
+  font-size: 0.8rem;
+  background: rgba(255, 77, 77, 0.03);
+}
+
+/* Main Dashboard Body */
+.dashboard-main-elite {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.elite-dashboard-header {
+  padding: 2.5rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-breadcrumbs {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.header-breadcrumbs strong {
+  color: #fff;
+}
+
+.elite-admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.admin-badge-premium {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+}
+
+.avatar-elite {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.avatar-elite.designer-avatar {
+  background: var(--accent-brand);
+}
+
+.elite-dashboard-content {
+  flex: 1;
+  padding: 0 3.5rem 3.5rem;
+  overflow-y: auto;
+}
+
+.content-intro {
+  margin-bottom: 3.5rem;
+}
+
+.content-intro h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.content-intro p {
+  font-size: 1.15rem;
+  opacity: 0.6;
+}
+
+/* Stats Cards */
+.elite-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.elite-stat-card {
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.stat-glow {
+  position: absolute;
+  top: -50%; right: -50%;
+  width: 150px; height: 150px;
+  background: var(--accent-color);
+  filter: blur(80px);
+  opacity: 0.1;
+}
+
+/* Dashboard Table */
+.elite-table-section {
+  padding: 0;
+  overflow: hidden;
+}
+
+.table-header-elite {
+  padding: 2.5rem;
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-search {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--glass-border);
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  color: #fff;
+  width: 300px;
+}
+
+.elite-dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.elite-dashboard-table th {
+  text-align: left;
+  padding: 1.5rem 2.5rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.elite-dashboard-table td {
+  padding: 1.8rem 2.5rem;
+  border-bottom: 1px solid var(--glass-border);
+  font-size: 1rem;
+}
+
+.elite-dashboard-table tr:last-child td {
+  border-bottom: none;
+}
+
+.elite-status-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.elite-status-pill.active, .elite-status-pill.paid { background: rgba(0, 255, 136, 0.1); color: #00ff88; }
+.elite-status-pill.pending { background: rgba(255, 255, 0, 0.1); color: #ffff00; }
+.elite-status-pill.suspended { background: rgba(255, 51, 102, 0.1); color: #ff3366; }
+
+.designer-cell { display: flex; align-items: center; gap: 1rem; }
+.mini-avatar { width: 32px; height: 32px; background: #555; border-radius: 50%; }
+
+.btn-table-action {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-table-action.primary {
+  background: var(--accent-brand);
+  color: #000;
+  border: none;
+}
+
+/* Designer Grid List */
+.elite-proposal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.elite-proposal-card {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.p-header { display: flex; justify-content: space-between; align-items: flex-start; }
+.p-tag { font-size: 0.75rem; font-weight: 800; color: var(--accent-color); }
+.p-badge { font-size: 0.7rem; font-weight: 800; padding: 0.3rem 0.8rem; border-radius: 5px; }
+.p-badge.확정 { background: rgba(0, 210, 255, 0.1); color: var(--accent-color); }
+.p-badge.검토중 { background: rgba(255, 255, 255, 0.05); color: #ccc; }
+
+.elite-proposal-card h3 { font-size: 1.4rem; line-height: 1.4; }
+
+.p-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 1.5rem; }
+.p-date { font-size: 0.85rem; opacity: 0.5; }
+.btn-p-view { background: none; color: var(--accent-color); font-weight: 700; }
+
+/* Modal Elite Expanded */
+.elite-wide-modal {
+  max-width: 800px;
+  width: 90%;
+}
+
+.modal-header-elite h2 { margin-bottom: 0.5rem; }
+.modal-header-elite p { opacity: 0.5; font-size: 0.95rem; }
+
+.elite-form-group { margin-bottom: 2rem; }
+.elite-form-group label { display: block; font-size: 0.8rem; font-weight: 800; color: var(--accent-color); margin-bottom: 0.8rem; }
+.elite-form-group input, .elite-form-group textarea {
+  width: 100%; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1rem; color: #fff;
+}
+
+.elite-itinerary-builder { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem; }
+.itinerary-row-elite { display: flex; gap: 1.5rem; align-items: flex-start; }
+.day-count { font-weight: 800; color: var(--accent-color); min-width: 60px; padding-top: 1rem; }
+
+.btn-elite-save, .btn-submit-elite {
+  padding: 1rem 1.5rem;
+  background: var(--accent-brand); color: #000; border-radius: 12px; font-weight: 800;
+}
+
+/* ============================================================
+   Elite Polish & Stabilization System
+   ============================================================ */
+
+/* 1. Global Page Transition */
+.page-fade-in {
+  animation: elitePageFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+@keyframes elitePageFade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 2. Premium Scroll to Top */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  width: 54px;
+  height: 54px;
+  background: rgba(0, 210, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border: 1px solid var(--accent-color);
+  border-radius: 50%;
+  color: var(--accent-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 999;
+  transition: var(--transition-smooth);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.8);
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.scroll-top-btn:hover {
+  background: var(--accent-brand);
+  color: #000;
+  box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+  transform: translateY(-5px) scale(1.1);
+}
+
+/* 3. Elite Empty States */
+.empty-state-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem;
+  text-align: center;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  opacity: 0.3;
+  filter: grayscale(1);
+}
+
+.empty-state-wrap h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+}
+
+.empty-state-wrap p {
+  opacity: 0.5;
+  max-width: 400px;
+}
+
+/* 4. Focus & Input Refinements */
+input:focus, textarea:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1) !important;
+}
+
+/* Smooth Scroll Global */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar Thin Elite */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-color);
+}
+
+@media (max-width: 1200px) {
+  .elite-sidebar { width: 80px; padding: 3rem 0.5rem; }
+  .sidebar-brand h2, .nav-item-elite span:not(.icon), .btn-logout-elite { display: none; }
+  .nav-item-elite { justify-content: center; padding: 1.2rem; }
+}

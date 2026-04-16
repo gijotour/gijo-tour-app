@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
+const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체' }) => {
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [showReviewListModal, setShowReviewListModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
@@ -40,10 +40,25 @@ const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
     alert(`${selectedDesigner.designer} 설계사님께 리뷰를 남겼습니다!`);
   };
 
+  // 유튜브 URL 포맷팅 유틸리티
+  const formatYoutubeUrl = (url) => {
+    if (!url) return null;
+    if (url.includes('youtube.com/embed/')) return url;
+    
+    let videoId = '';
+    if (url.includes('v=')) {
+      videoId = url.split('v=')[1].split('&')[0];
+    } else if (url.includes('youtu.be/')) {
+      videoId = url.split('youtu.be/')[1].split('?')[0];
+    }
+    
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  };
+
   return (
     <section id="designer" className="designer-section">
       <div className="container">
-        {/* Rating Modal (Existing) */}
+        {/* Rating Modal */}
         {showRatingModal && (
           <div className="modal-overlay">
             <div className="modal-content glass-card rating-modal">
@@ -94,7 +109,7 @@ const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
           </div>
         )}
 
-        {/* Review List Modal (Existing) */}
+        {/* Review List Modal */}
         {showReviewListModal && (
           <div className="modal-overlay">
             <div className="modal-content glass-card review-list-modal">
@@ -115,14 +130,17 @@ const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
                     </div>
                   ))
                 ) : (
-                  <p className="no-reviews">아직 등록된 리뷰가 없습니다.</p>
+                  <div className="empty-state-wrap mini">
+                    <span className="empty-icon">💬</span>
+                    <p>아직 등록된 리뷰가 없습니다.</p>
+                  </div>
                 )}
               </div>
             </div>
           </div>
         )}
 
-        {/* Detailed Proposal Modal (Existing) */}
+        {/* Detailed Proposal Modal */}
         {showDetailModal && selectedDesigner?.detailedPlan && (
           <div className="modal-overlay">
             <div className="modal-content glass-card detail-proposal-modal wide-modal">
@@ -134,6 +152,20 @@ const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
                   <h1>{selectedDesigner.title}</h1>
                 </div>
               </div>
+
+              {selectedDesigner.youtubeUrl && (
+                <div className="video-container-wrap">
+                  <iframe
+                    width="100%"
+                    height="450"
+                    src={formatYoutubeUrl(selectedDesigner.youtubeUrl)}
+                    title="YouTube video player"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+              )}
 
               <div className="detail-body custom-scrollbar">
                 <div className="detail-main-info">
@@ -202,12 +234,12 @@ const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
           </div>
         )}
 
-        <div className="section-header centered animate-up">
+        <div className="section-header centered">
           <div className="section-badge">DESIGNER PROPOSALS</div>
           {selectedRegion === '전체' ? (
             <>
               <h2>전문 <span className="highlight">여행 설계사</span>의 맞춤 제안</h2>
-              <p>현지 사정에 정통한 전문가들이 귀하의 완벽한 여정을 위해 준비한 <br />비대면 맞춤형 프리미엄 서비스를 지금 바로 만나보세요.</p>
+              <p>전문가들이 귀하의 완벽한 여정을 위해 준비한 <br />비대면 맞춤형 프리미엄 서비스를 지금 바로 만나보세요.</p>
             </>
           ) : (
             <>
@@ -217,47 +249,60 @@ const DesignerShowcase = ({ packages, onRate, selectedRegion = '전체' }) => {
           )}
         </div>
 
-        <div className="designer-grid">
-          {packages.map((pkg, index) => (
-            <div key={index} className="package-card glass-card">
-              {pkg.image && (
-                <div className="package-image">
-                  <img src={pkg.image} alt={pkg.title} />
-                  <div className="image-overlay"></div>
+        {packages.length > 0 ? (
+          <div className="designer-grid animate-up">
+            {packages.map((pkg, index) => (
+              <div key={index} className="package-card glass-card">
+                {pkg.image && (
+                  <div className="package-image">
+                    <img src={pkg.image} alt={pkg.title} />
+                    <div className="image-overlay"></div>
+                    {pkg.youtubeUrl && (
+                      <div className="video-badge">
+                        <span className="video-icon">▶</span> PREMIUM VIDEO
+                      </div>
+                    )}
+                  </div>
+                )}
+                
+                <div className="designer-info">
+                  <div className="profile-img"></div>
+                  <div className="profile-text">
+                    <span className="name">{pkg.designer}</span>
+                    <span className="region">{pkg.region}</span>
+                  </div>
+                  <div className="rating-badge">
+                    <span className="star">★</span> {pkg.rating}
+                    <span className="count">({pkg.reviewCount})</span>
+                  </div>
                 </div>
-              )}
-              
-              <div className="designer-info">
-                <div className="profile-img"></div>
-                <div className="profile-text">
-                  <span className="name">{pkg.designer}</span>
-                  <span className="region">{pkg.region}</span>
+                
+                <div className="package-body">
+                  <h3>{pkg.title}</h3>
+                  <ul className="pkg-features">
+                    {pkg.features.map((f, i) => (
+                      <li key={i}>{f}</li>
+                    ))}
+                  </ul>
                 </div>
-                <div className="rating-badge">
-                  <span className="star">★</span> {pkg.rating}
-                  <span className="count">({pkg.reviewCount})</span>
-                </div>
-              </div>
-              
-              <div className="package-body">
-                <h3>{pkg.title}</h3>
-                <ul className="pkg-features">
-                  {pkg.features.map((f, i) => (
-                    <li key={i}>{f}</li>
-                  ))}
-                </ul>
-              </div>
 
-              <div className="package-footer">
-                <div className="footer-btn-group">
-                  <button className="btn-rate" onClick={() => openRatingModal(pkg)}>평점 남기기</button>
-                  <button className="btn-view-reviews" onClick={() => openReviewList(pkg)}>리뷰 리스트 보기</button>
+                <div className="package-footer">
+                  <div className="footer-btn-group">
+                    <button className="btn-rate" onClick={() => openRatingModal(pkg)}>평점 남기기</button>
+                    <button className="btn-view-reviews" onClick={() => openReviewList(pkg)}>리뷰 보기</button>
+                  </div>
+                  <button className="btn-detail" onClick={() => openDetailModal(pkg)}>제안서 보기</button>
                 </div>
-                <button className="btn-detail" onClick={() => openDetailModal(pkg)}>상세 제안서 보기</button>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state-wrap animate-up">
+            <span className="empty-icon">🏝️</span>
+            <h3>선택하신 지역의 맞춤 제안을 준비 중입니다</h3>
+            <p>현재 {selectedRegion} 지역에 대한 제안서를 설계사들이 정성껏 작성하고 있습니다. 곧 멋진 일정으로 찾아뵙겠습니다!</p>
+          </div>
+        )}
       </div>
 
     </section>

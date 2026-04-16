@@ -46,90 +46,63 @@ const DesignerDashboard = ({ onLogout }) => {
     switch (activeTab) {
       case 'account':
         return (
-          <div className="tab-content">
-            <div className="content-header">
-              <h2>설계사 프로필 관리</h2>
-              <p>고객에게 신뢰를 줄 수 있는 전문적인 프로필을 구성하세요.</p>
+          <div className="elite-tab-container">
+            <div className="elite-card-header">
+              <h2>전문 설계사 프로필</h2>
+              <p>귀하의 전문성을 돋보이게 하는 상세 프로필을 관리하세요.</p>
             </div>
-            <div className="account-form glass-card">
-              <div className="form-section">
-                <h3>기본 정보</h3>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>설계사 성명 / 활동명</label>
+            <div className="elite-profile-form glass-card">
+              <div className="elite-form-section">
+                <h3>기본 정보 및 연락처</h3>
+                <div className="elite-form-row">
+                  <div className="elite-input-wrap">
+                    <label>성명 / 활동명</label>
                     <input type="text" defaultValue="홍길동 (Alex)" />
                   </div>
-                  <div className="form-group">
+                  <div className="elite-input-wrap">
                     <label>전문 분야</label>
                     <input type="text" defaultValue="태국/베트남 프리미엄 투어" />
                   </div>
                 </div>
-                <div className="form-row">
-                  <div className="form-group">
+                <div className="elite-form-row">
+                  <div className="elite-input-wrap">
                     <label>연락처</label>
                     <input type="text" defaultValue="010-1234-5678" />
                   </div>
-                  <div className="form-group">
-                    <label>활동 가능 지역</label>
-                    <input type="text" defaultValue="동남아 전역, 일본, 괌" />
+                  <div className="elite-input-wrap">
+                    <label>활동 지역</label>
+                    <input type="text" defaultValue="동남아 전역, 일본" />
                   </div>
                 </div>
               </div>
-              
-              <div className="form-section">
-                <h3>전문성 강화</h3>
-                <div className="form-group full-width">
-                  <label>자기 소개 (Professional Bio)</label>
-                  <textarea rows="4" defaultValue="15년 경력의 베테랑 여행 설계사입니다. 단순한 관광이 아닌, 고객의 가치관과 목적에 가장 부합하는 여정을 설계해 드립니다." />
-                </div>
-                <div className="form-group full-width">
-                  <label>경력 및 자격 사항</label>
-                  <textarea rows="3" defaultValue="- 관광통역안내사 (태국어, 영어)&#10;- 前 OO투어 동남아 팀장&#10;- 2,000건 이상의 인센티브 투어 기획 경험" />
-                </div>
-              </div>
-
-              <div className="form-section">
-                <h3>금융 정보</h3>
-                <div className="form-group full-width">
-                  <label>정산 계좌 정보</label>
-                  <input type="text" defaultValue="국민은행 123-4567-890 (예금주: 홍길동)" />
-                </div>
-              </div>
-              
-              <button className="btn-save">프로필 설정 저장</button>
+              <button className="btn-elite-save">변경 사항 저장</button>
             </div>
           </div>
         );
       case 'settlements':
         return (
-          <div className="tab-content">
-            <div className="content-header">
-              <h2>정산 및 수익 내역</h2>
-              <button className="btn-download">엑셀 다운로드</button>
+          <div className="elite-tab-container">
+            <div className="elite-card-header">
+              <h2>정산 및 수익 보고서</h2>
             </div>
-            <div className="stats-row">
-              <div className="stat-card glass-card">
+            <div className="elite-stats-mini-row">
+              <div className="mini-stat-box glass-card">
                 <span className="label">총 누적 수익</span>
                 <span className="value">₩12,450,000</span>
               </div>
-              <div className="stat-card glass-card">
-                <span className="label">이번 달 정산 완료</span>
-                <span className="value">₩4,300,000</span>
-              </div>
-              <div className="stat-card glass-card warning">
-                <span className="label">정산 대기 금액</span>
+              <div className="mini-stat-box glass-card accent">
+                <span className="label">정산 대기</span>
                 <span className="value">₩4,200,000</span>
               </div>
             </div>
-            <div className="table-container glass-card">
-              <table className="dashboard-table">
+            <div className="elite-table-box glass-card">
+              <table className="elite-dashboard-table">
                 <thead>
                   <tr>
                     <th>날짜</th>
-                    <th>프로젝트명</th>
+                    <th>프로젝트</th>
                     <th>금액</th>
                     <th>상태</th>
-                    <th>액션</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -138,8 +111,7 @@ const DesignerDashboard = ({ onLogout }) => {
                       <td>{s.date}</td>
                       <td className="bold">{s.project}</td>
                       <td>{s.amount}</td>
-                      <td><span className={`status-tag ${s.status === '정산대기' ? 'pending' : 'paid'}`}>{s.status}</span></td>
-                      <td><button className="btn-small">상세</button></td>
+                      <td><span className={`elite-status-pill ${s.status === '정산대기' ? 'pending' : 'paid'}`}>{s.status}</span></td>
                     </tr>
                   ))}
                 </tbody>
@@ -147,85 +119,28 @@ const DesignerDashboard = ({ onLogout }) => {
             </div>
           </div>
         );
-      case 'settings':
-        return (
-          <div className="tab-content">
-            <div className="content-header">
-              <h2>시스템 설정</h2>
-            </div>
-            <div className="settings-grid">
-              <div className="settings-card glass-card">
-                <h3>보안 및 계정</h3>
-                <div className="setting-item">
-                  <div className="setting-info">
-                    <h4>비밀번호 변경</h4>
-                    <p>마지막 변경일: 2개월 전</p>
-                  </div>
-                  <button className="btn-secondary">관리</button>
-                </div>
-                <div className="setting-item">
-                  <div className="setting-info">
-                    <h4>2단계 인증</h4>
-                    <p>보안 강화를 위해 권장합니다.</p>
-                  </div>
-                  <div className="toggle-switch"></div>
-                </div>
-              </div>
-              
-              <div className="settings-card glass-card">
-                <h3>알림 설정</h3>
-                <div className="setting-item">
-                  <div className="setting-info">
-                    <h4>새로운 제안 요청 알림</h4>
-                    <p>이메일 및 앱 푸시</p>
-                  </div>
-                  <div className="toggle-switch active"></div>
-                </div>
-                <div className="setting-item">
-                  <div className="setting-info">
-                    <h4>정산 결과 알림</h4>
-                    <p>정산 완료 시 메일 발송</p>
-                  </div>
-                  <div className="toggle-switch active"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
       case 'proposals':
       default:
         return (
-          <div className="tab-content">
-            <div className="content-header">
-              <h2>나의 전담 설계 제안</h2>
-              <button className="btn-request" onClick={() => setShowModal(true)}>+ 새로운 제안 등록</button>
+          <div className="elite-tab-container">
+            <div className="elite-card-header-flex">
+              <div>
+                <h2>나의 설계 제안 관리</h2>
+                <p>현재 진행 중인 제안 및 매칭 상태를 확인하세요.</p>
+              </div>
+              <button className="btn-elite-add" onClick={() => setShowModal(true)}>+ 새로운 제안 등록</button>
             </div>
-            <div className="stats-row">
-              <div className="stat-card glass-card">
-                <span className="label">대기중인 제안</span>
-                <span className="value">5건</span>
-              </div>
-              <div className="stat-card glass-card">
-                <span className="label">확정된 일정</span>
-                <span className="value">2건</span>
-              </div>
-              <div className="stat-card glass-card">
-                <span className="label">매칭 확률</span>
-                <span className="value">78%</span>
-              </div>
-            </div>
-            <div className="proposal-list">
+            <div className="elite-proposal-grid">
               {proposals.map(p => (
-                <div key={p.id} className="proposal-item glass-card">
-                  <div className="p-info">
-                    <span className="p-designer">{p.designer}</span>
-                    <span className="p-region">{p.region}</span>
-                    <h3 className="p-title">{p.title}</h3>
+                <div key={p.id} className="elite-proposal-card glass-card">
+                  <div className="p-header">
+                    <span className="p-tag">{p.region}</span>
+                    <span className={`p-badge ${p.status}`}>{p.status}</span>
                   </div>
-                  <div className="p-meta">
-                    <span className={`p-status ${p.status}`}>{p.status}</span>
+                  <h3>{p.title}</h3>
+                  <div className="p-footer">
                     <span className="p-date">{p.date}</span>
-                    <button className="btn-view">제안서 보기</button>
+                    <button className="btn-p-view">상세 보기</button>
                   </div>
                 </div>
               ))}
@@ -236,134 +151,102 @@ const DesignerDashboard = ({ onLogout }) => {
   };
 
   return (
-    <div className="dashboard-container">
-      {/* New Proposal Modal */}
+    <div className="dashboard-elite-layout">
+      {/* New Proposal Modal (Elite Style) */}
       {showModal && (
         <div className="modal-overlay">
-          <div className="modal-content glass-card">
-            <div className="modal-header">
+          <div className="modal-content glass-card elite-wide-modal">
+            <div className="modal-header-elite">
               <h2>새로운 여행 설계 등록</h2>
-              <button className="btn-close" onClick={() => setShowModal(false)}>&times;</button>
+              <p>프리미엄 고객을 위한 최적의 여정을 제안하세요.</p>
             </div>
-            <div className="modal-body custom-scrollbar">
-              <div className="modal-section">
-                <h3>기본 정보</h3>
-                <div className="form-group">
-                  <label>제안 제목</label>
-                  <input type="text" placeholder="예: 방콕 테마 투어 패키지" />
+            <div className="modal-body-elite custom-scrollbar">
+              <div className="elite-form-group">
+                <label>제안 제목</label>
+                <input type="text" placeholder="예: 방콕 테마 투어 패키지" />
+              </div>
+              <div className="elite-form-row">
+                <div className="elite-form-group">
+                  <label>지역</label>
+                  <input type="text" placeholder="예: 태국 방콕" />
                 </div>
-                <div className="form-row">
-                  <div className="form-group">
-                    <label>지역</label>
-                    <input type="text" placeholder="예: 태국 방콕" />
-                  </div>
-                  <div className="form-group">
-                    <label>예산 범위 (인당)</label>
-                    <input type="text" placeholder="예: 100~200만원" />
-                  </div>
-                </div>
-                <div className="form-group">
-                  <label>대표 이미지 첨부</label>
-                  <div className="image-upload-area">
-                    <input type="file" multiple onChange={handleImageUpload} id="file-upload" hidden />
-                    <label htmlFor="file-upload" className="upload-label">
-                      <span>📸 이미지를 드래그하거나 클릭하여 추가하세요</span>
-                    </label>
-                    <div className="selected-files">
-                      {selectedImages.map((name, i) => (
-                        <span key={i} className="file-tag">{name}</span>
-                      ))}
-                    </div>
-                  </div>
+                <div className="elite-form-group">
+                  <label>유튜브 링크 (선택)</label>
+                  <input type="text" placeholder="https://..." />
                 </div>
               </div>
-
-              <div className="modal-section">
-                <div className="section-header-flex">
-                  <h3>여행 일정 (Itinerary)</h3>
-                  <button className="btn-add-day" onClick={handleAddDay}>+ 일차 추가</button>
-                </div>
-                <div className="itinerary-list">
+              <div className="elite-form-group">
+                <label>여행 일정 구성</label>
+                <button className="btn-day-add-small" onClick={handleAddDay}>+ 일차 추가</button>
+                <div className="elite-itinerary-builder">
                   {itinerary.map((item, index) => (
-                    <div key={index} className="itinerary-item glass-card">
-                      <div className="item-header">
-                        <span className="day-label">Day {item.day}</span>
-                        {itinerary.length > 1 && (
-                          <button className="btn-remove-day" onClick={() => handleRemoveDay(index)}>&times;</button>
-                        )}
-                      </div>
+                    <div key={index} className="itinerary-row-elite">
+                      <span className="day-count">Day {item.day}</span>
                       <textarea 
-                        placeholder={`${item.day}일차의 주요 일정을 입력하세요...`}
+                        placeholder="일정 세부 사항 입력..."
                         value={item.content}
                         onChange={(e) => handleUpdateDay(index, e.target.value)}
-                        rows="2"
                       />
                     </div>
                   ))}
                 </div>
               </div>
-
-              <div className="modal-section">
-                <h3>상세 설명</h3>
-                <textarea rows="4" placeholder="제안하시는 여행의 핵심 가치를 설명해 주세요."></textarea>
-              </div>
             </div>
-            <div className="modal-footer">
-              <button className="btn-cancel" onClick={() => setShowModal(false)}>취소</button>
-              <button className="btn-submit" onClick={() => setShowModal(false)}>제안서 등록하기</button>
+            <div className="modal-footer-elite">
+              <button className="btn-close-elite" onClick={() => setShowModal(false)}>닫기</button>
+              <button className="btn-submit-elite" onClick={() => setShowModal(false)}>제안서 제출하기</button>
             </div>
           </div>
         </div>
       )}
 
-      <aside className="sidebar">
-        <div className="sidebar-header">
-          <div className="logo-placeholder">GT</div>
-          <span>GIJO DESIGNER</span>
+      <aside className="elite-sidebar glass-card">
+        <div className="sidebar-brand">
+          <span className="brand-dot designer"></span>
+          <h2>GT DESIGNER</h2>
         </div>
-        <nav className="sidebar-nav">
+        <nav className="sidebar-nav-elite">
           <button 
-            className={`nav-item ${activeTab === 'proposals' ? 'active' : ''}`}
+            className={`nav-item-elite ${activeTab === 'proposals' ? 'active' : ''}`}
             onClick={() => setActiveTab('proposals')}
           >
-            📋 나의 제안 관리
+            <span className="icon">📋</span> PROPOSALS
           </button>
           <button 
-            className={`nav-item ${activeTab === 'settlements' ? 'active' : ''}`}
+            className={`nav-item-elite ${activeTab === 'settlements' ? 'active' : ''}`}
             onClick={() => setActiveTab('settlements')}
           >
-            📊 정산 및 수익
+            <span className="icon">📊</span> REVENUE
           </button>
           <button 
-            className={`nav-item ${activeTab === 'account' ? 'active' : ''}`}
+            className={`nav-item-elite ${activeTab === 'account' ? 'active' : ''}`}
             onClick={() => setActiveTab('account')}
           >
-            👩‍💼 프로필 관리
-          </button>
-          <button 
-            className={`nav-item ${activeTab === 'settings' ? 'active' : ''}`}
-            onClick={() => setActiveTab('settings')}
-          >
-            ⚙️ 시스템 설정
+            <span className="icon">👩‍💼</span> PROFILE
           </button>
         </nav>
-        <div className="sidebar-footer">
-          <button className="btn-logout" onClick={onLogout}>로그아웃</button>
+        <div className="sidebar-footer-elite">
+          <button className="btn-logout-elite" onClick={onLogout}>
+            SECURE SIGN OUT
+          </button>
         </div>
       </aside>
 
-      <main className="dashboard-main">
-        <header className="main-header">
-          <div className="user-profile">
-            <div className="avatar"></div>
-            <span>홍길동 여행 설계사님</span>
+      <main className="dashboard-main-elite">
+        <header className="elite-dashboard-header">
+          <div className="header-breadcrumbs">
+            <span>DESIGNER</span> / <strong>{activeTab.toUpperCase()}</strong>
+          </div>
+          <div className="elite-admin-profile">
+            <span className="designer-name-elite">홍길동 설계사님</span>
+            <div className="avatar-elite designer-avatar"></div>
           </div>
         </header>
-        <div className="dashboard-body">
+
+        <div className="elite-dashboard-content custom-scrollbar">
           {renderContent()}
         </div>
       </main>
-
     </div>
   );
 };
