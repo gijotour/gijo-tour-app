@@ -9,6 +9,8 @@ import Login from './components/Login';
 import DesignerDashboard from './components/DesignerDashboard';
 import AdminPanel from './components/AdminPanel';
 import DesignerTV from './components/DesignerTV';
+import SizeControl from './components/SizeControl';
+import PaymentPage from './components/PaymentPage';
 import { mockDb } from './data/mockDb';
 
 function App() {
@@ -17,12 +19,14 @@ function App() {
   const [userRole, setUserRole] = useState('designer');
   const [initialRole, setInitialRole] = useState('designer');
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [uiScale, setUiScale] = useState(1.0);
 
   // 평점 관리를 위한 통합 상태
   const [packages, setPackages] = useState(mockDb.packages);
   const [adminDesigners, setAdminDesigners] = useState(mockDb.admin.designers);
   const [adminStats, setAdminStats] = useState(mockDb.admin.stats);
   const [selectedRegion, setSelectedRegion] = useState('전체');
+  const [selectedPackageForPayment, setSelectedPackageForPayment] = useState(null);
 
   // 스크롤 이벤트 감지
   useEffect(() => {
@@ -111,6 +115,12 @@ function App() {
     return pkg.region && pkg.region.includes(selectedRegion);
   });
 
+  const handleStartPayment = (pkg) => {
+    setSelectedPackageForPayment(pkg);
+    setView('payment');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // 1. 대시보드 및 어드민 뷰 (로그인 된 경우)
   if (isLoggedIn) {
     return (
@@ -144,7 +154,10 @@ function App() {
 
   // 3. 메인 랜더링 (홈 화면)
   return (
-    <div className="app-main page-fade-in">
+    <div 
+      className="app-main page-fade-in"
+      style={{ '--ui-scale': uiScale }}
+    >
       {/* Premium Background System */}
       <div className="bg-mesh-container">
         <div className="mesh-circle mesh-1"></div>
@@ -165,6 +178,7 @@ function App() {
               packages={filteredPackages || []}
               onRate={handleAddReview}
               selectedRegion={selectedRegion}
+              onStartPayment={handleStartPayment}
             />
             <RegionSelector
               selectedRegion={selectedRegion}
@@ -176,12 +190,18 @@ function App() {
               }}
             />
           </>
-        ) : (
+        ) : view === 'tv' ? (
           <DesignerTV videos={mockDb.tv} />
+        ) : (
+          <PaymentPage 
+            pkg={selectedPackageForPayment} 
+            onBack={() => setView('home')} 
+          />
         )}
       </main>
       <Footer />
       
+      <SizeControl uiScale={uiScale} onScaleChange={setUiScale} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체' }) => {
+const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', onStartPayment }) => {
   const [showRatingModal, setShowRatingModal] = useState(false);
   const [showReviewListModal, setShowReviewListModal] = useState(false);
   const [showDetailModal, setShowDetailModal] = useState(false);
@@ -256,8 +256,8 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체' }) 
                 </div>
 
                 <div className="elite-modal-footer">
-                  <button className="btn-elite-action-primary" onClick={() => alert('상담 페이지로 이동합니다.')}>
-                    상담 예약 및 일정 맞춤화
+                  <button className="btn-elite-action-primary" onClick={() => onStartPayment(selectedDesigner)}>
+                    상담 예약 및 일정 맞춤화 (결제 진행)
                   </button>
                   <button className="btn-elite-action-secondary" onClick={() => setShowDetailModal(false)}>
                     닫기
