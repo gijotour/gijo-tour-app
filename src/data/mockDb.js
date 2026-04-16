@@ -1,7 +1,7 @@
 export const mockDb = {
   hero: {
     badge: "미래지향적 프리미엄 여행 설계 서비스",
-    title: ["여행의 모든것,", "GT GIJO TOUR"],
+    title: ["여행의 모든것,", "GIJO TOUR"],
     description: "단순한 예약을 넘어 당신의 기업을 위한 최고의 여행을 설계합니다. 전문 여행 설계사(Travel Designer)가 직접 비대면으로 제안하는 독창적인 선택지를 경험하세요.",
     cta: {
       primary: "비대면 여행 설계 상담",
@@ -182,5 +182,48 @@ export const mockDb = {
       career: "- 관광통역안내사 (태국어, 영어)\n- 前 OO투어 동남아 팀장\n- 2,000건 이상의 인센티브 투어 기획 경험",
       bankInfo: "국민은행 123-4567-890 (예금주: 홍길동)"
     }
-  }
+  },
+
+  tv: [
+    {
+      id: 1,
+      designer: "Alex Kim",
+      title: "따가이다이 화산 투어의 모든 것 (VLOG)",
+      thumbnail: "/home/john/.gemini/antigravity/brain/73b5278f-c6f4-4a4b-8a58-0430bf4a2f2e/tagaytay_premium_tour_1776250793313.png",
+      youtubeUrl: "https://www.youtube.com/embed/5mHn9E5vKFA",
+      category: "필리핀",
+      views: "1.2K",
+      duration: "08:24"
+    },
+    {
+      id: 2,
+      designer: "Sarah Lee",
+      title: "다낭 밤거리 100% 즐기기 (현지인 추천)",
+      thumbnail: "/home/john/.gemini/antigravity/brain/73b5278f-c6f4-4a4b-8a58-0430bf4a2f2e/danang_night_view_1776250808205.png",
+      youtubeUrl: "https://www.youtube.com/embed/W_N5fKOfv1s",
+      category: "베트남",
+      views: "3.5K",
+      duration: "12:45"
+    },
+    {
+      id: 3,
+      designer: "John Smith",
+      title: "라오스 비엔티엔의 평화로운 아침",
+      thumbnail: "/home/john/.gemini/antigravity/brain/73b5278f-c6f4-4a4b-8a58-0430bf4a2f2e/vientiane_laos_temple_1776250823849.png",
+      youtubeUrl: "https://www.youtube.com/embed/uP2A_1pXAnA",
+      category: "라오스",
+      views: "890",
+      duration: "05:12"
+    },
+    {
+      id: 4,
+      designer: "Maria Garcia",
+      title: "방콕 럭셔리 요트 투어 하이라이트",
+      thumbnail: "/home/john/.gemini/antigravity/brain/73b5278f-c6f4-4a4b-8a58-0430bf4a2f2e/bangkok_city_luxury_1776250838436.png",
+      youtubeUrl: "https://www.youtube.com/embed/A8qUenW3jXY",
+      category: "태국",
+      views: "2.1K",
+      duration: "10:30"
+    }
+  ]
 };

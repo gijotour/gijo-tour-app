@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Login from './components/Login';
 import DesignerDashboard from './components/DesignerDashboard';
 import AdminPanel from './components/AdminPanel';
+import DesignerTV from './components/DesignerTV';
 import { mockDb } from './data/mockDb';
 
 function App() {
@@ -151,24 +152,33 @@ function App() {
         <div className="mesh-circle mesh-3"></div>
       </div>
 
-      <Navbar onLogin={handleLoginEnter} />
+      <Navbar onLogin={handleLoginEnter} onNavigate={(v) => {
+        setView(v);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }} currentView={view} />
       <main>
-        <Hero />
-        <B2BInfo />
-        <DesignerShowcase
-          packages={filteredPackages || []}
-          onRate={handleAddReview}
-          selectedRegion={selectedRegion}
-        />
-        <RegionSelector
-          selectedRegion={selectedRegion}
-          onSelectRegion={(region) => {
-            setSelectedRegion(region);
-            // 패키지 리스트 위치로 부드럽게 이동
-            const el = document.getElementById('designer');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }}
-        />
+        {view === 'home' ? (
+          <>
+            <Hero />
+            <B2BInfo />
+            <DesignerShowcase
+              packages={filteredPackages || []}
+              onRate={handleAddReview}
+              selectedRegion={selectedRegion}
+            />
+            <RegionSelector
+              selectedRegion={selectedRegion}
+              onSelectRegion={(region) => {
+                setSelectedRegion(region);
+                // 패키지 리스트 위치로 부드럽게 이동
+                const el = document.getElementById('designer');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
+          </>
+        ) : (
+          <DesignerTV videos={mockDb.tv} />
+        )}
       </main>
       <Footer />
       

@@ -140,57 +140,78 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체' }) 
           </div>
         )}
 
-        {/* Detailed Proposal Modal */}
+        {/* Detailed Proposal Modal (Elite Redesign) */}
         {showDetailModal && selectedDesigner?.detailedPlan && (
           <div className="modal-overlay">
-            <div className="modal-content glass-card detail-proposal-modal wide-modal">
-              <div className="detail-header-img">
-                <img src={selectedDesigner.image} alt="Hero" />
-                <div className="header-overlay">
-                  <button className="btn-close-round" onClick={() => setShowDetailModal(false)}>&times;</button>
-                  <span className="detail-badge">{selectedDesigner.region} 전문 제안</span>
-                  <h1>{selectedDesigner.title}</h1>
+            <div className="modal-content glass-card elite-proposal-modal wide-modal">
+              <div className="elite-modal-header-img">
+                <img src={selectedDesigner.image} alt={selectedDesigner.title} />
+                <div className="header-glass-overlay">
+                  <button className="btn-close-elite-round" onClick={() => setShowDetailModal(false)}>&times;</button>
+                  <div className="header-content-elite">
+                    <span className="elite-region-badge">{selectedDesigner.region} 전문 제안</span>
+                    <h1 className="elite-proposal-title">{selectedDesigner.title}</h1>
+                  </div>
                 </div>
               </div>
 
               {selectedDesigner.youtubeUrl && (
-                <div className="video-container-wrap">
-                  <iframe
-                    width="100%"
-                    height="450"
-                    src={formatYoutubeUrl(selectedDesigner.youtubeUrl)}
-                    title="YouTube video player"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  ></iframe>
+                <div className="elite-video-section">
+                  <div className="video-container-elite">
+                    <iframe
+                      src={formatYoutubeUrl(selectedDesigner.youtubeUrl)}
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
                 </div>
               )}
 
-              <div className="detail-body custom-scrollbar">
-                <div className="detail-main-info">
-                  <div className="designer-box">
-                    <div className="avatar"></div>
-                    <div className="text">
-                      <span className="name">{selectedDesigner.designer} 설계사</span>
-                      <span className="meta">기대 평점 ★ {selectedDesigner.rating} | 리뷰 {selectedDesigner.reviewCount}건</span>
+              <div className="elite-detail-body custom-scrollbar">
+                <div className="elite-detail-top-row">
+                  <div className="elite-designer-profile">
+                    <div className="elite-avatar-wrap">
+                      <div className="elite-avatar"></div>
+                    </div>
+                    <div className="profile-info">
+                      <div className="name-row">
+                        <span className="label">DESIGNER</span>
+                        <span className="value">{selectedDesigner.designer}</span>
+                      </div>
+                      <div className="rating-row">
+                        <span className="star">★</span>
+                        <span className="rating-val">{selectedDesigner.rating}</span>
+                        <span className="review-count">({selectedDesigner.reviewCount} Reviews)</span>
+                      </div>
                     </div>
                   </div>
-                  <div className="price-tag">
-                    <span className="label">예상 견적</span>
-                    <span className="amount">{selectedDesigner.detailedPlan.pricing}</span>
+                  
+                  <div className="elite-price-card">
+                    <span className="price-label">ESTIMATED QUOTE</span>
+                    <div className="price-value-row">
+                      <span className="currency">₩</span>
+                      <span className="amount">{selectedDesigner.detailedPlan.pricing.replace('1인당 약 ', '').replace(' (항공권 별도)', '')}</span>
+                      <span className="per-person">/ person</span>
+                    </div>
+                    <p className="price-note">* 항공권 별도 실비 정산</p>
                   </div>
                 </div>
 
-                <div className="detail-grid">
-                  <div className="detail-section itinerary-section">
-                    <h3>상세 일정 (Itinerary)</h3>
-                    <div className="timeline">
+                <div className="elite-detail-content-grid">
+                  <div className="elite-itinerary-panel">
+                    <h3 className="panel-title">
+                      <span className="icon">📅</span> DETAILED ITINERARY
+                    </h3>
+                    <div className="elite-timeline">
                       {selectedDesigner.detailedPlan.itinerary.map((item, i) => (
-                        <div key={i} className="timeline-item">
-                          <div className="dot"></div>
-                          <div className="content">
-                            <span className="day">Day {item.day}</span>
+                        <div key={i} className="elite-timeline-node">
+                          <div className="node-marker">
+                            <span className="day-pin">D{item.day}</span>
+                            <div className="connector"></div>
+                          </div>
+                          <div className="node-content">
                             <h4>{item.title}</h4>
                             <p>{item.content}</p>
                           </div>
@@ -199,35 +220,48 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체' }) 
                     </div>
                   </div>
 
-                  <div className="detail-side">
-                    <div className="detail-section info-box">
-                      <h3>포함 사항</h3>
-                      <ul>
+                  <div className="elite-info-panel">
+                    <div className="panel-section inclusion-box">
+                      <h3 className="panel-title small">
+                        <span className="icon green">✓</span> INCLUSIONS
+                      </h3>
+                      <ul className="elite-check-list">
                         {selectedDesigner.detailedPlan.inclusions.map((text, i) => (
                           <li key={i}>{text}</li>
                         ))}
                       </ul>
                     </div>
-                    <div className="detail-section info-box gray-box">
-                      <h3>불포함 사항</h3>
-                      <ul>
+                    
+                    <div className="panel-section exclusion-box">
+                      <h3 className="panel-title small">
+                        <span className="icon red">✕</span> EXCLUSIONS
+                      </h3>
+                      <ul className="elite-cross-list">
                         {selectedDesigner.detailedPlan.exclusions.map((text, i) => (
                           <li key={i}>{text}</li>
                         ))}
                       </ul>
                     </div>
+
                     {selectedDesigner.detailedPlan.proTip && (
-                      <div className="detail-section tip-box">
-                        <h3>💡 설계사의 꿀팁</h3>
+                      <div className="panel-section tip-box-elite">
+                        <div className="tip-header">
+                          <span className="icon">💡</span>
+                          <span>DESIGNER'S PRO TIP</span>
+                        </div>
                         <p>{selectedDesigner.detailedPlan.proTip}</p>
                       </div>
                     )}
                   </div>
                 </div>
 
-                <div className="detail-footer-actions">
-                  <button className="btn-contact-main">이 일정으로 상담 시작하기</button>
-                  <button className="btn-close-text" onClick={() => setShowDetailModal(false)}>닫기</button>
+                <div className="elite-modal-footer">
+                  <button className="btn-elite-action-primary" onClick={() => alert('상담 페이지로 이동합니다.')}>
+                    상담 예약 및 일정 맞춤화
+                  </button>
+                  <button className="btn-elite-action-secondary" onClick={() => setShowDetailModal(false)}>
+                    닫기
+                  </button>
                 </div>
               </div>
             </div>

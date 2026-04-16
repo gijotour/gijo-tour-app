@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const logo = "/home/john/.gemini/antigravity/brain/73b5278f-c6f4-4a4b-8a58-0430bf4a2f2e/gt_premium_logo_1776255667401.png";
 
-const Navbar = ({ onLogin }) => {
+const Navbar = ({ onLogin, onNavigate, currentView }) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -17,13 +17,28 @@ const Navbar = ({ onLogin }) => {
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
       <div className="container nav-container">
         <div className="nav-logo">
-          <img src={logo} alt="GT GIJO TOUR Logo" />
-          <span className="logo-text">GT GIJO TOUR</span>
+          <img src={logo} alt="GIJO TOUR Logo" />
+          <span className="logo-text">GIJO TOUR</span>
         </div>
         
         <div className="nav-capsule">
           <ul className="nav-links">
-            <li><a href="#hero"><span className="nav-icon">🏠</span> <span className="nav-text">홈</span></a></li>
+            <li>
+              <button 
+                className={currentView === 'home' ? 'active' : ''} 
+                onClick={() => onNavigate('home')}
+              >
+                <span className="nav-icon">🏠</span> <span className="nav-text">홈</span>
+              </button>
+            </li>
+            <li>
+              <button 
+                className={currentView === 'tv' ? 'active' : ''} 
+                onClick={() => onNavigate('tv')}
+              >
+                <span className="nav-icon">📺</span> <span className="nav-text">여행설계사 TV</span>
+              </button>
+            </li>
             <li><a href="#designer"><span className="nav-icon">👔</span> <span className="nav-text">여행 설계사</span></a></li>
             <li><a href="#regions"><span className="nav-icon">🌍</span> <span className="nav-text">글로벌 서비스 지역</span></a></li>
             <li><a href="#b2b"><span className="nav-icon">💼</span> <span className="nav-text">B2B 전용</span></a></li>
