@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const logo = "/home/john/.gemini/antigravity/brain/73b5278f-c6f4-4a4b-8a58-0430bf4a2f2e/gt_premium_logo_1776255667401.png";
+const logo = "https://img.icons8.com/isometric/50/experimental-rocket-isometric.png";
 
 const Navbar = ({ onLogin, isLoggedIn }) => {
   const [scrolled, setScrolled] = useState(false);
