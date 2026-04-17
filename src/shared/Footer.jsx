@@ -47,7 +47,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2026 GIJO Labs. All rights reserved. B2B Travel Architecture.</p>
+          <p>&copy; 2026 GIJO Labs. All rights reserved. B2B Architecture.</p>
         </div>
       </div>
     </footer>
