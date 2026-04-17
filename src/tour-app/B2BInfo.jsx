@@ -30,7 +30,7 @@ const B2BInfo = () => {
         <div className="section-header centered animate-up">
           <div className="section-badge">B2B PARTNERSHIP</div>
           <h2>여행 설계사를 위한 <br /><span className="highlight">차별화된 플랫폼 서비스</span></h2>
-          <p>GIJO TOUR는 전문 설계사들이 자신의 역량을 마음껏 펼칠 수 있는 <br />안전하고 투명한 엔터프라이즈 환경을 제공합니다.</p>
+          <p>GIJO Labs의 메인 프로젝트인 GIJO TOUR는 전문 설계사들이 자신의 역량을 마음껏 펼칠 수 있는 <br />안전하고 투명한 엔터프라이즈 환경을 제공합니다.</p>
         </div>
 
         <div className="features-grid animate-up delay-2">

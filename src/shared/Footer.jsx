@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="footer-content">
           <div className="footer-brand">
             <div className="brand-header-footer">
-              <span className="logo-text-small">GIJO TOUR</span>
+              <span className="logo-text-small">GIJO Labs</span>
             </div>
             <p className="brand-desc">
               여행의 모든것. 가이드의 특색을 담은 B2B 전문 여행 포털 플랫폼입니다. <br />
@@ -47,7 +47,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2026 GIJO TOUR. All rights reserved. B2B Travel Architecture.</p>
+          <p>&copy; 2026 GIJO Labs. All rights reserved. B2B Travel Architecture.</p>
         </div>
       </div>
     </footer>

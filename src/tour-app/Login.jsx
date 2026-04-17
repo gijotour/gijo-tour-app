@@ -53,6 +53,28 @@ const Login = ({ onBack, onLoginSuccess, initialRole }) => {
             <button type="submit" className="btn-login-elite">
               SECURE LOGIN
             </button>
+
+            <div className="demo-access-section" style={{ marginTop: '2rem', paddingTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+              <p style={{ fontSize: '0.85rem', opacity: 0.5, marginBottom: '1.2rem' }}>직접 체험해 보세요 (테스트용)</p>
+              <div style={{ display: 'flex', gap: '1rem' }}>
+                <button 
+                  type="button" 
+                  className="btn-secondary" 
+                  style={{ flex: 1, padding: '0.8rem', fontSize: '0.85rem' }}
+                  onClick={() => onLoginSuccess('admin')}
+                >
+                  Admin 체험 👑
+                </button>
+                <button 
+                  type="button" 
+                  className="btn-secondary" 
+                  style={{ flex: 1, padding: '0.8rem', fontSize: '0.85rem' }}
+                  onClick={() => onLoginSuccess('designer')}
+                >
+                  설계사 체험 👔
+                </button>
+              </div>
+            </div>
           </form>
 
           {selectedRole === 'designer' && (
