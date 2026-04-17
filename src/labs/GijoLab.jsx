@@ -5,12 +5,6 @@ const GijoLab = () => {
   const onEnterApp = () => navigate('/gijotour');
   return (
     <div className="lab-landing page-fade-in">
-      {/* Background elements */}
-      <div className="bg-mesh-container">
-        <div className="mesh-circle mesh-1" style={{ background: 'var(--lab-accent)' }}></div>
-        <div className="mesh-circle mesh-2" style={{ background: '#0066ff' }}></div>
-      </div>
-
       <section className="lab-hero">
         <div className="lab-badge animate-up">GIJO LAB & INNOVATION</div>
         <h1 className="lab-title animate-up delay-1">

@@ -33,9 +33,8 @@ function App() {
       style={{ '--ui-scale': uiScale }}
     >
       <div className="bg-mesh-container">
-        <div className="mesh-circle mesh-1"></div>
-        <div className="mesh-circle mesh-2"></div>
-        <div className="mesh-circle mesh-3"></div>
+        <div className="mesh-circle mesh-1" style={{ background: 'var(--lab-accent)', opacity: isLabView ? 0.15 : 0.1 }}></div>
+        <div className="mesh-circle mesh-2" style={{ background: '#0066ff', opacity: isLabView ? 0.1 : 0.05 }}></div>
       </div>
 
       {!isLoggedIn && (
