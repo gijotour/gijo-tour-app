@@ -73,8 +73,8 @@ const Navbar = ({ onLogin, isLoggedIn }) => {
                 </li>
                 <li><a href="#designer" onClick={() => setIsMenuOpen(false)}><span className="nav-icon">👔</span> <span className="nav-text">여행 설계사</span></a></li>
                 <li className="nav-divider"></li>
-                <li className="nav-action-item"><button onClick={() => { handleNavClick('/gijotour/login'); }}><span className="nav-icon">🔑</span> <span className="nav-text">관리자</span></button></li>
-                <li className="nav-action-item"><button onClick={() => { handleNavClick('/gijotour/login'); }}><span className="nav-icon">🔓</span> <span className="nav-text">설계사</span></button></li>
+                <li className="nav-action-item"><button onClick={() => { handleNavClick('/gijotour/admin'); }}><span className="nav-icon">🔑</span> <span className="nav-text">관리자</span></button></li>
+                <li className="nav-action-item"><button onClick={() => { handleNavClick('/gijotour/designer'); }}><span className="nav-icon">🔓</span> <span className="nav-text">설계사</span></button></li>
               </>
             )}
           </ul>

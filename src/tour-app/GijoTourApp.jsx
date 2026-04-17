@@ -74,14 +74,12 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
 
   // 새로운 제안서 등록 핸들러
   const handleCreateProposal = (newPkg) => {
-    // 상세 일정 구조 변환
     const detailedItinerary = newPkg.itinerary.map(item => ({
       day: item.day,
       title: `${item.day}일차 일정`,
       content: item.content || "상세 일정이 곧 업데이트될 예정입니다."
     }));
 
-    // 상품 데이터 정규화 및 보강
     const enhancedPkg = {
       ...newPkg,
       image: "https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop", 
@@ -89,7 +87,6 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
       reviewCount: 0,
       reviews: [],
       features: newPkg.description ? [newPkg.description] : ["맞춤형 투어", "개인 가이드 제공"],
-      // 상세 데이터 구조 (모달 연동용)
       detailedPlan: {
         pricing: `1인당 약 ${newPkg.price || '₩850,000'} (항공권 별도)`,
         itinerary: detailedItinerary,
@@ -114,25 +111,23 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
   const handleLoginSuccess = (role) => {
     setUserRole(role);
     setIsLoggedIn(true);
-    navigate('/gijotour');
+    // 역할에 맞춰서 특정 경로로 이동
+    if (role === 'admin') navigate('/gijotour/admin');
+    else navigate('/gijotour/designer');
     window.scrollTo({ top: 0 });
   };
 
   const filteredPackages = (packages || []).filter(pkg => {
     if (selectedRegion === '전체') return true;
-    
-    // 지역 데이터 (RegionSelector와 동기화)
     const regionMapping = {
       "필리핀": ["따가이다이", "마닐라", "클락"],
       "베트남": ["다낭", "호이안", "호치민", "하노이"],
       "라오스": ["비엔티엔"],
       "태국": ["방콕", "푸켓"]
     };
-
     const cities = regionMapping[selectedRegion] || [];
     const isCityMatch = cities.some(city => pkg.region && pkg.region.includes(city));
     const isRegionMatch = pkg.region && pkg.region.includes(selectedRegion);
-
     return isCityMatch || isRegionMatch;
   });
 
@@ -142,30 +137,9 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // 로그인 된 상태라면 대시보드 강제 렌더링 (또는 라우팅)
-  if (isLoggedIn) {
-    return (
-      <div className="page-fade-in">
-        {userRole === 'admin' ? (
-          <AdminPanel
-            onLogout={handleLogout}
-            designers={adminDesigners}
-            setDesigners={setAdminDesigners}
-            stats={adminStats}
-          />
-        ) : (
-          <DesignerDashboard 
-            onLogout={handleLogout} 
-            proposals={packages} // 전체 패키지 데이터를 넘김
-            onAddProposal={handleCreateProposal} // 추가 함수 연동
-          />
-        )}
-      </div>
-    );
-  }
-
   return (
     <Routes>
+      {/* 1. 홈 및 일반 메뉴 */}
       <Route path="/" element={
         <>
           <Hero />
@@ -202,6 +176,31 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
           />
         ) : (
           <Navigate to="/gijotour" />
+        )
+      } />
+
+      {/* 2. 관리자 및 설계사 전용 경로 (보안 적용) */}
+      <Route path="admin" element={
+        (isLoggedIn && userRole === 'admin') ? (
+          <AdminPanel
+            onLogout={handleLogout}
+            designers={adminDesigners}
+            setDesigners={setAdminDesigners}
+            stats={adminStats}
+          />
+        ) : (
+          <Navigate to="/gijotour/login" state={{ from: 'admin' }} />
+        )
+      } />
+      <Route path="designer" element={
+        (isLoggedIn && userRole === 'designer') ? (
+          <DesignerDashboard 
+            onLogout={handleLogout} 
+            proposals={packages}
+            onAddProposal={handleCreateProposal}
+          />
+        ) : (
+          <Navigate to="/gijotour/login" state={{ from: 'designer' }} />
         )
       } />
     </Routes>

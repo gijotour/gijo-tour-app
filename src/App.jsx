@@ -9,8 +9,20 @@ import NavigateHub from './shared/NavigateHub';
 
 function App() {
   const [uiScale, setUiScale] = useState(1.0);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState('designer');
+  
+  // Auth State with Persistence
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    return localStorage.getItem('gijo_auth') === 'true';
+  });
+  const [userRole, setUserRole] = useState(() => {
+    return localStorage.getItem('gijo_role') || 'designer';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('gijo_auth', isLoggedIn);
+    localStorage.setItem('gijo_role', userRole);
+  }, [isLoggedIn, userRole]);
+  
   const location = useLocation();
 
   const isLabView = location.pathname === '/';
