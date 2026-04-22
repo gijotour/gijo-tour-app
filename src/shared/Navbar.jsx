@@ -189,6 +189,30 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           </ul>
         </div>
       </div>
+
+      {/* Mobile Bottom Navigation - Only visible on mobile */}
+      <div className="mobile-bottom-nav">
+        <button className={`m-nav-item ${location.pathname === '/gijotour' ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour')}>
+          <span className="icon">🏠</span>
+          <span className="label">홈</span>
+        </button>
+        {isLoggedIn && (
+          <button className={`m-nav-item ${location.pathname.includes('/designer') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/designer')}>
+            <span className="icon">👤</span>
+            <span className="label">설계사</span>
+          </button>
+        )}
+        {isLoggedIn && userRole === 'admin' && (
+          <button className={`m-nav-item ${location.pathname.includes('/admin') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/admin')}>
+            <span className="icon">🛡️</span>
+            <span className="label">운영</span>
+          </button>
+        )}
+        <button className="m-nav-item" onClick={() => scrollToSection('notice')}>
+          <span className="icon">📋</span>
+          <span className="label">이모저모</span>
+        </button>
+      </div>
     </nav>
   );
 };

@@ -2891,3 +2891,80 @@ html {
   .nav-username { font-size: 0.8rem !important; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
   .navbar { height: 70px !important; }
 }
+
+/* Mobile Bottom Navigation Styles */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  background: rgba(10, 15, 25, 0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 10001;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.m-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+
+.m-nav-item .icon { font-size: 1.2rem; }
+.m-nav-item .label { font-size: 0.65rem; font-weight: 600; }
+.m-nav-item.active { color: var(--accent-color); }
+.m-nav-item.active .icon { filter: drop-shadow(0 0 5px var(--accent-glow)); }
+
+@media (max-width: 600px) {
+  body { padding-bottom: 70px; } /* Space for bottom nav */
+  .mobile-bottom-nav { display: flex; }
+  
+  /* Extreme Dashboard Scaling for Mobile */
+  .dashboard-main-elite {
+    padding: 10px !important;
+  }
+  
+  .elite-dashboard-content {
+    zoom: 0.85; /* Scale down the whole content */
+  }
+  
+  .elite-stat-card {
+    padding: 0.8rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .elite-stat-grid, .elite-stats-grid {
+    gap: 0.5rem !important;
+  }
+  
+  .elite-table-box {
+    padding: 0.5rem !important;
+  }
+  
+  .elite-card-header, .elite-card-header-flex {
+    margin-bottom: 1rem !important;
+  }
+  
+  .elite-proposal-grid {
+    gap: 0.8rem !important;
+  }
+
+  .sidebar-menu-elite {
+    padding: 0.5rem !important;
+  }
+  
+  .menu-item-elite {
+    padding: 8px 12px !important;
+    font-size: 0.75rem !important;
+  }
+}
