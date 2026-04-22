@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
+const AdminPanel = ({ onLogout, designers, setDesigners, stats, pendingRequests = [], onApprove }) => {
+  const [activeTab, setActiveTab] = useState('active'); // 'active' or 'pending'
+
   const toggleStatus = (id) => {
     setDesigners(designers.map(d => {
       if (d.id === id) {
@@ -12,12 +14,6 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
     }));
   };
 
-  const approveDesigner = (id) => {
-    setDesigners(designers.map(d => 
-      d.id === id ? { ...d, status: 'Active' } : d
-    ));
-  };
-
   return (
     <div className="dashboard-elite-layout">
       <aside className="elite-sidebar glass-card">
@@ -26,11 +22,11 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
           <h2>GT SYSTEM</h2>
         </div>
         <nav className="sidebar-nav-elite">
-          <button className="nav-item-elite active">
+          <button className={`nav-item-elite ${activeTab === 'active' ? 'active' : ''}`} onClick={() => setActiveTab('active')}>
             <span className="icon">📊</span> DASHBOARD
           </button>
-          <button className="nav-item-elite">
-            <span className="icon">👔</span> 여행설계사 관리
+          <button className={`nav-item-elite ${activeTab === 'pending' ? 'active' : ''}`} onClick={() => setActiveTab('pending')}>
+            <span className="icon">📩</span> 승인 대기 {pendingRequests.length > 0 && <span className="sidebar-badge">{pendingRequests.length}</span>}
           </button>
           <button className="nav-item-elite">
             <span className="icon">🏦</span> FINANCE
@@ -39,96 +35,136 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
             <span className="icon">⚙️</span> SETTINGS
           </button>
         </nav>
-        <div className="sidebar-footer-elite">
-          <button className="btn-logout-elite" onClick={onLogout}>
-            SECURE SIGN OUT
-          </button>
+        <div className="sidebar-footer-elite" style={{ border: 'none', opacity: 0.3 }}>
+          <p style={{ fontSize: '0.7rem', textAlign: 'center' }}>GT ADMIN v3.0</p>
         </div>
       </aside>
 
       <main className="dashboard-main-elite">
-        <header className="elite-dashboard-header">
-          <div className="header-breadcrumbs">
-            <span>ADMIN</span> / <strong>OVERVIEW</strong>
-          </div>
-          <div className="elite-admin-profile">
-            <div className="admin-badge-premium">ELITE ADMIN</div>
-            <div className="avatar-elite"></div>
-          </div>
-        </header>
-
         <div className="elite-dashboard-content custom-scrollbar">
           <div className="content-intro">
-            <h1>운영 효율성 대시보드</h1>
-            <p>플랫폼 내 활동 여행설계사 및 실시간 비즈니스 지표를 관리합니다.</p>
+            <h1>{activeTab === 'active' ? '운영 효율성 대시보드' : '여행설계사 가입 요청'}</h1>
+            <p>{activeTab === 'active' ? '플랫폼 내 활동 여행설계사 및 실시간 비즈니스 지표를 관리합니다.' : '새로운 여행설계사 파트너들의 신청 내역을 검토하고 승인합니다.'}</p>
           </div>
 
-          <div className="elite-stats-grid">
-            {stats.map((stat, index) => (
-              <div key={index} className="elite-stat-card glass-card">
-                <span className="stat-label">{stat.label}</span>
-                <span className="stat-value">{stat.value}</span>
-                <div className="stat-glow"></div>
-              </div>
-            ))}
-          </div>
+          {activeTab === 'active' && (
+            <div className="elite-stats-grid">
+              {stats.map((stat, index) => (
+                <div key={index} className="elite-stat-card glass-card">
+                  <span className="stat-label">{stat.label}</span>
+                  <span className="stat-value">{stat.value}</span>
+                  <div className="stat-glow"></div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="elite-table-section glass-card">
             <div className="table-header-elite">
-              <h3>여행설계사 데이터베이스</h3>
-              <div className="table-actions">
-                <input type="text" placeholder="Search..." className="table-search" />
-              </div>
+              <h3>{activeTab === 'active' ? '여행설계사 데이터베이스' : '가입 신청 내역'}</h3>
             </div>
             
             <table className="elite-dashboard-table">
               <thead>
-                <tr>
-                  <th>여행설계사</th>
-                  <th>지역</th>
-                  <th>기록</th>
-                  <th>평점</th>
-                  <th>상태</th>
-                  <th>관리</th>
-                </tr>
+                {activeTab === 'active' ? (
+                  <tr>
+                    <th>여행설계사</th>
+                    <th>지역</th>
+                    <th>기록</th>
+                    <th>평점</th>
+                    <th>상태</th>
+                    <th>관리</th>
+                  </tr>
+                ) : (
+                  <tr>
+                    <th>신청자 명</th>
+                    <th>활동 지역</th>
+                    <th>자기소개 및 경력</th>
+                    <th>신청 일자</th>
+                    <th>관리</th>
+                  </tr>
+                )}
               </thead>
               <tbody>
-                {designers.map(d => (
-                  <tr key={d.id}>
-                    <td>
-                      <div className="designer-cell">
-                        <div className="mini-avatar"></div>
-                        <span>{d.name}</span>
-                      </div>
-                    </td>
-                    <td>{d.region}</td>
-                    <td>{d.totalProposals} Proposals</td>
-                    <td className="rating-cell">★ {d.rating}</td>
-                    <td>
-                      <span className={`elite-status-pill ${d.status.toLowerCase()}`}>
-                        {d.status}
-                      </span>
-                    </td>
-                    <td>
-                      <div className="elite-table-btns">
-                        {d.status === 'Pending' ? (
-                          <button className="btn-table-action primary" onClick={() => approveDesigner(d.id)}>APPROVE</button>
-                        ) : (
+                {activeTab === 'active' ? (
+                  designers.map(d => (
+                    <tr key={d.id}>
+                      <td data-label="여행설계사">
+                        <div className="designer-cell">
+                          <div className="mini-avatar"></div>
+                          <span>{d.name}</span>
+                        </div>
+                      </td>
+                      <td data-label="지역">{d.region}</td>
+                      <td data-label="기록">{d.totalProposals} Proposals</td>
+                      <td data-label="평점" className="rating-cell">★ {d.rating}</td>
+                      <td data-label="상태">
+                        <span className={`elite-status-pill ${d.status.toLowerCase()}`}>
+                          {d.status}
+                        </span>
+                      </td>
+                      <td data-label="관리">
+                        <div className="elite-table-btns">
                           <button className="btn-table-action" onClick={() => toggleStatus(d.id)}>
                             {d.status === 'Active' ? 'SUSPEND' : 'ACTIVATE'}
                           </button>
-                        )}
-                      </div>
-                    </td>
-                  </tr>
-                ))}
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  pendingRequests.length > 0 ? (
+                    pendingRequests.map(req => (
+                      <tr key={req.id}>
+                        <td data-label="신청자 명"><strong>{req.name}</strong></td>
+                        <td data-label="활동 지역">{req.region}</td>
+                        <td data-label="자기소개 및 경력" style={{ maxWidth: '300px', fontSize: '0.85rem', opacity: 0.8 }}>{req.bio}</td>
+                        <td data-label="신청 일자">{req.date}</td>
+                        <td data-label="관리">
+                          <button className="btn-table-action primary" onClick={() => onApprove(req.id)}>APPROVE</button>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="5" style={{ textAlign: 'center', padding: '4rem', opacity: 0.5 }}>대기 중인 가입 요청이 없습니다.</td>
+                    </tr>
+                  )
+                )}
               </tbody>
             </table>
           </div>
         </div>
       </main>
+      <style>{styles}</style>
     </div>
   );
 };
+
+const styles = `
+  .content-intro { margin-bottom: 3rem; }
+  .content-intro h1 { font-size: 2.2rem; font-weight: 900; margin-bottom: 0.5rem; }
+  .content-intro p { opacity: 0.6; font-size: 1.1rem; }
+
+  @media (max-width: 900px) {
+    .dashboard-elite-layout { flex-direction: column; }
+    .elite-sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .sidebar-nav-elite { flex-direction: row; overflow-x: auto; padding: 1rem; gap: 0.5rem; }
+    .nav-item-elite { padding: 10px 15px; font-size: 0.85rem; white-space: nowrap; }
+    .sidebar-footer-elite { display: none; }
+    .dashboard-main-elite { padding: 1rem; }
+    .elite-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 600px) {
+    .elite-stats-grid { grid-template-columns: 1fr; }
+    .table-header-elite { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .elite-dashboard-table thead { display: none; }
+    .elite-dashboard-table td { display: block; width: 100%; border: none; padding: 10px 15px; position: relative; }
+    .elite-dashboard-table td::before { content: attr(data-label); font-weight: 700; color: var(--accent-color); font-size: 0.7rem; display: block; margin-bottom: 5px; opacity: 0.5; }
+    .elite-dashboard-table tr { display: block; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; }
+    .designer-cell { justify-content: flex-start; }
+  }
+`;
 
 export default AdminPanel;

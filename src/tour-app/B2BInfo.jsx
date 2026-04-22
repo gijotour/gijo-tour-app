@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const B2BInfo = () => {
+  const navigate = useNavigate();
   const features = [
     {
       title: "후불 정산 시스템",
@@ -53,7 +55,12 @@ const B2BInfo = () => {
             <h3>글로벌 여행 시장의 <span className="highlight">새로운 기준</span>이 되세요</h3>
             <p>지금 바로 GIJO TOUR와 함께 프리미엄 여행 설계의 미래를 시작하세요.</p>
           </div>
-          <button className="btn-primary btn-large">여행설계사 제휴 문의하기</button>
+          <button 
+            className="btn-primary btn-large" 
+            onClick={() => navigate('/gijotour/login', { state: { initialView: 'signup' } })}
+          >
+            여행설계사 제휴 문의하기
+          </button>
         </div>
       </div>
 

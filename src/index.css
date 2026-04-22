@@ -282,8 +282,10 @@ button, .btn {
 .navbar {
   position: fixed;
   top: 0; left: 0; width: 100%;
-  padding: 1.2rem 0;
-  z-index: 9999;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  z-index: 10000;
   transition: var(--transition-smooth);
   background: rgba(3, 5, 8, 0.75);
   backdrop-filter: blur(20px);
@@ -293,6 +295,12 @@ button, .btn {
 .navbar.scrolled {
   padding: 1rem 0;
   background: rgba(3, 5, 8, 0.9);
+}
+
+.navbar.dashboard-nav {
+  background: rgba(5, 10, 20, 1) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 /* Navbar Menu Capsule */
@@ -1579,14 +1587,15 @@ button, .btn {
 /* 2. Elite Dashboard Layout */
 .dashboard-elite-layout {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 80px);
   background: var(--bg-color);
   overflow: hidden;
+  position: relative;
 }
 
 .elite-sidebar {
   width: 280px;
-  height: calc(100vh - 40px);
+  height: calc(100vh - 120px);
   margin: 20px 0 20px 20px;
   padding: 3rem 1.5rem;
   display: flex;
@@ -1907,8 +1916,6 @@ button, .btn {
 /* 1. Global Page Transition */
 .page-fade-in {
   animation: elitePageFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-  transform: translateY(10px);
 }
 
 @keyframes elitePageFade {
@@ -2705,4 +2712,146 @@ html {
   background: #ff453a;
   color: white !important;
   box-shadow: 0 0 15px rgba(255, 69, 58, 0.4);
+}
+/* ============================================================
+   Elite User Dropdown System
+   ============================================================ */
+.nav-user-dropdown-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav-user-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.nav-user-trigger:hover, .nav-user-trigger.active {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.dropdown-arrow {
+  font-size: 0.6rem;
+  opacity: 0.5;
+  transition: 0.3s;
+}
+
+.nav-user-trigger.active .dropdown-arrow {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+.nav-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 15px);
+  right: 0;
+  width: 240px;
+  padding: 1.5rem;
+  background: rgba(10, 12, 20, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  z-index: 20000;
+  cursor: default;
+}
+
+.dropdown-header {
+  padding-bottom: 1rem;
+}
+
+.user-role {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 900;
+  color: var(--accent-color);
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+}
+
+.user-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0.8rem 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  text-align: left;
+}
+
+.dropdown-item .icon {
+  font-size: 1.1rem;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  padding-left: 18px;
+}
+
+.dropdown-item.logout {
+  color: #ff4d4d;
+}
+
+.dropdown-item.logout:hover {
+  background: rgba(255, 77, 77, 0.08);
+}
+
+.animate-down {
+  animation: dropdownFadeDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes dropdownFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav-user-dropdown-container {
+    width: 100%;
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+  .nav-user-trigger { width: 100%; justify-content: space-between; }
+  .nav-dropdown-menu {
+    position: static;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.02);
+  }
 }

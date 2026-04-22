@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import Hero from './Hero';
 import B2BInfo from './B2BInfo';
 import DesignerShowcase from './DesignerShowcase';
@@ -9,21 +9,34 @@ import DesignerDashboard from './DesignerDashboard';
 import AdminPanel from './AdminPanel';
 import DesignerTV from './DesignerTV';
 import PaymentPage from './PaymentPage';
+import NoticeBoard from './NoticeBoard';
 import { mockDb } from '../data/mockDb';
 
-function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
+function GijoTourApp({ 
+  isLoggedIn, setIsLoggedIn, userRole, setUserRole, userName, setUserName,
+  forceBoardWrite, setForceBoardWrite, boardFilterAuthor, setBoardFilterAuthor 
+}) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   // 패키지 데이터 로드 (LocalStorage 반영)
   const [packages, setPackages] = useState(() => {
-    const saved = localStorage.getItem('gijo_packages');
-    return saved ? JSON.parse(saved) : mockDb.packages;
+    try {
+      const saved = localStorage.getItem('gijo_packages');
+      return saved ? JSON.parse(saved) : mockDb.packages;
+    } catch (e) {
+      return mockDb.packages;
+    }
   });
 
   // TV 비디오 데이터 로드 (LocalStorage 반영)
   const [tvVideos, setTvVideos] = useState(() => {
-    const saved = localStorage.getItem('gijo_tv_videos');
-    return saved ? JSON.parse(saved) : mockDb.tv;
+    try {
+      const saved = localStorage.getItem('gijo_tv_videos');
+      return saved ? JSON.parse(saved) : (mockDb.tv || []);
+    } catch (e) {
+      return (mockDb.tv || []);
+    }
   });
 
   useEffect(() => {
@@ -34,7 +47,47 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
     localStorage.setItem('gijo_tv_videos', JSON.stringify(tvVideos));
   }, [tvVideos]);
 
-  const [adminDesigners, setAdminDesigners] = useState(mockDb.admin.designers);
+  // 가입 대기 설계사 로드
+  const [pendingDesigners, setPendingDesigners] = useState(() => {
+    try {
+      const saved = localStorage.getItem('gijo_pending_designers');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('gijo_pending_designers', JSON.stringify(pendingDesigners));
+  }, [pendingDesigners]);
+
+  // 이모저모 게시판 데이터 로드
+  const [notices, setNotices] = useState(() => {
+    try {
+      const saved = localStorage.getItem('gijo_notices');
+      return saved ? JSON.parse(saved) : mockDb.notices;
+    } catch (e) {
+      return mockDb.notices;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('gijo_notices', JSON.stringify(notices));
+  }, [notices]);
+
+  const [adminDesigners, setAdminDesigners] = useState(() => {
+    try {
+      const saved = localStorage.getItem('gijo_admin_designers');
+      return saved ? JSON.parse(saved) : mockDb.admin.designers;
+    } catch (e) {
+      return mockDb.admin.designers;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('gijo_admin_designers', JSON.stringify(adminDesigners));
+  }, [adminDesigners]);
+
   const [adminStats, setAdminStats] = useState(mockDb.admin.stats);
   const [selectedRegion, setSelectedRegion] = useState('전체');
   const [selectedPackageForPayment, setSelectedPackageForPayment] = useState(null);
@@ -115,29 +168,103 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
       ...newVideo,
       id: Date.now(),
       views: "0",
-      duration: "00:00" // 실제로는 영상 길이를 가져와야 함
+      duration: "00:00" 
     };
     setTvVideos([videoWithId, ...tvVideos]);
   };
+
+  // 여행설계사 가입 신청 핸들러
+  const handleDesignerSignup = (formData) => {
+    const newRequest = {
+      ...formData,
+      id: Date.now(),
+      status: "Pending",
+      date: new Date().toISOString().split('T')[0]
+    };
+    setPendingDesigners([newRequest, ...pendingDesigners]);
+    alert('가입 신청이 완료되었습니다. 관리자 승인 후 활동이 가능합니다.');
+  };
+
+  // 여행설계사 승인 핸들러
+  const handleApproveDesigner = (designerId) => {
+    const designerToApprove = pendingDesigners.find(d => d.id === designerId);
+    if (!designerToApprove) return;
+
+    // 대기 목록에서 삭제
+    setPendingDesigners(pendingDesigners.filter(d => d.id !== designerId));
+
+    // 정식 설계사 목록에 추가
+    const newDesigner = {
+      id: adminDesigners.length + 1,
+      name: designerToApprove.name,
+      region: designerToApprove.region,
+      totalProposals: 0,
+      rating: 5.0,
+      reviewCount: 0,
+      status: "Active",
+      reviews: []
+    };
+    setAdminDesigners([newDesigner, ...adminDesigners]);
+    alert(`${newDesigner.name} 여행설계사의 가입을 승인했습니다.`);
+  };
+
+  // 통계 업데이트 (대기 건수 반영)
+  useEffect(() => {
+    const updatedStats = adminStats.map(s => 
+      s.label === '승인 대기 건수' ? { ...s, value: String(pendingDesigners.length) } : s
+    );
+    setAdminStats(updatedStats);
+  }, [pendingDesigners]);
 
   // 로그아웃 핸들러
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserRole('designer');
+    localStorage.removeItem('gijo_auth');
+    localStorage.removeItem('gijo_user_role');
+    localStorage.removeItem('gijo_user_name');
     navigate('/gijotour');
     window.scrollTo({ top: 0 });
   };
 
   // 로그인 성공 핸들러
-  const handleLoginSuccess = (role) => {
+  const handleLoginSuccess = (role, name) => {
     setUserRole(role);
+    setUserName(name);
     setIsLoggedIn(true);
-    if (role === 'admin') navigate('/gijotour/admin');
-    else navigate('/gijotour/designer');
+    
+    // 로그인 시도 시의 목적지(state.from)가 있으면 그곳으로 이동
+    let from = '/gijotour';
+    if (location.state?.from === 'designer') from = '/gijotour/designer';
+    else if (location.state?.from === 'admin') from = '/gijotour/admin';
+    else from = (role === 'admin' ? '/gijotour/admin' : '/gijotour/designer');
+
+    navigate(from);
     window.scrollTo({ top: 0 });
   };
 
+  // 공지사항 등록 핸들러
+  const handleAddNotice = (newNotice) => {
+    const noticeWithId = {
+      ...newNotice,
+      id: Date.now(),
+      author: userName,
+      date: new Date().toISOString().split('T')[0]
+    };
+    const updated = [noticeWithId, ...notices];
+    setNotices(updated);
+    localStorage.setItem('gijo_notices', JSON.stringify(updated));
+  };
+
+  const handleDeleteNotice = (id) => {
+    if (!window.confirm('정말 이 게시글을 삭제하시겠습니까?')) return;
+    const updated = notices.filter(n => n.id !== id);
+    setNotices(updated);
+    localStorage.setItem('gijo_notices', JSON.stringify(updated));
+  };
+
   const filteredPackages = (packages || []).filter(pkg => {
+    if (!pkg) return false;
     if (selectedRegion === '전체') return true;
     const regionMapping = {
       "필리핀": ["따가이다이", "마닐라", "클락"],
@@ -146,8 +273,8 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
       "태국": ["방콕", "푸켓"]
     };
     const cities = regionMapping[selectedRegion] || [];
-    const isCityMatch = cities.some(city => pkg.region && pkg.region.includes(city));
-    const isRegionMatch = pkg.region && pkg.region.includes(selectedRegion);
+    const isCityMatch = cities.some(city => pkg.region && typeof pkg.region === 'string' && pkg.region.includes(city));
+    const isRegionMatch = pkg.region && typeof pkg.region === 'string' && pkg.region.includes(selectedRegion);
     return isCityMatch || isRegionMatch;
   });
 
@@ -157,73 +284,101 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  return (
-    <Routes>
-      <Route path="/" element={
-        <>
-          <Hero />
-          <B2BInfo />
-          <DesignerShowcase
-            packages={filteredPackages || []}
-            onRate={handleAddReview}
-            selectedRegion={selectedRegion}
-            onStartPayment={handleStartPayment}
-          />
-          <RegionSelector
-            selectedRegion={selectedRegion}
-            onSelectRegion={(region) => {
-              setSelectedRegion(region);
-              const el = document.getElementById('designer');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }}
-          />
-        </>
-      } />
-      <Route path="tv" element={<DesignerTV videos={tvVideos} />} />
-      <Route path="login" element={
-        <Login
-          onBack={() => navigate('/gijotour')}
-          onLoginSuccess={handleLoginSuccess}
-          initialRole="designer"
-        />
-      } />
-      <Route path="payment" element={
-        selectedPackageForPayment ? (
-          <PaymentPage 
-            pkg={selectedPackageForPayment} 
-            onBack={() => navigate('/gijotour')} 
-          />
-        ) : (
-          <Navigate to="/gijotour" />
-        )
-      } />
+  // 렌더링 전 최종 데이터 검증
+  const safeNotices = Array.isArray(notices) ? notices : [];
+  const safeTvVideos = Array.isArray(tvVideos) ? tvVideos : [];
 
-      <Route path="admin" element={
-        (isLoggedIn && userRole === 'admin') ? (
-          <AdminPanel
-            onLogout={handleLogout}
-            designers={adminDesigners}
-            setDesigners={setAdminDesigners}
-            stats={adminStats}
+  return (
+    <div className="gijo-tour-main-layout">
+      <Routes>
+        <Route index element={
+          <>
+            <Hero />
+            <B2BInfo />
+            <NoticeBoard 
+              notices={safeNotices} 
+              isLoggedIn={isLoggedIn}
+              userName={userName}
+              onAddNotice={handleAddNotice}
+              onDeleteNotice={handleDeleteNotice}
+              forceWrite={forceBoardWrite}
+              filterUserName={boardFilterAuthor}
+              onClearFilter={() => {
+                setBoardFilterAuthor(null);
+                setForceBoardWrite(false);
+              }}
+            />
+            <DesignerShowcase
+              packages={filteredPackages || []}
+              onRate={handleAddReview}
+              selectedRegion={selectedRegion}
+              onStartPayment={handleStartPayment}
+            />
+            <RegionSelector
+              selectedRegion={selectedRegion}
+              onSelectRegion={(region) => {
+                setSelectedRegion(region);
+                const el = document.getElementById('designer');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
+            />
+          </>
+        } />
+        <Route path="tv" element={<DesignerTV videos={safeTvVideos} />} />
+        <Route path="login" element={
+          <Login
+            onBack={() => navigate('/gijotour')}
+            onLoginSuccess={handleLoginSuccess}
+            initialRole="designer"
+            onDesignerSignup={handleDesignerSignup}
+            pendingRequests={pendingDesigners}
+            activeDesigners={adminDesigners}
           />
-        ) : (
-          <Navigate to="/gijotour/login" state={{ from: 'admin' }} />
-        )
-      } />
-      <Route path="designer" element={
-        (isLoggedIn && userRole === 'designer') ? (
-          <DesignerDashboard 
-            onLogout={handleLogout} 
-            proposals={packages}
-            onAddProposal={handleCreateProposal}
-            tvVideos={tvVideos}
-            onAddTvVideo={handleAddTvVideo}
-          />
-        ) : (
-          <Navigate to="/gijotour/login" state={{ from: 'designer' }} />
-        )
-      } />
-    </Routes>
+        } />
+        <Route path="payment" element={
+          selectedPackageForPayment ? (
+            <PaymentPage 
+              pkg={selectedPackageForPayment} 
+              onBack={() => navigate('/gijotour')} 
+            />
+          ) : (
+            <Navigate to="/gijotour" />
+          )
+        } />
+
+        <Route path="admin" element={
+          (isLoggedIn && userRole === 'admin') ? (
+            <AdminPanel
+              onLogout={handleLogout}
+              designers={adminDesigners}
+              setDesigners={setAdminDesigners}
+              stats={adminStats}
+              pendingRequests={pendingDesigners}
+              onApprove={handleApproveDesigner}
+            />
+          ) : (
+            <Navigate to="/gijotour/login" state={{ from: 'admin' }} />
+          )
+        } />
+        <Route path="designer" element={
+          (isLoggedIn && (userRole === 'designer' || userRole === 'admin')) ? (
+            <DesignerDashboard 
+              userName={userName}
+              onLogout={handleLogout} 
+              proposals={packages}
+              onAddProposal={handleCreateProposal}
+              tvVideos={tvVideos}
+              onAddTvVideo={handleAddTvVideo}
+            />
+          ) : (
+            <Navigate to="/gijotour/login" state={{ from: 'designer' }} />
+          )
+        } />
+        
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="." replace />} />
+      </Routes>
+    </div>
   );
 }
 

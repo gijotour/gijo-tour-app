@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos = [], onAddTvVideo }) => {
+const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, tvVideos = [], onAddTvVideo }) => {
   const [activeTab, setActiveTab] = useState('proposals');
   const [showModal, setShowModal] = useState(false);
   const [showTvModal, setShowTvModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // 내 제안서 필터링 (Alex Kim 것이라고 가정하거나 전체 표시)
-  const myProposals = proposals;
+  // 내 제안서 필터링 (로그인한 사용자 것만 표시)
+  const myProposals = proposals.filter(p => p.designer === userName || p.designer === "Alex Kim");
 
   // 새로운 제안 등록을 위한 상태
   const [newProposal, setNewProposal] = useState({
@@ -48,7 +48,7 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos =
 
     const created = {
       id: Date.now(),
-      designer: "Alex Kim",
+      designer: userName,
       ...newProposal,
       status: "검토중",
       date: new Date().toISOString().split('T')[0]
@@ -77,7 +77,7 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos =
     onAddTvVideo({
       ...newTvVideo,
       youtubeUrl: embedUrl,
-      designer: "Alex Kim"
+      designer: userName
     });
     setShowTvModal(false);
     setNewTvVideo({ title: '', category: '', youtubeUrl: '', thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop' });
@@ -126,7 +126,7 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos =
                   </tr>
                 </thead>
                 <tbody>
-                  {tvVideos.filter(v => v.designer === "Alex Kim" || v.designer === "홍길동").map(v => (
+                  {tvVideos.filter(v => v.designer === userName || v.designer === "Alex Kim").map(v => (
                     <tr key={v.id}>
                       <td><img src={v.thumbnail} alt="" style={{ width: '80px', borderRadius: '4px' }} /></td>
                       <td className="bold">{v.title}</td>
@@ -149,34 +149,93 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos =
         return (
           <div className="elite-tab-container page-fade-in">
             <div className="elite-card-header">
-              <h2>전문 여행설계사 프로필</h2>
-              <p>귀하의 전문성을 돋보이게 하는 상세 프로필을 관리하세요.</p>
+              <h2>전문 여행설계사 마스터 프로필</h2>
+              <p>귀하의 전문성을 입증할 수 있는 상세 경력과 포트폴리오를 관리하세요.</p>
             </div>
-            <div className="elite-profile-form glass-card">
-              <div className="elite-form-section">
-                <h3>기본 정보 및 연락처</h3>
-                <div className="elite-form-row">
-                  <div className="elite-input-wrap">
-                    <label>성명 / 활동명</label>
-                    <input type="text" defaultValue="홍길동 (Alex)" />
+
+            <div className="elite-profile-grid-layout">
+              {/* 기본 정보 섹션 */}
+              <div className="elite-profile-form glass-card">
+                <div className="elite-form-section">
+                  <h3><span className="section-icon">👤</span> 기본 인적 사항</h3>
+                  <div className="elite-form-row">
+                    <div className="elite-input-wrap">
+                      <label>성명 / 활동명</label>
+                      <input type="text" defaultValue={userName} />
+                    </div>
+                    <div className="elite-input-wrap">
+                      <label>전문 분야</label>
+                      <input type="text" defaultValue="태국/베트남 프리미엄 투어" />
+                    </div>
                   </div>
-                  <div className="elite-input-wrap">
-                    <label>전문 분야</label>
-                    <input type="text" defaultValue="태국/베트남 프리미엄 투어" />
+                  <div className="elite-form-row">
+                    <div className="elite-input-wrap">
+                      <label>연락처</label>
+                      <input type="text" defaultValue="010-1234-5678" />
+                    </div>
+                    <div className="elite-input-wrap">
+                      <label>활동 지역</label>
+                      <input type="text" defaultValue="동남아 전역, 일본" />
+                    </div>
                   </div>
                 </div>
-                <div className="elite-form-row">
-                  <div className="elite-input-wrap">
-                    <label>연락처</label>
-                    <input type="text" defaultValue="010-1234-5678" />
+
+                <div className="elite-form-section" style={{ marginTop: '3rem' }}>
+                  <h3><span className="section-icon">🎓</span> 보유 자격 및 전문 기술</h3>
+                  <div className="elite-tag-input-wrap">
+                    <label>보유 자격증 (콤마로 구분)</label>
+                    <input type="text" defaultValue="관광통역안내사(영어), 국외여행인솔자, CPR 자격증, PADI 스쿠버다이빙 마스터" />
                   </div>
-                  <div className="elite-input-wrap">
-                    <label>활동 지역</label>
-                    <input type="text" defaultValue="동남아 전역, 일본" />
+                  <div className="elite-tag-input-wrap" style={{ marginTop: '1.5rem' }}>
+                    <label>주요 전문 역량</label>
+                    <input type="text" defaultValue="럭셔리 호텔 큐레이션, VIP 의전 서비스, 미식 투어 기획, 골프 투어 전문가" />
                   </div>
                 </div>
               </div>
-              <button className="btn-elite-save">변경 사항 저장</button>
+
+              {/* 경력 및 성과 섹션 */}
+              <div className="elite-profile-experience glass-card">
+                <div className="elite-form-section">
+                  <h3><span className="section-icon">⏳</span> 상세 경력 및 이력 (Timeline)</h3>
+                  <div className="timeline-builder">
+                    <div className="timeline-input-row">
+                      <span className="year">2020 - 현재</span>
+                      <textarea defaultValue="GIJO TOUR 시니어 여행설계사 (동남아 프리미엄 부문 총괄)" />
+                    </div>
+                    <div className="timeline-input-row">
+                      <span className="year">2015 - 2019</span>
+                      <textarea defaultValue="태국 현지 럭셔리 투어 에이전시 운영 및 VIP 맞춤 여행 기획 (방콕 본사)" />
+                    </div>
+                    <div className="timeline-input-row">
+                      <span className="year">2010 - 2014</span>
+                      <textarea defaultValue="하나투어 국외여행인솔자 팀장 (동남아시아 전략 노선 담당)" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="elite-form-section" style={{ marginTop: '3rem' }}>
+                  <h3><span className="section-icon">🏆</span> 주요 프로젝트 및 성과</h3>
+                  <div className="milestone-grid">
+                    <div className="milestone-box">
+                      <span className="m-label">누적 송출객 수</span>
+                      <span className="m-value">12,500+</span>
+                    </div>
+                    <div className="milestone-box">
+                      <span className="m-label">고객 만족도</span>
+                      <span className="m-value">98.5%</span>
+                    </div>
+                    <div className="milestone-box">
+                      <span className="m-label">연간 기획 건수</span>
+                      <span className="m-value">150+</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="profile-action-bar">
+              <p className="update-status">최근 업데이트: 2026-04-22 22:30</p>
+              <button className="btn-elite-save">마스터 프로필 업데이트 적용</button>
             </div>
           </div>
         );
@@ -438,28 +497,65 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos =
             <span className="icon">👩‍💼</span> PROFILE
           </button>
         </nav>
-        <div className="sidebar-footer-elite">
-          <button className="btn-logout-elite" onClick={onLogout}>
-            SECURE SIGN OUT
-          </button>
+        <div className="sidebar-footer-elite" style={{ border: 'none', opacity: 0.3 }}>
+          <p style={{ fontSize: '0.7rem', textAlign: 'center' }}>GT ELITE v2.5</p>
         </div>
       </aside>
 
       <main className="dashboard-main-elite">
-        <header className="elite-dashboard-header">
-          <div className="header-breadcrumbs">
-            <span>GT Labs Project</span> / <strong>여행설계사 {activeTab.toUpperCase()}</strong>
-          </div>
-          <div className="elite-admin-profile">
-            <span className="designer-name-elite">홍길동 여행설계사님 (DEMO)</span>
-            <div className="avatar-elite designer-avatar"></div>
-          </div>
-        </header>
-
         <div className="elite-dashboard-content custom-scrollbar">
           {renderContent()}
         </div>
       </main>
+
+      <style>{`
+        .elite-profile-grid-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; margin-top: 2rem; }
+        .elite-profile-experience { padding: 2.5rem; }
+        .timeline-builder { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+        .timeline-input-row { display: flex; gap: 1.5rem; align-items: flex-start; }
+        .timeline-input-row .year { font-size: 0.85rem; font-weight: 800; color: var(--accent-color); white-space: nowrap; padding-top: 12px; width: 100px; }
+        .timeline-input-row textarea { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 15px; color: #fff; font-size: 0.95rem; resize: none; line-height: 1.5; }
+        
+        .milestone-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem; }
+        .milestone-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 15px; text-align: center; }
+        .milestone-box .m-label { display: block; font-size: 0.75rem; opacity: 0.5; margin-bottom: 0.5rem; letter-spacing: 0.5px; }
+        .milestone-box .m-value { font-size: 1.3rem; font-weight: 900; color: var(--accent-color); }
+        
+        .profile-action-bar { margin-top: 3rem; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; }
+        .update-status { font-size: 0.8rem; opacity: 0.3; }
+        .section-icon { margin-right: 10px; filter: drop-shadow(0 0 5px var(--accent-glow)); }
+        .elite-tag-input-wrap label { font-size: 0.8rem; opacity: 0.5; font-weight: 700; margin-bottom: 8px; display: block; }
+        .elite-tag-input-wrap input { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 14px; color: #fff; font-size: 1rem; }
+
+        @media (max-width: 1200px) {
+          .elite-profile-grid-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 900px) {
+          .designer-dashboard-elite { flex-direction: column; }
+          .sidebar-elite { width: 100%; height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+          .sidebar-menu-elite { flex-direction: row; overflow-x: auto; padding: 1rem; gap: 0.5rem; }
+          .menu-item-elite { padding: 10px 15px; font-size: 0.85rem; white-space: nowrap; }
+          .sidebar-footer-elite { display: none; }
+          .dashboard-main-elite { padding: 1rem; }
+          .elite-dashboard-content { padding: 0.5rem; }
+          .elite-stat-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+          .elite-stat-grid { grid-template-columns: 1fr; }
+          .elite-card-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+          .elite-table thead { display: none; }
+          .elite-table td { display: block; width: 100%; border: none; padding: 10px 15px; position: relative; }
+          .elite-table td::before { content: attr(data-label); font-weight: 700; color: var(--accent-color); font-size: 0.7rem; display: block; margin-bottom: 5px; opacity: 0.5; }
+          .elite-table tr { display: block; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; }
+          
+          .elite-form-row { flex-direction: column; gap: 1rem; }
+          .milestone-grid { grid-template-columns: 1fr; }
+          .profile-action-bar { flex-direction: column; gap: 1.5rem; align-items: stretch; }
+          .btn-elite-primary { width: 100%; }
+        }
+      `}</style>
     </div>
   );
 };

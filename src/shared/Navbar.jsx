@@ -3,19 +3,25 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const logo = "https://img.icons8.com/isometric/50/experimental-rocket-isometric.png";
 
-const Navbar = ({ onLogin, isLoggedIn, onLogout }) => {
+const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoardWrite, setBoardFilterAuthor }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const isDashboard = location.pathname.includes('/admin') || location.pathname.includes('/designer');
   const isHub = location.pathname === '/';
   
-  if (isDashboard || isHub) return null;
+  // 대시보드나 허브에서도 메뉴바를 표시하도록 차단 로직 제거
 
   const currentView = location.pathname.startsWith('/gijotour') ? 'home' : 
                       location.pathname === '/' ? 'lab' : 'other';
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+    setIsUserMenuOpen(false);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,11 +36,25 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout }) => {
   const handleNavClick = (path) => {
     navigate(path);
     setIsMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0 });
+  };
+
+  const scrollToSection = (sectionId) => {
+    if (location.pathname !== '/gijotour') {
+      navigate('/gijotour');
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 300);
+    } else {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
   };
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''} ${isDashboard ? 'dashboard-nav' : ''}`}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="logo-text" onClick={() => handleNavClick('/gijotour')} style={{ cursor: 'pointer' }}>
           GIJO TOUR
@@ -50,8 +70,13 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout }) => {
           <ul className="nav-links">
             <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
             
-            {location.pathname.startsWith('/gijotour') && (
+            {(location.pathname.startsWith('/gijotour') || isDashboard) && (
               <>
+                <li>
+                  <button onClick={() => scrollToSection('designer')}>
+                    여행설계사 제안
+                  </button>
+                </li>
                 <li>
                   <button 
                     className={location.pathname.includes('/tv') ? 'active' : ''} 
@@ -60,13 +85,99 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout }) => {
                     여행설계사 TV
                   </button>
                 </li>
-                <li><a href="#designer" onClick={() => setIsMenuOpen(false)}>여행설계사 제안</a></li>
+                <li>
+                  <button onClick={() => scrollToSection('notice')}>
+                    이모저모
+                  </button>
+                </li>
+                <li className="nav-divider"></li>
                 <li className="nav-divider"></li>
                 <li>
                   {isLoggedIn ? (
-                    <button onClick={onLogout} className="btn-logout-nav">로그아웃</button>
+                    <div className="nav-user-dropdown-container">
+                      <div 
+                        className={`nav-user-trigger ${isUserMenuOpen ? 'active' : ''}`}
+                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                      >
+                        <div className="nav-avatar" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+                        <span className="nav-username">{userName}님</span>
+                        <span className="dropdown-arrow">{isUserMenuOpen ? '▲' : '▼'}</span>
+                      </div>
+
+                      {isUserMenuOpen && (
+                        <div className="nav-dropdown-menu glass-card animate-down">
+                          <div className="dropdown-header">
+                            <span className="user-role">{userRole === 'admin' ? 'SYSTEM ADMIN' : 'TRAVEL DESIGNER'}</span>
+                            <span className="user-name">{userName}</span>
+                          </div>
+                          <div className="dropdown-divider"></div>
+                          {userRole === 'admin' ? (
+                            <>
+                              <button 
+                                className="dropdown-item"
+                                onClick={() => {
+                                  handleNavClick('/gijotour/admin');
+                                  setIsUserMenuOpen(false);
+                                }}
+                              >
+                                <span className="icon">🛡️</span> 운영자 시스템
+                              </button>
+                              <button 
+                                className="dropdown-item"
+                                onClick={() => {
+                                  handleNavClick('/gijotour/designer');
+                                  setIsUserMenuOpen(false);
+                                }}
+                              >
+                                <span className="icon">👤</span> 설계사 대쉬보드
+                              </button>
+                            </>
+                          ) : (
+                            <button 
+                              className="dropdown-item"
+                              onClick={() => {
+                                handleNavClick('/gijotour/designer');
+                                setIsUserMenuOpen(false);
+                              }}
+                            >
+                              <span className="icon">⚙️</span> 설계사 대쉬보드
+                            </button>
+                          )}
+                          <button 
+                            className="dropdown-item"
+                            onClick={() => {
+                              setForceBoardWrite(true);
+                              scrollToSection('notice');
+                              setIsUserMenuOpen(false);
+                            }}
+                          >
+                            <span className="icon">✍️</span> 새 소식 등록하기
+                          </button>
+                          <button 
+                            className="dropdown-item"
+                            onClick={() => {
+                              setBoardFilterAuthor(userName);
+                              scrollToSection('notice');
+                              setIsUserMenuOpen(false);
+                            }}
+                          >
+                            <span className="icon">🗂️</span> 내 게시물 관리
+                          </button>
+                          <div className="dropdown-divider"></div>
+                          <button 
+                            className="dropdown-item logout"
+                            onClick={() => {
+                              onLogout();
+                              setIsUserMenuOpen(false);
+                            }}
+                          >
+                            <span className="icon">🚪</span> 로그아웃
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   ) : (
-                    <button onClick={() => handleNavClick('/gijotour/login')}>여행설계사 로그인</button>
+                    <button className="btn-login-trigger" onClick={() => handleNavClick('/gijotour/login')}>여행설계사 로그인</button>
                   )}
                 </li>
               </>

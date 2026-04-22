@@ -205,7 +205,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                       <span className="icon">📅</span> DETAILED ITINERARY
                     </h3>
                     <div className="elite-timeline">
-                      {selectedDesigner.detailedPlan.itinerary.map((item, i) => (
+                      {selectedDesigner?.detailedPlan?.itinerary?.map((item, i) => (
                         <div key={i} className="elite-timeline-node">
                           <div className="node-marker">
                             <span className="day-pin">D{item.day}</span>
@@ -216,7 +216,9 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                             <p>{item.content}</p>
                           </div>
                         </div>
-                      ))}
+                      )) || (
+                        <div className="empty-state-mini">상세 일정을 준비 중입니다.</div>
+                      )}
                     </div>
                   </div>
 
@@ -226,9 +228,9 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                         <span className="icon green">✓</span> INCLUSIONS
                       </h3>
                       <ul className="elite-check-list">
-                        {selectedDesigner.detailedPlan.inclusions.map((text, i) => (
+                        {selectedDesigner?.detailedPlan?.inclusions?.map((text, i) => (
                           <li key={i}>{text}</li>
-                        ))}
+                        )) || <li>포함 사항을 확인 중입니다.</li>}
                       </ul>
                     </div>
                     
@@ -237,13 +239,13 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                         <span className="icon red">✕</span> EXCLUSIONS
                       </h3>
                       <ul className="elite-cross-list">
-                        {selectedDesigner.detailedPlan.exclusions.map((text, i) => (
+                        {selectedDesigner?.detailedPlan?.exclusions?.map((text, i) => (
                           <li key={i}>{text}</li>
-                        ))}
+                        )) || <li>불포함 사항을 확인 중입니다.</li>}
                       </ul>
                     </div>
 
-                    {selectedDesigner.detailedPlan.proTip && (
+                    {selectedDesigner?.detailedPlan?.proTip && (
                       <div className="panel-section tip-box-elite">
                         <div className="tip-header">
                           <span className="icon">💡</span>

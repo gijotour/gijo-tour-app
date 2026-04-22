@@ -146,7 +146,7 @@ export const mockDb = {
   admin: {
     stats: [
       { label: "총 활동 여행설계사", value: "4명" },
-      { label: "승인 대기 건수", value: "0건" },
+      { label: "승인 대기 건수", value: "0" },
       { label: "누적 고객 평점", value: "4.8 / 5.0" }
     ],
     designers: [
@@ -224,6 +224,30 @@ export const mockDb = {
       category: "태국",
       views: "2.1K",
       duration: "10:30"
+    }
+  ],
+  pendingDesigners: [],
+  notices: [
+    {
+      id: 1,
+      category: "NOTICE",
+      title: "동남아시아 주요 지역 여행 안전 지침 업데이트",
+      date: "2026-04-20",
+      content: "필리핀 클락 및 베트남 일부 지역의 최신 안전 지침이 업데이트되었습니다. 설계사분들은 제안서 작성 시 참고 바랍니다."
+    },
+    {
+      id: 2,
+      category: "NEWS",
+      title: "GIJO TOUR, 신규 럭셔리 요트 파트너십 체결",
+      date: "2026-04-18",
+      content: "태국 방콕 및 푸켓 지역에서 단독 이용 가능한 럭셔리 요트 업체 3곳과 신규 제휴를 맺었습니다."
+    },
+    {
+      id: 3,
+      category: "UPDATE",
+      title: "정산 시스템 UI 개선 및 보안 강화 안내",
+      date: "2026-04-15",
+      content: "여행설계사 대시보드의 정산 내역 확인 화면이 더욱 직관적으로 개선되었습니다. 다중 인증(MFA) 설정을 권장합니다."
     }
   ]
 };

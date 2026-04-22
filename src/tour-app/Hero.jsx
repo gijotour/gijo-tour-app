@@ -26,7 +26,7 @@ const Hero = () => {
           </p>
           
           <div className="hero-cta animate-up delay-4">
-            <button className="btn-primary" onClick={() => document.getElementById('region').scrollIntoView({ behavior: 'smooth' })}>상품 탐색하기</button>
+            <button className="btn-primary" onClick={() => document.getElementById('designer').scrollIntoView({ behavior: 'smooth' })}>상품 탐색하기</button>
             <button className="btn-secondary" onClick={() => window.location.href='/gijotour/tv'}>여행설계사 TV 시청</button>
           </div>
         </div>
