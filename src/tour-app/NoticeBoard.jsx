@@ -524,7 +524,8 @@ const NoticeBoard = ({ notices, isLoggedIn, userName, onAddNotice, onDeleteNotic
         }
 
         @media (max-width: 600px) {
-          .notice-title { font-size: 2rem; }
+          .notice-title { font-size: 1.8rem !important; margin-bottom: 0.5rem; }
+          .notice-subtitle { font-size: 0.9rem !important; margin-bottom: 1rem; }
           .notice-detail-modal { padding: 1rem; }
           .notice-detail-modal .modal-content { border-radius: 20px; }
           .notice-detail-modal .modal-header { padding: 2rem 1.5rem 1.5rem; }

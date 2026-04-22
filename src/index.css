@@ -2855,3 +2855,39 @@ html {
     background: rgba(255, 255, 255, 0.02);
   }
 }
+
+/* Mobile Readability & Visibility Enhancements */
+.nav-avatar {
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 0 15px var(--accent-glow);
+  background-color: rgba(3, 5, 8, 1); /* Ensure it's visible against complex backgrounds */
+}
+
+@media (max-width: 600px) {
+  :root {
+    --glass-blur: blur(15px); /* Reduce blur cost on mobile */
+  }
+
+  h1 { font-size: 2.2rem !important; }
+  h2 { font-size: 1.8rem !important; }
+  h3 { font-size: 1.4rem !important; }
+  
+  .hero-main-title { font-size: 3rem !important; }
+  .hero-description { font-size: 1rem !important; }
+  
+  /* Dashboard Specific Scaling */
+  .dashboard-main-elite h1 { font-size: 1.6rem !important; }
+  .dashboard-main-elite p { font-size: 0.9rem !important; }
+  .stat-value { font-size: 1.8rem !important; }
+  .stat-label { font-size: 0.75rem !important; }
+  
+  .elite-stat-card { padding: 1.2rem !important; }
+  .elite-stat-card .stat-value { font-size: 1.5rem !important; }
+  
+  .elite-input-wrap label { font-size: 0.75rem !important; }
+  .elite-input-wrap input { padding: 10px !important; font-size: 0.9rem !important; }
+  
+  /* Navbar adjustments */
+  .nav-username { font-size: 0.8rem !important; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
+  .navbar { height: 70px !important; }
+}
