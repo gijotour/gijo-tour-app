@@ -2121,8 +2121,20 @@ html {
     gap: 6px;
     background: none;
     z-index: 10001;
-    padding: 8px;
+    padding: 10px;
+    cursor: pointer;
   }
+
+  .mobile-menu-toggle .bar {
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    transition: var(--transition-smooth);
+  }
+
+  .navbar.menu-open .mobile-menu-toggle .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .navbar.menu-open .mobile-menu-toggle .bar:nth-child(2) { opacity: 0; }
+  .navbar.menu-open .mobile-menu-toggle .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
   .nav-capsule {
     position: fixed;
