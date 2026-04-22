@@ -8,7 +8,7 @@ export const mockDb = {
       secondary: "주요 지역 둘러보기"
     },
     stats: [
-      { value: "500+", label: "Travel Designers" },
+      { value: "500+", label: "여행설계사" },
       { value: "1,200+", label: "Corporate Clients" },
       { value: "후후불 정산", label: "신뢰 기반 서비스" }
     ]
@@ -145,7 +145,7 @@ export const mockDb = {
 
   admin: {
     stats: [
-      { label: "총 활동 설계사", value: "4명" },
+      { label: "총 활동 여행설계사", value: "4명" },
       { label: "승인 대기 건수", value: "0건" },
       { label: "누적 고객 평점", value: "4.8 / 5.0" }
     ],

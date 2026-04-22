@@ -30,7 +30,7 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
             <span className="icon">📊</span> DASHBOARD
           </button>
           <button className="nav-item-elite">
-            <span className="icon">👔</span> DESIGNERS
+            <span className="icon">👔</span> 여행설계사 관리
           </button>
           <button className="nav-item-elite">
             <span className="icon">🏦</span> FINANCE
@@ -60,7 +60,7 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
         <div className="elite-dashboard-content custom-scrollbar">
           <div className="content-intro">
             <h1>운영 효율성 대시보드</h1>
-            <p>플랫폼 내 활동 설계사 및 실시간 비즈니스 지표를 관리합니다.</p>
+            <p>플랫폼 내 활동 여행설계사 및 실시간 비즈니스 지표를 관리합니다.</p>
           </div>
 
           <div className="elite-stats-grid">
@@ -75,7 +75,7 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
 
           <div className="elite-table-section glass-card">
             <div className="table-header-elite">
-              <h3>여행 설계사 데이터베이스</h3>
+              <h3>여행설계사 데이터베이스</h3>
               <div className="table-actions">
                 <input type="text" placeholder="Search..." className="table-search" />
               </div>
@@ -84,12 +84,12 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats }) => {
             <table className="elite-dashboard-table">
               <thead>
                 <tr>
-                  <th>DESIGNER</th>
-                  <th>REGION</th>
-                  <th>RECORD</th>
-                  <th>RATING</th>
-                  <th>STATUS</th>
-                  <th>ACTIONS</th>
+                  <th>여행설계사</th>
+                  <th>지역</th>
+                  <th>기록</th>
+                  <th>평점</th>
+                  <th>상태</th>
+                  <th>관리</th>
                 </tr>
               </thead>
               <tbody>

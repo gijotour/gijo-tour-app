@@ -14,15 +14,25 @@ import { mockDb } from '../data/mockDb';
 function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
   const navigate = useNavigate();
 
-  // 초기 데이터 로드 (LocalStorage 반영)
+  // 패키지 데이터 로드 (LocalStorage 반영)
   const [packages, setPackages] = useState(() => {
     const saved = localStorage.getItem('gijo_packages');
     return saved ? JSON.parse(saved) : mockDb.packages;
   });
 
+  // TV 비디오 데이터 로드 (LocalStorage 반영)
+  const [tvVideos, setTvVideos] = useState(() => {
+    const saved = localStorage.getItem('gijo_tv_videos');
+    return saved ? JSON.parse(saved) : mockDb.tv;
+  });
+
   useEffect(() => {
     localStorage.setItem('gijo_packages', JSON.stringify(packages));
   }, [packages]);
+
+  useEffect(() => {
+    localStorage.setItem('gijo_tv_videos', JSON.stringify(tvVideos));
+  }, [tvVideos]);
 
   const [adminDesigners, setAdminDesigners] = useState(mockDb.admin.designers);
   const [adminStats, setAdminStats] = useState(mockDb.admin.stats);
@@ -92,11 +102,22 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
         itinerary: detailedItinerary,
         inclusions: ["전용 차량", "한국어 가이드", "전 일정 식사"],
         exclusions: ["왕복 항공권", "개인 경비"],
-        proTip: "설계사가 직접 제안하는 현지 맛집 리스트를 제공해 드립니다."
+        proTip: "여행설계사가 직접 제안하는 현지 맛집 리스트를 제공해 드립니다."
       }
     };
     
     setPackages([enhancedPkg, ...packages]);
+  };
+
+  // TV 비디오 등록 핸들러
+  const handleAddTvVideo = (newVideo) => {
+    const videoWithId = {
+      ...newVideo,
+      id: Date.now(),
+      views: "0",
+      duration: "00:00" // 실제로는 영상 길이를 가져와야 함
+    };
+    setTvVideos([videoWithId, ...tvVideos]);
   };
 
   // 로그아웃 핸들러
@@ -111,7 +132,6 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
   const handleLoginSuccess = (role) => {
     setUserRole(role);
     setIsLoggedIn(true);
-    // 역할에 맞춰서 특정 경로로 이동
     if (role === 'admin') navigate('/gijotour/admin');
     else navigate('/gijotour/designer');
     window.scrollTo({ top: 0 });
@@ -139,7 +159,6 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
 
   return (
     <Routes>
-      {/* 1. 홈 및 일반 메뉴 */}
       <Route path="/" element={
         <>
           <Hero />
@@ -160,7 +179,7 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
           />
         </>
       } />
-      <Route path="tv" element={<DesignerTV videos={mockDb.tv} />} />
+      <Route path="tv" element={<DesignerTV videos={tvVideos} />} />
       <Route path="login" element={
         <Login
           onBack={() => navigate('/gijotour')}
@@ -179,7 +198,6 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
         )
       } />
 
-      {/* 2. 관리자 및 설계사 전용 경로 (보안 적용) */}
       <Route path="admin" element={
         (isLoggedIn && userRole === 'admin') ? (
           <AdminPanel
@@ -198,6 +216,8 @@ function GijoTourApp({ isLoggedIn, setIsLoggedIn, userRole, setUserRole }) {
             onLogout={handleLogout} 
             proposals={packages}
             onAddProposal={handleCreateProposal}
+            tvVideos={tvVideos}
+            onAddTvVideo={handleAddTvVideo}
           />
         ) : (
           <Navigate to="/gijotour/login" state={{ from: 'designer' }} />

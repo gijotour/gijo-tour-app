@@ -15,7 +15,7 @@ const RegionSelector = ({ selectedRegion, onSelectRegion }) => {
         <div className="section-header centered animate-up">
           <div className="section-badge">GLOBAL NETWORK</div>
           <h2>글로벌 <span className="highlight">서비스 지역</span></h2>
-          <p>전담 설계사가 상주하는 주요 거점 지역입니다. <br />지역을 선택하시면 전문가의 맞춤 제안을 즉시 확인하실 수 있습니다.</p>
+          <p>전담 여행설계사가 상주하는 주요 거점 지역입니다. <br />지역을 선택하시면 전문가의 맞춤 제안을 즉시 확인하실 수 있습니다.</p>
         </div>
 
         <div className="region-grid animate-up delay-2">
@@ -34,7 +34,7 @@ const RegionSelector = ({ selectedRegion, onSelectRegion }) => {
                 </div>
               </div>
               <div className="region-footer">
-                <span className="region-cta">설계사 제안 보기 →</span>
+                <span className="region-cta">여행설계사 제안 보기 →</span>
               </div>
             </div>
           ))}

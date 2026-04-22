@@ -125,12 +125,15 @@ p {
 
 .logo-text {
   font-weight: 900;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   letter-spacing: -0.05em;
   background: var(--accent-brand);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 
 /* Buttons Elite */
@@ -279,16 +282,17 @@ button, .btn {
 .navbar {
   position: fixed;
   top: 0; left: 0; width: 100%;
-  padding: 2rem 0;
-  z-index: 1000;
+  padding: 1.2rem 0;
+  z-index: 9999;
   transition: var(--transition-smooth);
+  background: rgba(3, 5, 8, 0.75);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .navbar.scrolled {
-  padding: 1.2rem 0;
-  background: rgba(3, 5, 8, 0.75);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--glass-border);
+  padding: 1rem 0;
+  background: rgba(3, 5, 8, 0.9);
 }
 
 /* Navbar Menu Capsule */
@@ -296,10 +300,12 @@ button, .btn {
   background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 1.5rem;
+  padding: 0.4rem 1.2rem;
   border-radius: 50px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
 }
 
 .nav-capsule:hover {
@@ -326,6 +332,7 @@ button, .btn {
   border: none;
   padding: 0;
   cursor: pointer;
+  text-decoration: none;
   transition: var(--transition-smooth);
 }
 
@@ -2096,14 +2103,16 @@ html {
    Mobile Responsive Overhaul (Media Queries)
    ============================================================ */
 
-/* Mobile Navbar Hammer Menu */
+/* Mobile Navbar Elite */
 @media (max-width: 900px) {
   .navbar {
-    padding: 1rem 0;
+    padding: 0.8rem 0;
   }
 
   .nav-container {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   .mobile-menu-toggle {
@@ -2111,19 +2120,9 @@ html {
     flex-direction: column;
     gap: 6px;
     background: none;
-    z-index: 1001;
+    z-index: 10001;
+    padding: 8px;
   }
-
-  .mobile-menu-toggle .bar {
-    width: 25px;
-    height: 2px;
-    background: #fff;
-    transition: var(--transition-smooth);
-  }
-
-  .navbar.menu-open .mobile-menu-toggle .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-  .navbar.menu-open .mobile-menu-toggle .bar:nth-child(2) { opacity: 0; }
-  .navbar.menu-open .mobile-menu-toggle .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
   .nav-capsule {
     position: fixed;
@@ -2132,14 +2131,12 @@ html {
     width: 100%;
     height: 100vh;
     background: rgba(3, 5, 8, 0.98);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
     border: none;
     border-radius: 0;
-    padding: 8rem 2rem;
-    transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 1000;
-    display: block;
-    box-shadow: none;
+    padding: 7rem 2rem;
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10000;
   }
 
   .nav-capsule.open {
@@ -2149,20 +2146,20 @@ html {
   .nav-links {
     flex-direction: column;
     gap: 1.5rem;
-    align-items: stretch;
+    align-items: flex-start;
   }
 
   .nav-links button, .nav-links a {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 800;
     width: 100%;
-    justify-content: flex-start;
-    padding: 1rem;
+    text-align: left;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .nav-divider {
-    width: 100%;
-    height: 1px;
-    margin: 1rem 0;
+    display: none;
   }
 }
 
@@ -2181,9 +2178,9 @@ html {
   }
 
   /* Grid Adjustments */
-  .features-grid, .video-grid, .elite-proposal-grid, .region-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  .features-grid, .video-grid, .elite-proposal-grid, .region-grid, .tv-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.2rem;
   }
 
   /* Elite Modal Mobile Fix */
@@ -2239,12 +2236,15 @@ html {
 
   .btn-detail {
     width: 100%;
+    padding: 1rem;
   }
 
   /* Size Control On Mobile */
   .size-menu {
-    width: calc(100vw - 4rem);
+    width: calc(100vw - 2.5rem);
     bottom: 80px;
+    left: 1.25rem;
+    transform: none;
   }
 }
 
@@ -2677,4 +2677,20 @@ html {
   .nav-hub-btn {
     padding: 12px 20px;
   }
+}
+
+.btn-logout-nav {
+  background: rgba(255, 69, 58, 0.1);
+  border: 1px solid rgba(255, 69, 58, 0.3) !important;
+  color: #ff453a !important;
+  padding: 0.5rem 1.2rem !important;
+  border-radius: 50px !important;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.btn-logout-nav:hover {
+  background: #ff453a;
+  color: white !important;
+  box-shadow: 0 0 15px rgba(255, 69, 58, 0.4);
 }

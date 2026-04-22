@@ -37,14 +37,13 @@ function App() {
         <div className="mesh-circle mesh-2" style={{ background: '#0066ff', opacity: isLabView ? 0.1 : 0.05 }}></div>
       </div>
 
-      {!isLoggedIn && (
-        <Navbar 
-          isLoggedIn={isLoggedIn}
-          onLogin={() => {}} // Navbar internally handles navigation to login
-        />
-      )}
+      <Navbar 
+        isLoggedIn={isLoggedIn}
+        onLogin={() => {}} 
+        onLogout={() => { setIsLoggedIn(false); localStorage.removeItem('gijo_auth'); }}
+      />
 
-      <main style={{ paddingTop: (!isLoggedIn && !isLabView) ? '80px' : '0' }}>
+      <main style={{ paddingTop: (!isLabView) ? '80px' : '0' }}>
         <Routes>
           <Route path="/" element={<GijoLab />} />
           <Route 
@@ -61,7 +60,7 @@ function App() {
         </Routes>
       </main>
 
-      {!isLoggedIn && <Footer />}
+      {!(location.pathname.includes('/admin') || location.pathname.includes('/designer')) && <Footer />}
       
       <NavigateHub />
       <SizeControl uiScale={uiScale} onScaleChange={setUiScale} />

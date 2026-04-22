@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 
-const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
+const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal, tvVideos = [], onAddTvVideo }) => {
   const [activeTab, setActiveTab] = useState('proposals');
   const [showModal, setShowModal] = useState(false);
+  const [showTvModal, setShowTvModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   // 내 제안서 필터링 (Alex Kim 것이라고 가정하거나 전체 표시)
@@ -16,6 +17,14 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
     youtubeUrl: '',
     description: '',
     itinerary: [{ day: 1, content: '' }]
+  });
+
+  // 새로운 TV 비디오 등록을 위한 상태
+  const [newTvVideo, setNewTvVideo] = useState({
+    title: '',
+    category: '',
+    youtubeUrl: '',
+    thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop'
   });
 
   const handleAddDay = () => {
@@ -45,10 +54,34 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
       date: new Date().toISOString().split('T')[0]
     };
 
-    onAddProposal(created); // 상위 상태 업데이트
+    onAddProposal(created);
     setShowModal(false);
     setNewProposal({ title: '', region: '', price: '', youtubeUrl: '', description: '', itinerary: [{ day: 1, content: '' }] });
-    alert('새로운 제안서가 등록되었습니다! 이제 여행설계사 화면에서도 확인하실 수 있습니다.');
+    alert('새로운 제안서가 등록되었습니다!');
+  };
+
+  const handleSubmitTvVideo = () => {
+    if (!newTvVideo.title || !newTvVideo.youtubeUrl || !newTvVideo.category) {
+      alert('필수 정보를 모두 입력해주세요.');
+      return;
+    }
+
+    // 유튜브 링크 임베드 형식으로 변환 (간단한 처리)
+    let embedUrl = newTvVideo.youtubeUrl;
+    if (embedUrl.includes('watch?v=')) {
+      embedUrl = embedUrl.replace('watch?v=', 'embed/');
+    } else if (embedUrl.includes('youtu.be/')) {
+      embedUrl = embedUrl.replace('youtu.be/', 'youtube.com/embed/');
+    }
+
+    onAddTvVideo({
+      ...newTvVideo,
+      youtubeUrl: embedUrl,
+      designer: "Alex Kim"
+    });
+    setShowTvModal(false);
+    setNewTvVideo({ title: '', category: '', youtubeUrl: '', thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop' });
+    alert('새로운 TV 영상이 등록되었습니다!');
   };
 
   const settlements = [
@@ -59,7 +92,7 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
 
   const filteredProposals = myProposals.filter(p => 
     p.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    p.region.toLowerCase().includes(searchTerm.toLowerCase())
+    (p.region && p.region.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const stats = [
@@ -71,11 +104,52 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'tv':
+        return (
+          <div className="elite-tab-container page-fade-in">
+            <div className="elite-card-header-flex">
+              <div>
+                <h2>여행설계사 TV 관리</h2>
+                <p>영상을 통해 고객들에게 신뢰와 현장감을 전달하세요.</p>
+              </div>
+              <button className="btn-elite-add" onClick={() => setShowTvModal(true)}>+ 새로운 영상 등록</button>
+            </div>
+            <div className="elite-table-box glass-card" style={{ marginTop: '2rem' }}>
+              <table className="elite-dashboard-table">
+                <thead>
+                  <tr>
+                    <th>썸네일</th>
+                    <th>제목</th>
+                    <th>지역</th>
+                    <th>조회수</th>
+                    <th>관리</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {tvVideos.filter(v => v.designer === "Alex Kim" || v.designer === "홍길동").map(v => (
+                    <tr key={v.id}>
+                      <td><img src={v.thumbnail} alt="" style={{ width: '80px', borderRadius: '4px' }} /></td>
+                      <td className="bold">{v.title}</td>
+                      <td>{v.category}</td>
+                      <td>{v.views}</td>
+                      <td><button className="btn-p-view">삭제</button></td>
+                    </tr>
+                  ))}
+                  {tvVideos.length === 0 && (
+                    <tr>
+                      <td colSpan="5" style={{ textAlign: 'center', padding: '3rem', opacity: 0.5 }}>등록된 영상이 없습니다.</td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        );
       case 'account':
         return (
           <div className="elite-tab-container page-fade-in">
             <div className="elite-card-header">
-              <h2>전문 설계사 프로필</h2>
+              <h2>전문 여행설계사 프로필</h2>
               <p>귀하의 전문성을 돋보이게 하는 상세 프로필을 관리하세요.</p>
             </div>
             <div className="elite-profile-form glass-card">
@@ -150,7 +224,6 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
       default:
         return (
           <div className="elite-tab-container page-fade-in">
-            {/* KPI Stats Row */}
             <div className="elite-stats-grid" style={{ marginBottom: '3rem' }}>
               {stats.map((s, i) => (
                 <div key={i} className="elite-stat-card glass-card">
@@ -214,13 +287,13 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
 
   return (
     <div className="dashboard-elite-layout">
-      {/* New Proposal Modal (Enhanced) */}
+      {/* Proposal Modal */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content glass-card elite-wide-modal animate-up">
             <div className="modal-header-elite">
               <h2>새로운 여행 설계 등록</h2>
-              <p>프리미엄 고객을 위한 최적의 여정을 제안하세요. 입력하신 데이터는 즉시 목록에 반영됩니다.</p>
+              <p>프리미엄 고객을 위한 최적의 여정을 제안하세요.</p>
             </div>
             <div className="modal-body-elite custom-scrollbar">
               <div className="elite-form-group">
@@ -281,7 +354,54 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
             </div>
             <div className="modal-footer-elite">
               <button className="btn-close-elite" onClick={() => setShowModal(false)}>취소</button>
-              <button className="btn-submit-elite" onClick={handleSubmitProposal}>데이터 등록하기 (리스트 반영)</button>
+              <button className="btn-submit-elite" onClick={handleSubmitProposal}>데이터 등록하기</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* TV Video Modal */}
+      {showTvModal && (
+        <div className="modal-overlay">
+          <div className="modal-content glass-card elite-wide-modal animate-up">
+            <div className="modal-header-elite">
+              <h2>새로운 여행설계사 TV 영상 등록</h2>
+              <p>영상을 통해 더 많은 비즈니스 파트너와 연결되세요.</p>
+            </div>
+            <div className="modal-body-elite">
+              <div className="elite-form-group">
+                <label>영상 제목</label>
+                <input 
+                  type="text" 
+                  placeholder="예: 다낭 럭셔리 리조트 실제 투숙기" 
+                  value={newTvVideo.title}
+                  onChange={(e) => setNewTvVideo({...newTvVideo, title: e.target.value})}
+                />
+              </div>
+              <div className="elite-form-row">
+                <div className="elite-form-group">
+                  <label>지역/카테고리</label>
+                  <input 
+                    type="text" 
+                    placeholder="예: 베트남" 
+                    value={newTvVideo.category}
+                    onChange={(e) => setNewTvVideo({...newTvVideo, category: e.target.value})}
+                  />
+                </div>
+                <div className="elite-form-group">
+                  <label>YouTube 링크</label>
+                  <input 
+                    type="text" 
+                    placeholder="https://www.youtube.com/watch?v=..." 
+                    value={newTvVideo.youtubeUrl}
+                    onChange={(e) => setNewTvVideo({...newTvVideo, youtubeUrl: e.target.value})}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer-elite">
+              <button className="btn-close-elite" onClick={() => setShowTvModal(false)}>취소</button>
+              <button className="btn-submit-elite" onClick={handleSubmitTvVideo}>영상 등록하기</button>
             </div>
           </div>
         </div>
@@ -290,7 +410,7 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
       <aside className="elite-sidebar glass-card">
         <div className="sidebar-brand">
           <span className="brand-dot designer"></span>
-          <h2>GT DESIGNER</h2>
+          <h2>GT 여행설계사</h2>
         </div>
         <nav className="sidebar-nav-elite">
           <button 
@@ -298,6 +418,12 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
             onClick={() => setActiveTab('proposals')}
           >
             <span className="icon">📋</span> PROPOSALS
+          </button>
+          <button 
+            className={`nav-item-elite ${activeTab === 'tv' ? 'active' : ''}`}
+            onClick={() => setActiveTab('tv')}
+          >
+            <span className="icon">📺</span> 여행설계사 TV
           </button>
           <button 
             className={`nav-item-elite ${activeTab === 'settlements' ? 'active' : ''}`}
@@ -322,10 +448,10 @@ const DesignerDashboard = ({ onLogout, proposals = [], onAddProposal }) => {
       <main className="dashboard-main-elite">
         <header className="elite-dashboard-header">
           <div className="header-breadcrumbs">
-            <span>GT Labs Project</span> / <strong>DESIGNER {activeTab.toUpperCase()}</strong>
+            <span>GT Labs Project</span> / <strong>여행설계사 {activeTab.toUpperCase()}</strong>
           </div>
           <div className="elite-admin-profile">
-            <span className="designer-name-elite">홍길동 설계사님 (DEMO)</span>
+            <span className="designer-name-elite">홍길동 여행설계사님 (DEMO)</span>
             <div className="avatar-elite designer-avatar"></div>
           </div>
         </header>

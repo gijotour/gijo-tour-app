@@ -13,7 +13,7 @@ const Login = ({ onBack, onLoginSuccess, initialRole }) => {
         <div className="login-card-elite glass-card">
           <div className="login-header-elite">
             <div className="elite-badge">GIJO TOUR ACCESS</div>
-            <h2>{selectedRole === 'admin' ? '운영자 시스템' : '여행 설계사 포털'}</h2>
+            <h2>{selectedRole === 'admin' ? '운영자 시스템' : '여행설계사 포털'}</h2>
             <p>보안 인증을 통해 {selectedRole === 'admin' ? '관리자 권한' : '전문가 계정'}으로 접속하세요.</p>
           </div>
 
@@ -22,7 +22,7 @@ const Login = ({ onBack, onLoginSuccess, initialRole }) => {
               className={selectedRole === 'designer' ? 'active' : ''} 
               onClick={() => setSelectedRole('designer')}
             >
-              TRAVEL DESIGNER
+              여행설계사
             </button>
             <button 
               className={selectedRole === 'admin' ? 'active' : ''} 
@@ -71,7 +71,7 @@ const Login = ({ onBack, onLoginSuccess, initialRole }) => {
                   style={{ flex: 1, padding: '0.8rem', fontSize: '0.85rem' }}
                   onClick={() => onLoginSuccess('designer')}
                 >
-                  설계사 체험 👔
+                  여행설계사 체험 👔
                 </button>
               </div>
             </div>
@@ -79,7 +79,7 @@ const Login = ({ onBack, onLoginSuccess, initialRole }) => {
 
           {selectedRole === 'designer' && (
             <div className="login-footer-elite">
-              <p>아직 설계사로 등록되지 않으셨나요?</p>
+              <p>아직 여행설계사로 등록되지 않으셨나요?</p>
               <button className="btn-apply-designer">파트너십 제휴 신청</button>
             </div>
           )}

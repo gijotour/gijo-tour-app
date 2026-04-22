@@ -37,7 +37,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
     }
     onRate(selectedDesigner.designer, nickname, rating, comment);
     setShowRatingModal(false);
-    alert(`${selectedDesigner.designer} 설계사님께 리뷰를 남겼습니다!`);
+    alert(`${selectedDesigner.designer} 여행설계사님께 리뷰를 남겼습니다!`);
   };
 
   // 유튜브 URL 포맷팅 유틸리티
@@ -63,7 +63,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
           <div className="modal-overlay">
             <div className="modal-content glass-card rating-modal">
               <h2>경험하신 서비스는 어떠셨나요?</h2>
-              <p><strong>{selectedDesigner?.designer}</strong> 설계사님의 제안에 평점과 후기를 남겨주세요.</p>
+              <p><strong>{selectedDesigner?.designer}</strong> 여행설계사님의 제안에 평점과 후기를 남겨주세요.</p>
               
               <div className="rating-form">
                 <div className="form-group">
@@ -94,7 +94,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                   <label>리뷰 내용</label>
                   <textarea 
                     rows="3" 
-                    placeholder="설계사님의 서비스에 대한 후기를 자유롭게 남겨주세요."
+                    placeholder="여행설계사님의 서비스에 대한 후기를 자유롭게 남겨주세요."
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                   ></textarea>
@@ -114,7 +114,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
           <div className="modal-overlay">
             <div className="modal-content glass-card review-list-modal">
               <div className="modal-header">
-                <h2>{selectedDesigner?.designer} 설계사 리뷰 목록</h2>
+                <h2>{selectedDesigner?.designer} 여행설계사 리뷰 목록</h2>
                 <button className="btn-close-modal" onClick={() => setShowReviewListModal(false)}>&times;</button>
               </div>
               <div className="review-list custom-scrollbar">
@@ -177,7 +177,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                     </div>
                     <div className="profile-info">
                       <div className="name-row">
-                        <span className="label">DESIGNER</span>
+                        <span className="label">여행설계사</span>
                         <span className="value">{selectedDesigner.designer}</span>
                       </div>
                       <div className="rating-row">
@@ -247,7 +247,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                       <div className="panel-section tip-box-elite">
                         <div className="tip-header">
                           <span className="icon">💡</span>
-                          <span>DESIGNER'S PRO TIP</span>
+                          <span>여행설계사 전용 팁 (PRO TIP)</span>
                         </div>
                         <p>{selectedDesigner.detailedPlan.proTip}</p>
                       </div>
@@ -269,16 +269,16 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
         )}
 
         <div className="section-header centered">
-          <div className="section-badge">DESIGNER PROPOSALS</div>
+          <div className="section-badge">TRAVEL DESIGNER PROPOSALS</div>
           {selectedRegion === '전체' ? (
             <>
-              <h2>전문 <span className="highlight">여행 설계사</span>의 맞춤 제안</h2>
+              <h2>전문 <span className="highlight">여행설계사</span>의 맞춤 제안</h2>
               <p>전문가들이 귀하의 완벽한 여정을 위해 준비한 <br />비대면 맞춤형 프리미엄 서비스를 지금 바로 만나보세요.</p>
             </>
           ) : (
             <>
               <h2><span className="highlight">[{selectedRegion}]</span> 지역 맞춤 제안</h2>
-              <p>해당 지역의 전문가들이 제안하는 총 <strong>{packages.length}건</strong>의 맞춤 일정이 준비되어 있습니다.</p>
+              <p>해당 지역의 여행설계사들이 제안하는 총 <strong>{packages.length}건</strong>의 맞춤 일정이 준비되어 있습니다.</p>
             </>
           )}
         </div>
@@ -302,7 +302,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
                 <div className="designer-info">
                   <div className="profile-img"></div>
                   <div className="profile-text">
-                    <span className="name">{pkg.designer}</span>
+                    <span className="name">{pkg.designer} 여행설계사</span>
                     <span className="region">{pkg.region}</span>
                   </div>
                   <div className="rating-badge">
@@ -334,7 +334,7 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
           <div className="empty-state-wrap animate-up">
             <span className="empty-icon">🏝️</span>
             <h3>선택하신 지역의 맞춤 제안을 준비 중입니다</h3>
-            <p>현재 {selectedRegion} 지역에 대한 제안서를 설계사들이 정성껏 작성하고 있습니다. 곧 멋진 일정으로 찾아뵙겠습니다!</p>
+            <p>현재 {selectedRegion} 지역에 대한 제안서를 여행설계사들이 정성껏 작성하고 있습니다. 곧 멋진 일정으로 찾아뵙겠습니다!</p>
           </div>
         )}
       </div>

@@ -31,7 +31,7 @@ const PaymentPage = ({ pkg, onBack }) => {
             </div>
             <h2 className="text-3xl font-bold mt-8 mb-4">결제가 완료되었습니다!</h2>
             <p className="text-gray-400 mb-8">
-              담당 설계사 <strong>{pkg.designer}</strong>님이 곧 상세 일정을 확정하여 연락드릴 예정입니다.<br />
+              담당 여행설계사 <strong>{pkg.designer}</strong>님이 곧 상세 일정을 확정하여 연락드릴 예정입니다.<br />
               이용해 주셔서 감사합니다.
             </p>
             <div className="success-details mb-8">
@@ -68,7 +68,7 @@ const PaymentPage = ({ pkg, onBack }) => {
                 <h3 className="text-xl font-bold mt-2">{pkg.title}</h3>
                 <div className="designer-info-small mt-4">
                   <span className="label">DESIGNER</span>
-                  <span className="value">{pkg.designer} 설계사</span>
+                  <span className="value">{pkg.designer} 여행설계사</span>
                 </div>
               </div>
             </div>
