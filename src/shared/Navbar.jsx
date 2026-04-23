@@ -200,35 +200,17 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation - Unified & Simplified for best touch reliability */}
-      <div className="mobile-bottom-nav">
+      {/* Mobile Bottom Navigation - Ultra Compact Version */}
+      <div className="mobile-bottom-nav slim-hub">
         <button className={`m-nav-item ${location.pathname === '/gijotour' ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour')}>
           <span className="icon">🏠</span>
-          <span className="label">홈</span>
         </button>
         <button className={`m-nav-item ${location.pathname.includes('/about') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/about')}>
           <span className="icon">ℹ️</span>
-          <span className="label">GT 소개</span>
-        </button>
-        {isLoggedIn && (
-          <button className={`m-nav-item ${location.pathname.includes('/designer') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/designer')}>
-            <span className="icon">👤</span>
-            <span className="label">설계사</span>
-          </button>
-        )}
-        {isLoggedIn && userRole === 'admin' && (
-          <button className={`m-nav-item ${location.pathname.includes('/admin') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/admin')}>
-            <span className="icon">🛡️</span>
-            <span className="label">운영</span>
-          </button>
-        )}
-        <button className="m-nav-item" onClick={() => scrollToSection('notice')}>
-          <span className="icon">📋</span>
-          <span className="label">이모저모</span>
         </button>
         {isLoggedIn ? (
           <button 
-            className={`m-nav-item ${isUserMenuOpen ? 'active' : ''}`} 
+            className={`m-nav-item user-trigger ${isUserMenuOpen ? 'active' : ''}`} 
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -236,17 +218,15 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
             }}
           >
             <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})`, pointerEvents: 'none' }}></div>
-            <span className="label" style={{ pointerEvents: 'none' }}>내 정보</span>
           </button>
         ) : (
           <button className="m-nav-item" onClick={() => handleNavClick('/gijotour/login')}>
             <span className="icon">🔑</span>
-            <span className="label">로그인</span>
           </button>
         )}
       </div>
 
-      {/* Global Mobile Menu Overlay - Outside for perfect stacking */}
+      {/* Global Mobile Menu Overlay - Unified Manager */}
       {isLoggedIn && isUserMenuOpen && (
         <div className="mobile-user-dropdown glass-card animate-up" onClick={(e) => e.stopPropagation()}>
           <div className="dropdown-header">
@@ -254,10 +234,12 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
             <span className="user-role">{userRole === 'admin' ? 'ADMIN' : 'DESIGNER'}</span>
           </div>
           <div className="dropdown-divider"></div>
+          <button className="dropdown-item" onClick={() => { scrollToSection('notice'); setIsUserMenuOpen(false); }}>📋 이모저모 (게시판)</button>
+          <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 설계사 대쉬보드</button>
           {userRole === 'admin' && (
-            <button className="dropdown-item" onClick={() => handleNavClick('/gijotour/admin')}>🛡️ 운영 시스템</button>
+            <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템</button>
           )}
-          <button className="dropdown-item" onClick={() => handleNavClick('/gijotour/designer')}>👤 대쉬보드</button>
+          <div className="dropdown-divider"></div>
           <button className="dropdown-item logout" onClick={onLogout}>🚪 로그아웃</button>
         </div>
       )}

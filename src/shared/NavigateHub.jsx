@@ -10,14 +10,13 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout }) => {
   if (location.pathname === '/') return null;
 
   return (
-    <div className="elite-nav-hub animate-up">
+    <div className="elite-nav-hub slim-hub animate-up">
       <button 
         className="nav-hub-btn back" 
         onClick={() => navigate(-1)}
         title="뒤로 가기"
       >
         <span className="icon">←</span>
-        <span className="label">BACK</span>
       </button>
       <div className="nav-hub-divider"></div>
       <button 
@@ -26,7 +25,6 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout }) => {
         title="투어 홈으로"
       >
         <span className="icon">🏠</span>
-        <span className="label">GT HOME</span>
       </button>
 
       {isLoggedIn && (
@@ -39,7 +37,6 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout }) => {
               title="내 정보"
             >
               <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
-              <span className="label">MY</span>
             </button>
             
             {isUserMenuOpen && (
@@ -49,10 +46,17 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout }) => {
                   <span className="role">{userRole === 'admin' ? 'ADMIN' : 'DESIGNER'}</span>
                 </div>
                 <div className="dropdown-divider"></div>
+                <button className="dropdown-item" onClick={() => { 
+                  const el = document.getElementById('notice');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  else navigate('/gijotour');
+                  setIsUserMenuOpen(false); 
+                }}>📋 이모저모 (게시판)</button>
                 <button className="dropdown-item" onClick={() => { navigate('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 대쉬보드</button>
                 {userRole === 'admin' && (
                   <button className="dropdown-item" onClick={() => { navigate('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템</button>
                 )}
+                <div className="dropdown-divider"></div>
                 <button className="dropdown-item logout" onClick={() => { onLogout(); setIsUserMenuOpen(false); }}>🚪 로그아웃</button>
               </div>
             )}

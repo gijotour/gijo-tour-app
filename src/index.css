@@ -3340,3 +3340,61 @@ html {
   height: 24px;
   border: 1.5px solid var(--accent-color);
 }
+
+/* Ultra Slim Center Navigator */
+.slim-hub {
+  width: auto !important;
+  min-width: 140px;
+  max-width: fit-content;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  padding: 6px 12px !important;
+  border-radius: 50px !important;
+  display: flex !important;
+  gap: 12px !important;
+  bottom: 25px !important;
+  background: rgba(15, 20, 30, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4) !important;
+}
+
+.slim-hub .m-nav-item, 
+.slim-hub .nav-hub-btn {
+  padding: 8px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+.slim-hub .icon {
+  font-size: 1.2rem !important;
+  margin: 0 !important;
+}
+
+.slim-hub .nav-hub-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255,255,255,0.1);
+  align-self: center;
+}
+
+/* My Info Dropdown Adjustment for Slim Hub */
+.mobile-user-dropdown {
+  bottom: 85px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 220px !important;
+}
+
+@media (max-width: 600px) {
+  /* Hide the default wide bottom nav when slim is active */
+  .mobile-bottom-nav:not(.slim-hub) {
+    display: none !important;
+  }
+}
