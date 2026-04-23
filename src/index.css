@@ -2964,14 +2964,24 @@ html {
   }
   
   .menu-item-elite, .nav-item-elite {
-    padding: 2px 8px !important;
-    font-size: 0.65rem !important;
+    padding: 8px !important;
+    font-size: 0 !important; /* Hide text */
     min-height: auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    flex: 1;
+  }
+  
+  .menu-item-elite .icon, .nav-item-elite .icon {
+    font-size: 1.2rem !important;
+    margin-right: 0 !important;
   }
   
   .sidebar-menu-elite, .sidebar-nav-elite {
-    padding: 2px !important;
-    gap: 0.2rem !important;
+    padding: 4px !important;
+    gap: 0.5rem !important;
+    height: 45px !important;
   }
   
   .sidebar-brand {
