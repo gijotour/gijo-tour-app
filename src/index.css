@@ -2922,8 +2922,43 @@ html {
     height: 180px !important;
   }
 
+  /* Compact Region Selector for Mobile */
+  .region-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 0.5rem !important;
+    padding: 0.5rem 0 !important;
+  }
+
   .region-card-landing {
-    padding: 1.5rem !important;
+    padding: 0.8rem 0.5rem !important;
+    text-align: center !important;
+    border-radius: 10px !important;
+    min-height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .region-card-landing .region-name {
+    font-size: 0.85rem !important;
+    margin: 0 !important;
+  }
+
+  .region-card-landing .city-list, 
+  .region-card-landing .region-footer {
+    display: none !important;
+  }
+
+  .region-card-landing.active {
+    background: var(--accent-brand) !important;
+    border-color: transparent !important;
+  }
+  
+  .region-card-landing.active .region-name {
+    color: #000 !important;
+    font-weight: 800 !important;
   }
   
   .nav-username { font-size: var(--m-fs-sm) !important; max-width: 60px; }
