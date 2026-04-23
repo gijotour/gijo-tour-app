@@ -3008,7 +3008,23 @@ html {
     margin-top: 0 !important;
   }
   
-  .nav-username { font-size: var(--m-fs-sm) !important; max-width: 60px; }
+  /* Main Navbar Menu Optimization */
+  .nav-links {
+    display: flex !important;
+    gap: 20px !important;
+    margin-left: 15px !important;
+    align-items: center !important;
+  }
+
+  .nav-links li button {
+    font-size: 0.95rem !important; /* Matches body text scale */
+    font-weight: 600 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 5px 8px !important;
+    white-space: nowrap !important;
+  }
+
+  .nav-username { font-size: 0.85rem !important; max-width: 80px; }
   .navbar { height: 60px !important; }
 }
 
