@@ -56,7 +56,8 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''} ${isDashboard ? 'dashboard-nav' : ''}`}>
       <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="logo-text" onClick={() => handleNavClick('/gijotour')} style={{ cursor: 'pointer' }}>
+        <div className="logo-text" onClick={() => handleNavClick('/gijotour')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div className="gt-symbol">GT</div>
           GIJO TOUR
         </div>
 

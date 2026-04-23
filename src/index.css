@@ -6,32 +6,64 @@
 */
 
 :root {
-  /* Light Mode Base */
-  --bg-color: #ffffff;
-  --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  /* Soft Blue Mode Base */
+  --bg-color: #f4f9ff;
+  --bg-gradient: linear-gradient(135deg, #f4f9ff 0%, #e1efff 100%);
   
-  /* Vibrant Pro Palette */
+  /* Professional Blue Palette */
   --accent-color: #0066ff;
   --accent-secondary: #0044cc;
-  --accent-glow: rgba(0, 102, 255, 0.15);
+  --accent-glow: rgba(0, 102, 255, 0.12);
   --accent-brand: linear-gradient(90deg, #0066ff 0%, #0044cc 100%);
   
-  /* Typography - Dark for readability */
-  --text-primary: #1a1a1a;
-  --text-secondary: #4a5568;
-  --text-muted: #94a3b8;
+  /* Typography - Deep Navy for contrast */
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
   
-  /* Glassmorphism Light 2.0 */
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(0, 0, 0, 0.06);
+  /* Glassmorphism Soft 2.0 */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 102, 255, 0.08);
   --glass-blur: blur(20px);
-  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 10px 30px rgba(0, 82, 255, 0.05);
   
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  --radius-premium: 20px;
+  --radius-premium: 16px;
   
   font-family: 'Outfit', 'Pretendard', system-ui, sans-serif;
   line-height: 1.6;
+}
+
+/* GT Signature Logo Symbol */
+.gt-symbol {
+  background: var(--accent-brand);
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 0.9rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+  letter-spacing: -0.5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.gt-symbol::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: rotate(45deg);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) rotate(45deg); }
 }
 
 * {
