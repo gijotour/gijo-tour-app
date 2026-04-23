@@ -2906,7 +2906,26 @@ html {
   .elite-input-wrap label { font-size: var(--m-fs-sm) !important; }
   .elite-input-wrap input { padding: 10px !important; font-size: var(--m-fs-base) !important; }
   
-  /* Navbar adjustments */
+  /* Global List Layout for Mobile */
+  .designer-grid, .region-grid, .elite-stat-grid, .elite-proposal-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.2rem !important;
+  }
+
+  .package-card, .region-card-landing, .elite-stat-card, .elite-proposal-card {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .package-image {
+    height: 180px !important;
+  }
+
+  .region-card-landing {
+    padding: 1.5rem !important;
+  }
+  
   .nav-username { font-size: var(--m-fs-sm) !important; max-width: 60px; }
   .navbar { height: 60px !important; }
 }
