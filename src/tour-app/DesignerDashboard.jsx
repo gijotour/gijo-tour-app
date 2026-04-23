@@ -469,7 +469,7 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
       <aside className="elite-sidebar glass-card">
         <div className="sidebar-brand">
           <span className="brand-dot designer"></span>
-          <h2>GT 여행설계사</h2>
+          <h2>GT</h2>
         </div>
         <nav className="sidebar-nav-elite">
           <button 
