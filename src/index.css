@@ -2956,9 +2956,35 @@ html {
     border-color: transparent !important;
   }
   
-  .region-card-landing.active .region-name {
-    color: #000 !important;
-    font-weight: 800 !important;
+  /* Center Floating User Menu */
+  .mobile-user-dropdown, .nav-hub-dropdown {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 85% !important;
+    max-width: 320px !important;
+    bottom: auto !important;
+    z-index: 100002 !important;
+    padding: 2rem !important;
+    border-radius: 24px !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1000px rgba(0,0,0,0.5) !important;
+  }
+
+  .dropdown-item {
+    padding: 15px !important;
+    font-size: 1rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* Remove Dashboard Menus on Mobile */
+  .designer-sidebar, .admin-sidebar, .dashboard-menu-bar, .elite-menu-nav {
+    display: none !important;
+  }
+  
+  .designer-main-content, .admin-main-content {
+    margin-left: 0 !important;
+    padding: 10px !important;
   }
   
   .nav-username { font-size: var(--m-fs-sm) !important; max-width: 60px; }
