@@ -2876,8 +2876,9 @@ html {
   .hero-description { font-size: 1rem !important; }
   
   /* Dashboard Specific Scaling */
-  .dashboard-main-elite h1 { font-size: 1.6rem !important; }
-  .dashboard-main-elite p { font-size: 0.9rem !important; }
+  .dashboard-main-elite h1 { font-size: 1.2rem !important; }
+  .dashboard-main-elite h2 { font-size: 1.0rem !important; }
+  .dashboard-main-elite p { font-size: 0.8rem !important; }
   .stat-value { font-size: 1.8rem !important; }
   .stat-label { font-size: 0.75rem !important; }
   
@@ -2962,6 +2963,22 @@ html {
     gap: 0.2rem !important;
   }
   
+  .sidebar-brand {
+    margin-bottom: 5px !important;
+    padding: 5px 10px !important;
+  }
+  
+  .sidebar-brand h2 {
+    font-size: 1rem !important;
+    letter-spacing: -1px !important;
+  }
+  
+  .brand-dot {
+    width: 6px !important;
+    height: 6px !important;
+    margin-right: 6px !important;
+  }
+
   .nav-capsule.open {
     display: flex;
     flex-direction: column;
