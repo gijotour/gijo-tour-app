@@ -3283,3 +3283,60 @@ html {
     gap: 0 !important; /* Board-style list has no gaps between rows */
   }
 }
+
+/* Navigate Hub User Dropdown */
+.nav-hub-user-wrapper {
+  position: relative;
+}
+
+.nav-hub-dropdown {
+  position: absolute;
+  bottom: 70px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  background: rgba(15, 20, 30, 0.98);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  padding: 1rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  z-index: 100001;
+}
+
+.hub-user-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.hub-user-info .name { font-weight: 700; color: #fff; font-size: 0.9rem; }
+.hub-user-info .role { font-size: 0.65rem; color: var(--accent-color); font-weight: 800; opacity: 0.8; }
+
+.nav-hub-dropdown .dropdown-item {
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.nav-hub-dropdown .dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.nav-hub-dropdown .logout { color: #ff4d4d; }
+
+.nav-hub-btn.user .nav-avatar.mini {
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--accent-color);
+}

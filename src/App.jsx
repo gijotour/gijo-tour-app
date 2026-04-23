@@ -95,7 +95,16 @@ function App() {
 
       {!(location.pathname.includes('/admin') || location.pathname.includes('/designer')) && <Footer />}
       
-      <NavigateHub />
+      <NavigateHub 
+        isLoggedIn={isLoggedIn} 
+        userName={userName} 
+        userRole={userRole} 
+        onLogout={() => {
+          setIsLoggedIn(false);
+          localStorage.removeItem('gijo_auth');
+          localStorage.removeItem('gijo_user_name');
+        }}
+      />
       <SizeControl uiScale={uiScale} onScaleChange={setUiScale} />
     </div>
   );
