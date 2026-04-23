@@ -249,6 +249,19 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           </button>
         )}
       </div>
+
+      {isLoggedIn && (
+        <button 
+          className="fab-mobile" 
+          onClick={() => {
+            setForceBoardWrite(true);
+            scrollToSection('notice');
+          }}
+          title="새 소식 등록"
+        >
+          +
+        </button>
+      )}
     </nav>
   );
 };

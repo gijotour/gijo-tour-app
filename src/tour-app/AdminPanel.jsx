@@ -160,11 +160,35 @@ const styles = `
   @media (max-width: 600px) {
     .elite-stats-grid { grid-template-columns: 1fr; }
     .table-header-elite { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    
+    /* Premium Card Layout for Admin */
     .elite-dashboard-table thead { display: none; }
-    .elite-dashboard-table td { display: block; width: 100%; border: none; padding: 10px 15px; position: relative; }
-    .elite-dashboard-table td::before { content: attr(data-label); font-weight: 700; color: var(--accent-color); font-size: 0.7rem; display: block; margin-bottom: 5px; opacity: 0.5; }
-    .elite-dashboard-table tr { display: block; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 15px 0; }
-    .designer-cell { justify-content: flex-start; }
+    .elite-dashboard-table tr { 
+      display: block; 
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      margin-bottom: 1.2rem;
+      padding: 1.2rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .elite-dashboard-table td { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      width: 100%; 
+      border: none !important; 
+      padding: 10px 0 !important;
+      font-size: 0.85rem !important;
+    }
+    .elite-dashboard-table td::before { 
+      content: attr(data-label); 
+      font-weight: 700; 
+      color: var(--accent-color); 
+      font-size: 0.75rem; 
+      opacity: 0.6;
+    }
+    .designer-cell { justify-content: flex-end !important; }
   }
 `;
 

@@ -540,7 +540,33 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
           .sidebar-footer-elite { display: none; }
           .dashboard-main-elite { padding: 0.5rem; }
           .elite-dashboard-content { padding: 0.2rem; }
-          .elite-stat-grid { grid-template-columns: repeat(2, 1fr); }
+          /* Mobile Card Enhancement */
+          .elite-dashboard-table thead { display: none; }
+          .elite-dashboard-table tr { 
+            display: block; 
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+          }
+          .elite-dashboard-table td { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 8px 0 !important;
+            border: none !important;
+            font-size: 0.85rem !important;
+          }
+          .elite-dashboard-table td::before { 
+            content: attr(data-label); 
+            font-weight: 700; 
+            color: var(--accent-color); 
+            opacity: 0.6;
+            font-size: 0.75rem;
+          }
+          .designer-cell { justify-content: flex-end !important; }
         }
 
         @media (max-width: 600px) {
