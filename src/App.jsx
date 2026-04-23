@@ -42,23 +42,25 @@ function App() {
       className="app-main"
       style={{ '--ui-scale': uiScale }}
     >
-      <Navbar 
-        isLoggedIn={isLoggedIn}
-        userName={userName}
-        userRole={userRole}
-        onLogin={() => {}} 
-        onLogout={() => { 
-          setIsLoggedIn(false); 
-          localStorage.removeItem('gijo_auth');
-          localStorage.removeItem('gijo_user_name');
-          setForceBoardWrite(false);
-          setBoardFilterAuthor(null);
-        }}
-        setForceBoardWrite={setForceBoardWrite}
-        setBoardFilterAuthor={setBoardFilterAuthor}
-      />
+      {!isLabView && (
+        <Navbar 
+          isLoggedIn={isLoggedIn}
+          userName={userName}
+          userRole={userRole}
+          onLogin={() => {}} 
+          onLogout={() => { 
+            setIsLoggedIn(false); 
+            localStorage.removeItem('gijo_auth');
+            localStorage.removeItem('gijo_user_name');
+            setForceBoardWrite(false);
+            setBoardFilterAuthor(null);
+          }}
+          setForceBoardWrite={setForceBoardWrite}
+          setBoardFilterAuthor={setBoardFilterAuthor}
+        />
+      )}
 
-      <main style={{ paddingTop: (!isLabView) ? '80px' : '0' }}>
+      <main style={{ paddingTop: (!isLabView && location.pathname !== '/gijotour' && location.pathname !== '/gijotour/') ? '80px' : '0' }}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<GijoLab />} />
 
@@ -79,7 +81,7 @@ function App() {
         </Routes>
       </main>
 
-      {!(location.pathname.includes('/admin') || location.pathname.includes('/designer')) && <Footer />}
+      {!isLabView && !(location.pathname.includes('/admin') || location.pathname.includes('/designer')) && <Footer />}
       
     </div>
   );

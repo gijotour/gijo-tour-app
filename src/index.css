@@ -61,26 +61,26 @@
 }
 
 :root {
-  /* Soft Blue Mode Base */
-  --bg-color: #f4f9ff;
-  --bg-gradient: linear-gradient(135deg, #f4f9ff 0%, #e1efff 100%);
+  /* Premium Elite Dark Mode Base */
+  --bg-color: #050a14;
+  --bg-gradient: linear-gradient(135deg, #050a14 0%, #0a1128 100%);
   
   /* Professional Blue Palette */
-  --accent-color: #0066ff;
-  --accent-secondary: #0044cc;
-  --accent-glow: rgba(0, 102, 255, 0.12);
-  --accent-brand: linear-gradient(90deg, #0066ff 0%, #0044cc 100%);
+  --accent-color: #00d2ff;
+  --accent-secondary: #3a7bd5;
+  --accent-glow: rgba(0, 210, 255, 0.2);
+  --accent-brand: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
   
-  /* Typography - Deep Navy for contrast */
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
+  /* Typography - Crisp White for dark contrast */
+  --text-primary: #ffffff;
+  --text-secondary: #b0c4de;
   --text-muted: #64748b;
   
-  /* Glassmorphism Soft 2.0 */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 102, 255, 0.08);
+  /* Glassmorphism Dark */
+  --glass-bg: rgba(10, 17, 40, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --glass-blur: blur(20px);
-  --glass-shadow: 0 10px 30px rgba(0, 82, 255, 0.05);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --radius-premium: 16px;
@@ -4662,4 +4662,48 @@ html {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+}
+
+/* ============================================================
+   Unified Action Buttons (Modal, Form, Cancel, Submit)
+   ============================================================ */
+
+.btn-close-elite, .btn-cancel, .btn-save, .btn-submit-elite, .btn-elite-add {
+  padding: 10px 24px !important;
+  font-size: 0.9rem !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 120px !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* Cancel / Close Buttons - Dark/Muted */
+.btn-close-elite, .btn-cancel {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.btn-close-elite:hover, .btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+
+/* Submit / Save / Add Buttons - Primary Brand */
+.btn-save, .btn-submit-elite, .btn-elite-add {
+  background: var(--accent-brand) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 15px rgba(0, 210, 255, 0.2) !important;
+}
+
+.btn-save:hover, .btn-submit-elite:hover, .btn-elite-add:hover {
+  filter: brightness(1.1) !important;
+  box-shadow: 0 6px 20px rgba(0, 210, 255, 0.4) !important;
+  transform: translateY(-1px) !important;
 }
