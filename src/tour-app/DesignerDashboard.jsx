@@ -24,12 +24,7 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
   });
 
   // 새로운 TV 비디오 등록을 위한 상태
-  const [newTvVideo, setNewTvVideo] = useState({
-    title: '',
-    category: '',
-    youtubeUrl: '',
-    thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop'
-  });
+  const [newTvVideo, setNewTvVideo] = useState({ title: '', category: '', youtubeUrl: '', file: null, thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop' });
 
   const handleAddDay = () => {
     setNewProposal({
@@ -64,10 +59,32 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
     alert('새로운 제안서가 등록되었습니다!');
   };
 
-  const handleSubmitTvVideo = () => {
+  const handleSubmitTvVideo = async () => {
     if (!newTvVideo.title || !newTvVideo.youtubeUrl || !newTvVideo.category) {
       alert('필수 정보를 모두 입력해주세요.');
       return;
+    }
+
+    let finalThumbnail = newTvVideo.thumbnail;
+    
+    // 실제 이미지 파일이 선택된 경우 백엔드(FastAPI)로 업로드
+    if (newTvVideo.file) {
+      const formData = new FormData();
+      formData.append("file", newTvVideo.file);
+      try {
+        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await fetch(`${API_URL}/api/upload`, {
+          method: "POST",
+          body: formData
+        });
+        const data = await res.json();
+        if (data.url) {
+          finalThumbnail = data.url;
+        }
+      } catch (e) {
+        console.error("Image upload failed:", e);
+        alert("이미지 업로드에 실패했습니다. 기본 썸네일이 사용됩니다.");
+      }
     }
 
     // 유튜브 링크 임베드 형식으로 변환 (간단한 처리)
@@ -80,11 +97,12 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
 
     onAddTvVideo({
       ...newTvVideo,
+      thumbnail: finalThumbnail,
       youtubeUrl: embedUrl,
       designer: userName
     });
     setShowTvModal(false);
-    setNewTvVideo({ title: '', category: '', youtubeUrl: '', thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop' });
+    setNewTvVideo({ title: '', category: '', youtubeUrl: '', file: null, thumbnail: 'https://images.unsplash.com/photo-1552465011-b4e21bd6e79a?q=80&w=2039&auto=format&fit=crop' });
     alert('새로운 TV 영상이 등록되었습니다!');
   };
 
@@ -283,6 +301,38 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
             </div>
           </div>
         );
+      case 'reviews':
+        return (
+          <div className="elite-tab-container page-fade-in">
+            <div className="elite-card-header">
+              <h2>고객 리뷰 및 피드백 관리</h2>
+              <p>고객이 남긴 소중한 리뷰에 직접 답변하고 소통하며 서비스 품질을 높이세요.</p>
+            </div>
+            <div className="elite-stats-grid" style={{ gridTemplateColumns: '1fr' }}>
+              <div className="elite-stat-card glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
+                <span style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}>⭐</span>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>고객 리뷰 관리 (개발 중)</h3>
+                <p style={{ color: 'var(--text-muted)' }}>고객이 남긴 소중한 여행 후기를 확인하고 직접 답변을 달 수 있는 기능이 v2.0에 업데이트됩니다.</p>
+              </div>
+            </div>
+          </div>
+        );
+      case 'calendar':
+        return (
+          <div className="elite-tab-container page-fade-in">
+            <div className="elite-card-header">
+              <h2>스마트 여행 캘린더</h2>
+              <p>확정된 일정과 승인 대기 중인 투어 스케줄을 달력으로 한눈에 파악하세요.</p>
+            </div>
+            <div className="elite-stats-grid" style={{ gridTemplateColumns: '1fr' }}>
+              <div className="elite-stat-card glass-card" style={{ padding: '3rem', textAlign: 'center' }}>
+                <span style={{ fontSize: '3rem', display: 'block', marginBottom: '1rem' }}>📅</span>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>스마트 여행 캘린더 (개발 중)</h3>
+                <p style={{ color: 'var(--text-muted)' }}>진행 중인 투어 일정과 승인 대기 건을 달력 형태(FullCalendar 연동)로 한눈에 볼 수 있는 기능이 v2.0에 추가됩니다.</p>
+              </div>
+            </div>
+          </div>
+        );
       case 'proposals':
       default:
         return (
@@ -452,6 +502,22 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
                   />
                 </div>
                 <div className="elite-form-group">
+                  <label>실제 썸네일 이미지 업로드 (FastAPI 연동)</label>
+                  <input 
+                    type="file" 
+                    accept="image/*"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        setNewTvVideo({...newTvVideo, file: e.target.files[0]});
+                      }
+                    }}
+                    style={{ padding: '0.8rem', background: 'rgba(0,0,0,0.2)', border: '1px dashed var(--glass-border)' }}
+                  />
+                  {newTvVideo.file && <span style={{fontSize: '0.8rem', color: '#00d2ff', marginTop: '0.5rem', display: 'block'}}>✓ 파일 선택됨: {newTvVideo.file.name}</span>}
+                </div>
+              </div>
+              <div className="elite-form-row">
+                <div className="elite-form-group" style={{ flex: 1 }}>
                   <label>YouTube 링크</label>
                   <input 
                     type="text" 
