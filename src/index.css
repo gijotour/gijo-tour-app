@@ -3617,3 +3617,35 @@ html {
 .size-modal-overlay {
   display: none !important;
 }
+
+/* Global Menu Font Downsizing & Consistency */
+.nav-link, .m-nav-item, .nav-hub-btn, .dropdown-item, .label-mini {
+  font-size: 0.82rem !important; /* Uniform small size */
+  font-weight: 700 !important;
+}
+
+.label-mini {
+  font-size: 0.6rem !important; /* Even smaller for mini labels */
+  opacity: 0.8;
+}
+
+/* Slim Hub Optimization for 4 items */
+.slim-hub.top-fixed {
+  min-width: 300px !important;
+  gap: 8px !important;
+  padding: 4px 10px !important;
+}
+
+.slim-hub.top-fixed .m-nav-item {
+  flex: 1;
+  padding: 4px !important;
+}
+
+.nav-username {
+  font-size: 0.75rem !important;
+}
+
+/* Ensure dropdown items are also compact */
+.dropdown-item {
+  padding: 8px 12px !important;
+}
