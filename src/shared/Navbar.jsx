@@ -199,7 +199,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation - Only visible on mobile */}
+      {/* Mobile Bottom Navigation - Moved outside for better visibility/stacking */}
       <div className="mobile-bottom-nav">
         <button className={`m-nav-item ${location.pathname === '/gijotour' ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour')}>
           <span className="icon">🏠</span>
@@ -224,7 +224,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         {isLoggedIn ? (
           <div className="m-nav-item-wrapper">
             <button className={`m-nav-item ${isUserMenuOpen ? 'active' : ''}`} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>
-              <div className="nav-avatar mini" style={{ width: '24px', height: '24px', backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+              <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
               <span className="label">내 정보</span>
             </button>
             {isUserMenuOpen && (
