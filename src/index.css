@@ -3169,3 +3169,82 @@ html {
   background: radial-gradient(circle at top right, rgba(0, 210, 255, 0.05), transparent 40%),
               radial-gradient(circle at bottom left, rgba(155, 81, 224, 0.05), transparent 40%);
 }
+
+/* Board Style List (for Designer Showcase) */
+.board-style-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.board-style-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateX(5px);
+  border-color: var(--accent-color);
+}
+
+.board-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.b-region {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  opacity: 0.8;
+}
+
+.b-title {
+  font-size: 1.05rem !important;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 !important;
+}
+
+.b-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+.b-rating { color: #ffcc00; font-weight: 700; }
+
+.board-item-arrow {
+  font-size: 1.2rem;
+  opacity: 0.3;
+  margin-left: 1rem;
+}
+
+@media (max-width: 600px) {
+  .board-style-item {
+    padding: 1rem 0.8rem;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: transparent;
+    margin-bottom: 0;
+  }
+  
+  .b-title {
+    font-size: 0.95rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+  }
+
+  .designer-grid {
+    gap: 0 !important; /* Board-style list has no gaps between rows */
+  }
+}

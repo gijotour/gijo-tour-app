@@ -288,47 +288,16 @@ const DesignerShowcase = ({ packages = [], onRate, selectedRegion = '전체', on
         {packages.length > 0 ? (
           <div className="designer-grid animate-up">
             {packages.map((pkg, index) => (
-              <div key={index} className="package-card glass-card">
-                {pkg.image && (
-                  <div className="package-image">
-                    <img src={pkg.image} alt={pkg.title} />
-                    <div className="image-overlay"></div>
-                    {pkg.youtubeUrl && (
-                      <div className="video-badge">
-                        <span className="video-icon">▶</span> PREMIUM VIDEO
-                      </div>
-                    )}
-                  </div>
-                )}
-                
-                <div className="designer-info">
-                  <div className="profile-img"></div>
-                  <div className="profile-text">
-                    <span className="name">{pkg.designer} 여행설계사</span>
-                    <span className="region">{pkg.region}</span>
-                  </div>
-                  <div className="rating-badge">
-                    <span className="star">★</span> {pkg.rating}
-                    <span className="count">({pkg.reviewCount})</span>
+              <div key={index} className="package-card board-style-item" onClick={() => openDetailModal(pkg)}>
+                <div className="board-item-main">
+                  <span className="b-region">[{pkg.region}]</span>
+                  <h3 className="b-title">{pkg.title}</h3>
+                  <div className="b-meta">
+                    <span className="b-designer">{pkg.designer}</span>
+                    <span className="b-rating">★{pkg.rating}</span>
                   </div>
                 </div>
-                
-                <div className="package-body">
-                  <h3>{pkg.title}</h3>
-                  <ul className="pkg-features">
-                    {pkg.features.map((f, i) => (
-                      <li key={i}>{f}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="package-footer">
-                  <div className="footer-btn-group">
-                    <button className="btn-rate" onClick={() => openRatingModal(pkg)}>평점 남기기</button>
-                    <button className="btn-view-reviews" onClick={() => openReviewList(pkg)}>리뷰 보기</button>
-                  </div>
-                  <button className="btn-detail" onClick={() => openDetailModal(pkg)}>제안서 보기</button>
-                </div>
+                <div className="board-item-arrow">〉</div>
               </div>
             ))}
           </div>
