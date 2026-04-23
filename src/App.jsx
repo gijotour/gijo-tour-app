@@ -62,20 +62,7 @@ function App() {
       <main style={{ paddingTop: (!isLabView) ? '80px' : '0' }}>
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<GijoLab />} />
-          <Route path="/gijotour" element={
-            <GijoTourApp 
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              userRole={userRole}
-              setUserRole={setUserRole}
-              userName={userName}
-              setUserName={setUserName}
-              forceBoardWrite={forceBoardWrite}
-              setForceBoardWrite={setForceBoardWrite}
-              boardFilterAuthor={boardFilterAuthor}
-              setBoardFilterAuthor={setBoardFilterAuthor}
-            />
-          } />
+
           <Route path="/gijotour/*" element={
             <GijoTourApp 
               isLoggedIn={isLoggedIn}

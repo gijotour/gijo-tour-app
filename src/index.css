@@ -6,29 +6,29 @@
 */
 
 :root {
-  /* Ultra Dark Base */
-  --bg-color: #030508;
-  --bg-gradient: linear-gradient(135deg, #030508 0%, #0a0c14 100%);
+  /* Light Mode Base */
+  --bg-color: #ffffff;
+  --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
   
-  /* Electric Cyber Palette */
-  --accent-color: #00d2ff;
-  --accent-secondary: #0066ff;
-  --accent-glow: rgba(0, 210, 255, 0.4);
-  --accent-brand: linear-gradient(90deg, #00d2ff 0%, #0066ff 100%);
+  /* Vibrant Pro Palette */
+  --accent-color: #0066ff;
+  --accent-secondary: #0044cc;
+  --accent-glow: rgba(0, 102, 255, 0.15);
+  --accent-brand: linear-gradient(90deg, #0066ff 0%, #0044cc 100%);
   
-  /* Typography */
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.85);
-  --text-muted: rgba(255, 255, 255, 0.45);
+  /* Typography - Dark for readability */
+  --text-primary: #1a1a1a;
+  --text-secondary: #4a5568;
+  --text-muted: #94a3b8;
   
-  /* Glassmorphism 2.0 */
-  --glass-bg: rgba(255, 255, 255, 0.02);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: blur(25px);
-  --glass-shadow: 0 15px 45px rgba(0, 0, 0, 0.6);
+  /* Glassmorphism Light 2.0 */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   
-  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  --radius-premium: 24px;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-premium: 20px;
   
   font-family: 'Outfit', 'Pretendard', system-ui, sans-serif;
   line-height: 1.6;
@@ -3820,4 +3820,88 @@ html {
     padding: 6px 12px;
     font-size: 0.75rem;
   }
+}
+
+/* Light Mode Mesh & Elements Override */
+.bg-mesh-container {
+  background: var(--bg-gradient) !important;
+}
+
+.mesh-circle.c1 { background: radial-gradient(circle, rgba(0, 102, 255, 0.05) 0%, transparent 70%) !important; }
+.mesh-circle.c2 { background: radial-gradient(circle, rgba(0, 210, 255, 0.05) 0%, transparent 70%) !important; }
+.mesh-circle.c3 { background: radial-gradient(circle, rgba(0, 102, 255, 0.03) 0%, transparent 70%) !important; }
+
+/* Navbar Light Mode */
+.navbar {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(25px) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.nav-links li button {
+  color: var(--text-secondary) !important;
+}
+
+.nav-links li button:hover {
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: var(--accent-color) !important;
+}
+
+.nav-links li button.active {
+  color: var(--accent-color) !important;
+}
+
+/* Sidebar & Cards Light Mode */
+.sidebar-glass {
+  background: rgba(255, 255, 255, 0.6) !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.elite-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+}
+
+.elite-card h2, .elite-card h3 {
+  color: var(--text-primary) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+/* Hub & Dropdowns */
+.elite-nav-hub {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+}
+
+.nav-hub-btn {
+  color: #333 !important;
+}
+
+.nav-hub-dropdown {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+}
+
+.dropdown-item {
+  color: #444 !important;
+}
+
+.dropdown-item:hover {
+  background: #f0f4f8 !important;
+}
+
+/* Auth & Login */
+.login-container {
+  background: #ffffff !important;
+}
+
+.login-card {
+  background: #ffffff !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.1) !important;
 }
