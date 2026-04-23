@@ -57,7 +57,7 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout, uiScale, onScal
               onClick={toggleUserMenu}
               title="내 정보"
             >
-              <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+              <div className="nav-avatar mini">👤</div>
             </button>
             
             {isUserMenuOpen && (
@@ -72,10 +72,10 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout, uiScale, onScal
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                   else navigate('/gijotour');
                   setIsUserMenuOpen(false); 
-                }}>📋 이모저모</button>
-                <button className="dropdown-item" onClick={() => { navigate('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 대쉬보드</button>
+                }}>📋 이모저모 (게시판 글작성)</button>
+                <button className="dropdown-item" onClick={() => { navigate('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 여행설계 하기</button>
                 {userRole === 'admin' && (
-                  <button className="dropdown-item" onClick={() => { navigate('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템</button>
+                  <button className="dropdown-item" onClick={() => { navigate('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템 (관리자)</button>
                 )}
                 <div className="dropdown-divider"></div>
                 <button className="dropdown-item logout" onClick={() => { onLogout(); setIsUserMenuOpen(false); }}>🚪 로그아웃</button>

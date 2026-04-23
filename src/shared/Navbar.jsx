@@ -109,7 +109,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                           className={`nav-user-trigger ${isUserMenuOpen ? 'active' : ''}`}
                           onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                         >
-                          <div className="nav-avatar" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+                          <div className="nav-avatar">👤</div>
                           <span className="nav-username">{userName}님</span>
                           <span className="dropdown-arrow">{isUserMenuOpen ? '▲' : '▼'}</span>
                         </div>
@@ -130,7 +130,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                                     setIsUserMenuOpen(false);
                                   }}
                                 >
-                                  <span className="icon">🛡️</span> 운영자 시스템
+                                  <span className="icon">🛡️</span> 운영 시스템 (관리자)
                                 </button>
                                 <button 
                                   className="dropdown-item"
@@ -139,7 +139,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                                     setIsUserMenuOpen(false);
                                   }}
                                 >
-                                  <span className="icon">👤</span> 설계사 대쉬보드
+                                  <span className="icon">👤</span> 여행설계 하기
                                 </button>
                               </>
                             ) : (
@@ -150,7 +150,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                                   setIsUserMenuOpen(false);
                                 }}
                               >
-                                <span className="icon">⚙️</span> 설계사 대쉬보드
+                                <span className="icon">⚙️</span> 여행설계 하기
                               </button>
                             )}
                             <button 
@@ -161,7 +161,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                                 setIsUserMenuOpen(false);
                               }}
                             >
-                              <span className="icon">✍️</span> 새 소식 등록하기
+                              <span className="icon">✍️</span> 이모저모 (게시판 글작성)
                             </button>
                             <button 
                               className="dropdown-item"
