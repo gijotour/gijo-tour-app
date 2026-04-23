@@ -200,32 +200,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         </div>
       </div>
 
-      {/* Mobile Top-Fixed Slim Navigator - Now with Login */}
-      <div className="mobile-bottom-nav slim-hub top-fixed">
-        <button className={`m-nav-item ${location.pathname.includes('/about') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/about')}>
-          <span className="icon">ℹ️</span>
-          <span className="label-mini">GT 소개</span>
-        </button>
-        <button className="m-nav-item" onClick={() => scrollToSection('designer')}>
-          <span className="icon">📋</span>
-          <span className="label-mini">설계사 제안</span>
-        </button>
-        <button className={`m-nav-item ${location.pathname.includes('/tv') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/tv')}>
-          <span className="icon">📺</span>
-          <span className="label-mini">여행사 TV</span>
-        </button>
-        {isLoggedIn ? (
-          <button className={`m-nav-item ${isUserMenuOpen ? 'active' : ''}`} onClick={() => setIsUserMenuOpen(true)}>
-            <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})`, width: '18px', height: '18px' }}></div>
-            <span className="label-mini">내 정보</span>
-          </button>
-        ) : (
-          <button className="m-nav-item" onClick={() => handleNavClick('/gijotour/login')}>
-            <span className="icon">🔑</span>
-            <span className="label-mini">로그인</span>
-          </button>
-        )}
-      </div>
+
 
       {/* Global Mobile Menu Overlay - Unified Manager */}
       {isLoggedIn && isUserMenuOpen && (
