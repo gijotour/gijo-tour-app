@@ -79,6 +79,9 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           <ul className="nav-links">
             <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
             <li><button className={location.pathname.includes('/about') ? 'active' : ''} onClick={() => handleNavClick('/gijotour/about')}>GT 소개</button></li>
+            {!isLoggedIn && (
+              <li><button onClick={() => handleNavClick('/gijotour/login')}>로그인</button></li>
+            )}
             
             {(location.pathname.startsWith('/gijotour') || isDashboard) && (
               <>
@@ -100,38 +103,49 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                     이모저모
                   </button>
                 </li>
-                <li className="nav-divider"></li>
-                <li className="nav-divider"></li>
-                <li>
-                  {isLoggedIn ? (
-                    <div className="nav-user-dropdown-container">
-                      <div 
-                        className={`nav-user-trigger ${isUserMenuOpen ? 'active' : ''}`}
-                        onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                      >
-                        <div className="nav-avatar" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
-                        <span className="nav-username">{userName}님</span>
-                        <span className="dropdown-arrow">{isUserMenuOpen ? '▲' : '▼'}</span>
-                      </div>
+                {isLoggedIn && (
+                  <>
+                    <li className="nav-divider"></li>
+                    <li>
+                      <div className="nav-user-dropdown-container">
+                        <div 
+                          className={`nav-user-trigger ${isUserMenuOpen ? 'active' : ''}`}
+                          onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                        >
+                          <div className="nav-avatar" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+                          <span className="nav-username">{userName}님</span>
+                          <span className="dropdown-arrow">{isUserMenuOpen ? '▲' : '▼'}</span>
+                        </div>
 
-                      {isUserMenuOpen && (
-                        <div className="nav-dropdown-menu glass-card animate-down">
-                          <div className="dropdown-header">
-                            <span className="user-role">{userRole === 'admin' ? 'SYSTEM ADMIN' : 'TRAVEL DESIGNER'}</span>
-                            <span className="user-name">{userName}</span>
-                          </div>
-                          <div className="dropdown-divider"></div>
-                          {userRole === 'admin' ? (
-                            <>
-                              <button 
-                                className="dropdown-item"
-                                onClick={() => {
-                                  handleNavClick('/gijotour/admin');
-                                  setIsUserMenuOpen(false);
-                                }}
-                              >
-                                <span className="icon">🛡️</span> 운영자 시스템
-                              </button>
+                        {isUserMenuOpen && (
+                          <div className="nav-dropdown-menu glass-card animate-down">
+                            <div className="dropdown-header">
+                              <span className="user-role">{userRole === 'admin' ? 'SYSTEM ADMIN' : 'TRAVEL DESIGNER'}</span>
+                              <span className="user-name">{userName}</span>
+                            </div>
+                            <div className="dropdown-divider"></div>
+                            {userRole === 'admin' ? (
+                              <>
+                                <button 
+                                  className="dropdown-item"
+                                  onClick={() => {
+                                    handleNavClick('/gijotour/admin');
+                                    setIsUserMenuOpen(false);
+                                  }}
+                                >
+                                  <span className="icon">🛡️</span> 운영자 시스템
+                                </button>
+                                <button 
+                                  className="dropdown-item"
+                                  onClick={() => {
+                                    handleNavClick('/gijotour/designer');
+                                    setIsUserMenuOpen(false);
+                                  }}
+                                >
+                                  <span className="icon">👤</span> 설계사 대쉬보드
+                                </button>
+                              </>
+                            ) : (
                               <button 
                                 className="dropdown-item"
                                 onClick={() => {
@@ -139,57 +153,45 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                                   setIsUserMenuOpen(false);
                                 }}
                               >
-                                <span className="icon">👤</span> 설계사 대쉬보드
+                                <span className="icon">⚙️</span> 설계사 대쉬보드
                               </button>
-                            </>
-                          ) : (
+                            )}
                             <button 
                               className="dropdown-item"
                               onClick={() => {
-                                handleNavClick('/gijotour/designer');
+                                setForceBoardWrite(true);
+                                scrollToSection('notice');
                                 setIsUserMenuOpen(false);
                               }}
                             >
-                              <span className="icon">⚙️</span> 설계사 대쉬보드
+                              <span className="icon">✍️</span> 새 소식 등록하기
                             </button>
-                          )}
-                          <button 
-                            className="dropdown-item"
-                            onClick={() => {
-                              setForceBoardWrite(true);
-                              scrollToSection('notice');
-                              setIsUserMenuOpen(false);
-                            }}
-                          >
-                            <span className="icon">✍️</span> 새 소식 등록하기
-                          </button>
-                          <button 
-                            className="dropdown-item"
-                            onClick={() => {
-                              setBoardFilterAuthor(userName);
-                              scrollToSection('notice');
-                              setIsUserMenuOpen(false);
-                            }}
-                          >
-                            <span className="icon">🗂️</span> 내 게시물 관리
-                          </button>
-                          <div className="dropdown-divider"></div>
-                          <button 
-                            className="dropdown-item logout"
-                            onClick={() => {
-                              onLogout();
-                              setIsUserMenuOpen(false);
-                            }}
-                          >
-                            <span className="icon">🚪</span> 로그아웃
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <button className="btn-login-trigger" onClick={() => handleNavClick('/gijotour/login')}>여행설계사 로그인</button>
-                  )}
-                </li>
+                            <button 
+                              className="dropdown-item"
+                              onClick={() => {
+                                setBoardFilterAuthor(userName);
+                                scrollToSection('notice');
+                                setIsUserMenuOpen(false);
+                              }}
+                            >
+                              <span className="icon">🗂️</span> 내 게시물 관리
+                            </button>
+                            <div className="dropdown-divider"></div>
+                            <button 
+                              className="dropdown-item logout"
+                              onClick={() => {
+                                onLogout();
+                                setIsUserMenuOpen(false);
+                              }}
+                            >
+                              <span className="icon">🚪</span> 로그아웃
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </li>
+                  </>
+                )}
               </>
             )}
 
