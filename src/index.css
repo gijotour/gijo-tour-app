@@ -2876,32 +2876,39 @@ html {
 
 @media (max-width: 600px) {
   :root {
-    --glass-blur: blur(15px); /* Reduce blur cost on mobile */
+    --glass-blur: blur(15px);
+    /* Strict Mobile Typography Scale */
+    --m-fs-h1: 1.5rem;
+    --m-fs-h2: 1.2rem;
+    --m-fs-h3: 1.0rem;
+    --m-fs-base: 0.85rem;
+    --m-fs-sm: 0.75rem;
+    --m-fs-xs: 0.65rem;
   }
 
-  h1 { font-size: 2.2rem !important; }
-  h2 { font-size: 1.8rem !important; }
-  h3 { font-size: 1.4rem !important; }
+  h1 { font-size: var(--m-fs-h1) !important; letter-spacing: -0.5px; }
+  h2 { font-size: var(--m-fs-h2) !important; }
+  h3 { font-size: var(--m-fs-h3) !important; }
+  p, div, span, button { font-size: var(--m-fs-base); }
   
-  .hero-main-title { font-size: 3rem !important; }
-  .hero-description { font-size: 1rem !important; }
+  .hero-main-title { font-size: 2.2rem !important; }
+  .hero-description { font-size: var(--m-fs-base) !important; }
   
   /* Dashboard Specific Scaling */
-  .dashboard-main-elite h1 { font-size: 1.2rem !important; }
-  .dashboard-main-elite h2 { font-size: 1.0rem !important; }
-  .dashboard-main-elite p { font-size: 0.8rem !important; }
-  .stat-value { font-size: 1.8rem !important; }
-  .stat-label { font-size: 0.75rem !important; }
+  .dashboard-main-elite h1 { font-size: var(--m-fs-h1) !important; }
+  .dashboard-main-elite h2 { font-size: var(--m-fs-h2) !important; }
+  .dashboard-main-elite p { font-size: var(--m-fs-base) !important; }
+  .stat-value { font-size: 1.4rem !important; }
+  .stat-label { font-size: var(--m-fs-xs) !important; }
   
-  .elite-stat-card { padding: 1.2rem !important; }
-  .elite-stat-card .stat-value { font-size: 1.5rem !important; }
+  .elite-stat-card .stat-value { font-size: 1.2rem !important; }
   
-  .elite-input-wrap label { font-size: 0.75rem !important; }
-  .elite-input-wrap input { padding: 10px !important; font-size: 0.9rem !important; }
+  .elite-input-wrap label { font-size: var(--m-fs-sm) !important; }
+  .elite-input-wrap input { padding: 10px !important; font-size: var(--m-fs-base) !important; }
   
   /* Navbar adjustments */
-  .nav-username { font-size: 0.8rem !important; max-width: 80px; overflow: hidden; text-overflow: ellipsis; }
-  .navbar { height: 70px !important; }
+  .nav-username { font-size: var(--m-fs-sm) !important; max-width: 60px; }
+  .navbar { height: 60px !important; }
 }
 
 /* Mobile Bottom Navigation Styles */
