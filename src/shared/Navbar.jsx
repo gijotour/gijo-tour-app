@@ -78,6 +78,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           )}
           <ul className="nav-links">
             <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
+            <li><button className={location.pathname.includes('/about') ? 'active' : ''} onClick={() => handleNavClick('/gijotour/about')}>GT 소개</button></li>
             
             {(location.pathname.startsWith('/gijotour') || isDashboard) && (
               <>
@@ -204,6 +205,10 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         <button className={`m-nav-item ${location.pathname === '/gijotour' ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour')}>
           <span className="icon">🏠</span>
           <span className="label">홈</span>
+        </button>
+        <button className={`m-nav-item ${location.pathname.includes('/about') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/about')}>
+          <span className="icon">ℹ️</span>
+          <span className="label">GT 소개</span>
         </button>
         {isLoggedIn && (
           <button className={`m-nav-item ${location.pathname.includes('/designer') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/designer')}>

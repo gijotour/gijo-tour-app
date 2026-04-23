@@ -294,7 +294,6 @@ function GijoTourApp({
         <Route index element={
           <>
             <Hero />
-            <B2BInfo />
             <NoticeBoard 
               notices={safeNotices} 
               isLoggedIn={isLoggedIn}
@@ -314,15 +313,19 @@ function GijoTourApp({
               selectedRegion={selectedRegion}
               onStartPayment={handleStartPayment}
             />
+          </>
+        } />
+        <Route path="about" element={
+          <div className="page-fade-in">
+            <B2BInfo />
             <RegionSelector
               selectedRegion={selectedRegion}
               onSelectRegion={(region) => {
                 setSelectedRegion(region);
-                const el = document.getElementById('designer');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                navigate('/gijotour'); // 선택 시 메인 쇼케이스로 이동
               }}
             />
-          </>
+          </div>
         } />
         <Route path="tv" element={<DesignerTV videos={safeTvVideos} />} />
         <Route path="login" element={
