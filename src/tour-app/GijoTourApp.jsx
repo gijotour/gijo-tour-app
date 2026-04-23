@@ -295,17 +295,10 @@ function GijoTourApp({
           <>
             <Hero />
             {!isLoggedIn && (
-              <div className="body-login-banner animate-up">
-                <div className="login-cta-card glass-card">
-                  <div className="cta-header">
-                    <span className="badge">PARTNER LOGIN</span>
-                    <h3>여행설계사 시스템 접속</h3>
-                  </div>
-                  <p className="cta-desc">기조투어 파트너사 및 설계사 전용 관리 도구입니다.</p>
-                  <button className="btn-body-login" onClick={() => navigate('/gijotour/login')}>
-                    지금 로그인하기 <span className="arrow">→</span>
-                  </button>
-                </div>
+              <div className="body-top-right-login animate-fade-in">
+                <button className="btn-compact-login glass-card" onClick={() => navigate('/gijotour/login')}>
+                  <span className="icon">🔑</span> 여행설계사 로그인
+                </button>
               </div>
             )}
             <NoticeBoard 
