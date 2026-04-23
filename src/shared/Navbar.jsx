@@ -79,9 +79,6 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           <ul className="nav-links">
             <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
             <li><button className={location.pathname.includes('/about') ? 'active' : ''} onClick={() => handleNavClick('/gijotour/about')}>GT 소개</button></li>
-            {!isLoggedIn && (
-              <li><button onClick={() => handleNavClick('/gijotour/login')}>로그인</button></li>
-            )}
             
             {(location.pathname.startsWith('/gijotour') || isDashboard) && (
               <>

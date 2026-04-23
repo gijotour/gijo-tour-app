@@ -3697,3 +3697,79 @@ html {
 .dropdown-item {
   padding: 8px 12px !important;
 }
+
+/* Body Login Banner Styling */
+.body-login-banner {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.login-cta-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 2.5rem;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cta-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cta-header .badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--accent-color);
+  letter-spacing: 1px;
+}
+
+.cta-header h3 {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #fff;
+}
+
+.cta-desc {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  flex: 1;
+  margin-left: 3rem;
+}
+
+.btn-body-login {
+  background: var(--accent-brand);
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-body-login:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(var(--accent-brand-rgb), 0.3);
+}
+
+@media (max-width: 768px) {
+  .login-cta-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+  .cta-desc {
+    margin-left: 0;
+  }
+}
