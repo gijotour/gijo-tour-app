@@ -3566,3 +3566,54 @@ html {
   transform-origin: center top !important;
   transition: transform 0.3s ease-in-out;
 }
+
+/* Bottom-up Pop-up Menus */
+.nav-hub-dropdown {
+  position: absolute !important;
+  bottom: 65px !important; /* Positioned above the hub */
+  top: auto !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 240px !important;
+  max-height: 70vh !important;
+  z-index: 100010 !important;
+  padding: 1.2rem !important;
+}
+
+.animate-up-bottom {
+  animation: slideUpBottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUpBottom {
+  from { transform: translate(-50%, 20px); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* Hub Size Grid Styling */
+.hub-size-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.hub-size-btn {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.hub-size-btn.active {
+  background: var(--accent-brand);
+  color: #000;
+  border-color: transparent;
+}
+
+/* Ensure the floating modal from before is replaced or hidden */
+.size-modal-overlay {
+  display: none !important;
+}

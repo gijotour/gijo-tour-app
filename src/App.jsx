@@ -104,8 +104,9 @@ function App() {
           localStorage.removeItem('gijo_auth');
           localStorage.removeItem('gijo_user_name');
         }}
+        uiScale={uiScale}
+        onScaleChange={setUiScale}
       />
-      <SizeControl uiScale={uiScale} onScaleChange={setUiScale} />
     </div>
   );
 }
