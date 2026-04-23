@@ -224,7 +224,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
             <span className="user-role">{userRole === 'admin' ? 'ADMIN' : 'DESIGNER'}</span>
           </div>
           <div className="dropdown-divider"></div>
-          <button className="dropdown-item" onClick={() => { scrollToSection('notice'); setIsUserMenuOpen(false); }}>📋 이모저모 (게시판)</button>
+          <button className="dropdown-item" onClick={() => { scrollToSection('notice'); setIsUserMenuOpen(false); }}>📋 이모저모</button>
           <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 설계사 대쉬보드</button>
           {userRole === 'admin' && (
             <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템</button>

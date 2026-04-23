@@ -51,7 +51,7 @@ const NavigateHub = ({ isLoggedIn, userName, userRole, onLogout }) => {
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                   else navigate('/gijotour');
                   setIsUserMenuOpen(false); 
-                }}>📋 이모저모 (게시판)</button>
+                }}>📋 이모저모</button>
                 <button className="dropdown-item" onClick={() => { navigate('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 대쉬보드</button>
                 {userRole === 'admin' && (
                   <button className="dropdown-item" onClick={() => { navigate('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템</button>

@@ -2956,28 +2956,40 @@ html {
     border-color: transparent !important;
   }
   
-  /* Center Floating User Menu - Compact Scaling */
+  /* Center Floating User Menu - Slim & Wide Tuning */
   .mobile-user-dropdown, .nav-hub-dropdown {
     position: fixed !important;
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    width: 80% !important;
-    max-width: 280px !important;
+    width: 90% !important; /* Wider as requested */
+    max-width: 320px !important;
     bottom: auto !important;
     z-index: 100002 !important;
-    padding: 1.5rem !important;
-    border-radius: 20px !important;
+    padding: 1rem !important; /* Narrower vertical space */
+    border-radius: 18px !important;
     box-shadow: 0 20px 60px rgba(0,0,0,0.8), 0 0 0 1000px rgba(0,0,0,0.6) !important;
+    max-height: 85vh !important; /* Prevent cutting off */
+    overflow-y: auto !important;
+    display: flex;
+    flex-direction: column;
   }
 
-  .dropdown-header .user-name { font-size: 1rem !important; }
-  .dropdown-header .user-role { font-size: 0.7rem !important; }
+  .dropdown-header {
+    margin-bottom: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .dropdown-header .user-name { font-size: 0.95rem !important; }
+  .dropdown-header .user-role { font-size: 0.65rem !important; }
+
+  .dropdown-divider {
+    margin: 8px 0 !important; /* Narrower gap */
+  }
 
   .dropdown-item {
-    padding: 12px 10px !important;
-    font-size: 0.85rem !important; /* Smaller text as requested */
-    margin-bottom: 5px !important;
+    padding: 10px 12px !important; /* Slimmer rows */
+    font-size: 0.82rem !important; 
+    margin-bottom: 2px !important; /* Minimum vertical gap */
   }
 
   /* Absolute Removal of GT Headers/Menus on Mobile Dashboards */
@@ -2993,7 +3005,7 @@ html {
   .designer-main-content, .admin-main-content {
     margin-left: 0 !important;
     padding: 10px !important;
-    margin-top: 0 !important; /* Remove top gap since header is gone */
+    margin-top: 0 !important;
   }
   
   .nav-username { font-size: var(--m-fs-sm) !important; max-width: 60px; }
