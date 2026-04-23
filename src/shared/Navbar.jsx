@@ -67,6 +67,15 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         </button>
         
         <div className={`nav-capsule ${isMenuOpen ? 'open' : ''}`}>
+          {isLoggedIn && (
+            <div className="mobile-nav-profile">
+              <div className="nav-avatar" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+              <div className="mobile-profile-info">
+                <span className="name">{userName}님</span>
+                <span className="role">{userRole === 'admin' ? 'SYSTEM ADMIN' : 'TRAVEL DESIGNER'}</span>
+              </div>
+            </div>
+          )}
           <ul className="nav-links">
             <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
             

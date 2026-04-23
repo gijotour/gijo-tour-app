@@ -2935,36 +2935,58 @@ html {
   }
   
   .elite-dashboard-content {
-    zoom: 0.85; /* Scale down the whole content */
+    zoom: 0.8; /* More aggressive scaling */
   }
   
   .elite-stat-card {
-    padding: 0.8rem !important;
-    margin-bottom: 0.5rem !important;
+    padding: 0.6rem !important;
+    margin-bottom: 0.4rem !important;
   }
   
   .elite-stat-grid, .elite-stats-grid {
-    gap: 0.5rem !important;
-  }
-  
-  .elite-table-box {
-    padding: 0.5rem !important;
-  }
-  
-  .elite-card-header, .elite-card-header-flex {
-    margin-bottom: 1rem !important;
-  }
-  
-  .elite-proposal-grid {
-    gap: 0.8rem !important;
-  }
-
-  .sidebar-menu-elite {
-    padding: 0.5rem !important;
+    gap: 0.4rem !important;
   }
   
   .menu-item-elite {
-    padding: 8px 12px !important;
-    font-size: 0.75rem !important;
+    padding: 6px 10px !important;
+    font-size: 0.7rem !important;
+  }
+  
+  .nav-capsule.open {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
   }
 }
+
+/* Mobile Nav Profile Section */
+.mobile-nav-profile {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 15px;
+}
+
+.mobile-profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-profile-info .name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.mobile-profile-info .role {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  opacity: 0.8;
+  letter-spacing: 1px;
+}
+
