@@ -200,30 +200,20 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation - Ultra Compact Version */}
-      <div className="mobile-bottom-nav slim-hub">
-        <button className={`m-nav-item ${location.pathname === '/gijotour' ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour')}>
-          <span className="icon">🏠</span>
-        </button>
+      {/* Mobile Top-Fixed Slim Navigator */}
+      <div className="mobile-bottom-nav slim-hub top-fixed">
         <button className={`m-nav-item ${location.pathname.includes('/about') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/about')}>
           <span className="icon">ℹ️</span>
+          <span className="label-mini">GT 소개</span>
         </button>
-        {isLoggedIn ? (
-          <button 
-            className={`m-nav-item user-trigger ${isUserMenuOpen ? 'active' : ''}`} 
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setIsUserMenuOpen(!isUserMenuOpen);
-            }}
-          >
-            <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})`, pointerEvents: 'none' }}></div>
-          </button>
-        ) : (
-          <button className="m-nav-item" onClick={() => handleNavClick('/gijotour/login')}>
-            <span className="icon">🔑</span>
-          </button>
-        )}
+        <button className="m-nav-item" onClick={() => scrollToSection('designer')}>
+          <span className="icon">📋</span>
+          <span className="label-mini">설계사 제안</span>
+        </button>
+        <button className={`m-nav-item ${location.pathname.includes('/tv') ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour/tv')}>
+          <span className="icon">📺</span>
+          <span className="label-mini">여행사 TV</span>
+        </button>
       </div>
 
       {/* Global Mobile Menu Overlay - Unified Manager */}

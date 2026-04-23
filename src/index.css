@@ -3398,3 +3398,36 @@ html {
     display: none !important;
   }
 }
+
+/* Top-Fixed Slim Navigator */
+.slim-hub.top-fixed {
+  bottom: auto !important;
+  top: 75px !important; /* Positioned just below the main navbar */
+  z-index: 9999 !important;
+  min-width: 280px !important;
+  padding: 4px 15px !important;
+}
+
+.label-mini {
+  font-size: 0.6rem !important;
+  font-weight: 700;
+  margin-top: 2px;
+  display: block;
+}
+
+.slim-hub.top-fixed .m-nav-item {
+  flex-direction: column !important;
+  height: auto !important;
+  padding: 5px 10px !important;
+}
+
+.slim-hub.top-fixed .icon {
+  font-size: 1rem !important;
+}
+
+@media (max-width: 600px) {
+  /* Ensure the app main content has space for the fixed top sub-nav */
+  .gijo-tour-main-layout {
+    padding-top: 40px !important;
+  }
+}
