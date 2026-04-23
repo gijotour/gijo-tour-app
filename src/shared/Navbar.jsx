@@ -199,7 +199,7 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
         </div>
       </div>
 
-      {/* Mobile Bottom Navigation - Moved outside for better visibility/stacking */}
+      {/* Mobile Bottom Navigation - Unified & Simplified for best touch reliability */}
       <div className="mobile-bottom-nav">
         <button className={`m-nav-item ${location.pathname === '/gijotour' ? 'active' : ''}`} onClick={() => handleNavClick('/gijotour')}>
           <span className="icon">🏠</span>
@@ -222,26 +222,17 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           <span className="label">이모저모</span>
         </button>
         {isLoggedIn ? (
-          <div className="m-nav-item-wrapper">
-            <button className={`m-nav-item ${isUserMenuOpen ? 'active' : ''}`} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>
-              <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
-              <span className="label">내 정보</span>
-            </button>
-            {isUserMenuOpen && (
-              <div className="mobile-user-dropdown glass-card animate-up">
-                <div className="dropdown-header">
-                  <span className="user-name">{userName}님</span>
-                  <span className="user-role">{userRole === 'admin' ? 'ADMIN' : 'DESIGNER'}</span>
-                </div>
-                <div className="dropdown-divider"></div>
-                {userRole === 'admin' && (
-                  <button className="dropdown-item" onClick={() => handleNavClick('/gijotour/admin')}>🛡️ 운영 시스템</button>
-                )}
-                <button className="dropdown-item" onClick={() => handleNavClick('/gijotour/designer')}>👤 대쉬보드</button>
-                <button className="dropdown-item logout" onClick={onLogout}>🚪 로그아웃</button>
-              </div>
-            )}
-          </div>
+          <button 
+            className={`m-nav-item ${isUserMenuOpen ? 'active' : ''}`} 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setIsUserMenuOpen(!isUserMenuOpen);
+            }}
+          >
+            <div className="nav-avatar mini" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})`, pointerEvents: 'none' }}></div>
+            <span className="label" style={{ pointerEvents: 'none' }}>내 정보</span>
+          </button>
         ) : (
           <button className="m-nav-item" onClick={() => handleNavClick('/gijotour/login')}>
             <span className="icon">🔑</span>
@@ -249,6 +240,22 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           </button>
         )}
       </div>
+
+      {/* Global Mobile Menu Overlay - Outside for perfect stacking */}
+      {isLoggedIn && isUserMenuOpen && (
+        <div className="mobile-user-dropdown glass-card animate-up" onClick={(e) => e.stopPropagation()}>
+          <div className="dropdown-header">
+            <span className="user-name">{userName}님</span>
+            <span className="user-role">{userRole === 'admin' ? 'ADMIN' : 'DESIGNER'}</span>
+          </div>
+          <div className="dropdown-divider"></div>
+          {userRole === 'admin' && (
+            <button className="dropdown-item" onClick={() => handleNavClick('/gijotour/admin')}>🛡️ 운영 시스템</button>
+          )}
+          <button className="dropdown-item" onClick={() => handleNavClick('/gijotour/designer')}>👤 대쉬보드</button>
+          <button className="dropdown-item logout" onClick={onLogout}>🚪 로그아웃</button>
+        </div>
+      )}
 
       {isLoggedIn && (
         <button 
