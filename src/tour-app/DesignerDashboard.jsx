@@ -534,11 +534,12 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
         @media (max-width: 900px) {
           .designer-dashboard-elite { flex-direction: column; }
           .sidebar-elite { width: 100%; height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-          .sidebar-menu-elite { flex-direction: row; overflow-x: auto; padding: 1rem; gap: 0.5rem; }
-          .menu-item-elite { padding: 10px 15px; font-size: 0.85rem; white-space: nowrap; }
+          .sidebar-menu-elite { flex-direction: row; overflow-x: auto; padding: 0.5rem; gap: 0.3rem; }
+          .menu-item-elite { padding: 6px 12px; font-size: 0.75rem; white-space: nowrap; border-radius: 8px; }
+          .menu-item-elite .icon { margin-right: 6px; font-size: 0.9rem; }
           .sidebar-footer-elite { display: none; }
-          .dashboard-main-elite { padding: 1rem; }
-          .elite-dashboard-content { padding: 0.5rem; }
+          .dashboard-main-elite { padding: 0.5rem; }
+          .elite-dashboard-content { padding: 0.2rem; }
           .elite-stat-grid { grid-template-columns: repeat(2, 1fr); }
         }
 

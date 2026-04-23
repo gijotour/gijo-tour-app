@@ -149,8 +149,9 @@ const styles = `
   @media (max-width: 900px) {
     .dashboard-elite-layout { flex-direction: column; }
     .elite-sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .sidebar-nav-elite { flex-direction: row; overflow-x: auto; padding: 1rem; gap: 0.5rem; }
-    .nav-item-elite { padding: 10px 15px; font-size: 0.85rem; white-space: nowrap; }
+    .sidebar-nav-elite { flex-direction: row; overflow-x: auto; padding: 0.5rem; gap: 0.3rem; }
+    .nav-item-elite { padding: 6px 12px; font-size: 0.75rem; white-space: nowrap; border-radius: 8px; }
+    .nav-item-elite .icon { font-size: 0.9rem; margin-right: 5px; }
     .sidebar-footer-elite { display: none; }
     .dashboard-main-elite { padding: 1rem; }
     .elite-stats-grid { grid-template-columns: repeat(2, 1fr); }

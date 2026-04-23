@@ -212,6 +212,17 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
           <span className="icon">📋</span>
           <span className="label">이모저모</span>
         </button>
+        {isLoggedIn ? (
+          <button className={`m-nav-item ${isUserMenuOpen ? 'active' : ''}`} onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}>
+            <div className="nav-avatar mini" style={{ width: '24px', height: '24px', backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
+            <span className="label">내 정보</span>
+          </button>
+        ) : (
+          <button className="m-nav-item" onClick={() => handleNavClick('/gijotour/login')}>
+            <span className="icon">🔑</span>
+            <span className="label">로그인</span>
+          </button>
+        )}
       </div>
     </nav>
   );
