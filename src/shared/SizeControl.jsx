@@ -20,29 +20,41 @@ const SizeControl = ({ uiScale, onScaleChange }) => {
         <span className="icon">Aa</span>
       </button>
 
-      <div className="size-menu glass-card">
-        <div className="menu-header">
-          <span>화면 크기 조절</span>
-          <button className="close-mini" onClick={() => setIsOpen(false)}>&times;</button>
+      {isOpen && (
+        <div className="size-modal-overlay" onClick={() => setIsOpen(false)}>
+          <div className="size-menu-centered glass-card animate-up" onClick={(e) => e.stopPropagation()}>
+            <div className="menu-header">
+              <h3>화면 및 글자 크기 가이드</h3>
+              <button className="close-btn" onClick={() => setIsOpen(false)}>&times;</button>
+            </div>
+            
+            <div className="scale-guide-grid">
+              {[
+                { label: '작게', value: 0.9, desc: '촘촘한 정보 확인' },
+                { label: '보통', value: 1.0, desc: '표준 권장 크기' },
+                { label: '크게', value: 1.15, desc: '편안한 가독성' },
+                { label: '최대', value: 1.3, desc: '시원한 큰 글씨' }
+              ].map((s) => (
+                <button
+                  key={s.label}
+                  className={`guide-btn ${uiScale === s.value ? 'active' : ''}`}
+                  onClick={() => {
+                    onScaleChange(s.value);
+                  }}
+                >
+                  <span className="g-label">{s.label}</span>
+                  <span className="g-desc">{s.desc}</span>
+                </button>
+              ))}
+            </div>
+            
+            <div className="menu-footer">
+              <p>선택하신 가이드에 맞춰 화면 전체가 중앙 정렬됩니다.</p>
+              <button className="btn-confirm" onClick={() => setIsOpen(false)}>적용 완료</button>
+            </div>
+          </div>
         </div>
-        <div className="scale-options">
-          {scales.map((s) => (
-            <button
-              key={s.label}
-              className={`scale-btn ${uiScale === s.value ? 'active' : ''}`}
-              onClick={() => {
-                onScaleChange(s.value);
-                // 모바일에서는 선택 시 메뉴 닫기 유인
-                if (window.innerWidth < 768) setIsOpen(false);
-              }}
-              title={s.title}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-        <p className="scale-hint">전체 글자와 UI 크기가 조정됩니다.</p>
-      </div>
+      )}
     </div>
   );
 };

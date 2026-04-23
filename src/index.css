@@ -3478,3 +3478,91 @@ html {
     padding-top: 40px !important;
   }
 }
+
+/* Centered Size Control Modal */
+.size-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100005;
+}
+
+.size-menu-centered {
+  width: 90%;
+  max-width: 340px;
+  padding: 2rem;
+  text-align: center;
+  border-radius: 24px;
+}
+
+.size-menu-centered h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent-color);
+}
+
+.scale-guide-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.guide-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.3s;
+}
+
+.guide-btn.active {
+  background: var(--accent-brand);
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+.guide-btn .g-label {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #fff;
+}
+.guide-btn.active .g-label { color: #000; }
+
+.guide-btn .g-desc {
+  font-size: 0.65rem;
+  opacity: 0.6;
+}
+.guide-btn.active .g-desc { color: #000; opacity: 0.8; }
+
+.menu-footer p {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-bottom: 1.5rem;
+}
+
+.btn-confirm {
+  width: 100%;
+  padding: 12px;
+  background: #fff;
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+}
+
+/* Ensure centering when scaled */
+.app-main {
+  transform-origin: center top !important;
+  transition: transform 0.3s ease-in-out;
+}
