@@ -4,6 +4,61 @@
   GIJO TOUR - State-of-the-Art Design System
   Elite B2B Architecture
 */
+/* Premium Signature Logo */
+.brand-logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+}
+
+.brand-logo-wrapper:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--accent-brand);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.15);
+}
+
+.gt-symbol {
+  background: var(--accent-brand);
+  color: #000;
+  font-weight: 900;
+  font-size: 0.8rem;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  letter-spacing: -0.5px;
+}
+
+.logo-text-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Outfit', sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.logo-gijo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.logo-tour {
+  font-weight: 300;
+  font-size: 1.3rem;
+  background: var(--accent-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+}
 
 :root {
   /* Ultra Dark Base */
@@ -292,15 +347,14 @@ button, .btn {
 /* Designer Showcase Polish */
 .navbar {
   position: fixed;
-  top: 0; left: 0; width: 100%;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  z-index: 10000;
-  transition: var(--transition-smooth);
-  background: rgba(3, 5, 8, 0.75);
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 0;
+  background: rgba(3, 5, 8, 0.85);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: var(--transition-smooth);
 }
 
 .navbar.scrolled {
@@ -1059,6 +1113,115 @@ button, .btn {
   opacity: 1;
 }
 
+.nav-container-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.nav-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.nav-user-dropdown {
+  position: absolute;
+  top: 45px;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  z-index: 10002;
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+}
+
+.nav-user-badge {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  min-width: 32px;
+  width: auto;
+  height: 32px;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-smooth);
+}
+
+.nav-user-badge:hover, .nav-user-badge.active {
+  background: var(--accent-brand);
+  color: #000;
+  border-color: transparent;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.2);
+}
+
+.btn-close-dropdown {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--text-secondary);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.btn-close-dropdown:hover {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+.fab-mobile {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+  background: var(--accent-brand);
+  color: #000;
+  border-radius: 50%;
+  display: flex !important; /* 무조건 표시 */
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 0 30px var(--accent-glow), 0 10px 40px rgba(0, 0, 0, 0.5);
+  z-index: 1000000 !important; /* 최상단 강제 */
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.fab-mobile:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 0 50px var(--accent-color);
+}
+
+.fab-mobile.active {
+  transform: rotate(90deg) scale(0.9);
+  background: #fff;
+  color: #000;
+}
+
 .play-button-icon {
   width: 60px;
   height: 60px;
@@ -1693,6 +1856,62 @@ button, .btn {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-container {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* 3-column layout for centering */
+  align-items: center;
+  width: 100%;
+}
+
+.nav-links {
+  display: flex;
+  gap: 3rem;
+  list-style: none;
+  justify-content: center;
+}
+
+.nav-links li button {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  position: relative;
+  transition: var(--transition-smooth);
+}
+
+.nav-links li button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-brand);
+  transition: var(--transition-smooth);
+}
+
+.nav-links li button:hover {
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.nav-links li button:hover::after {
+  width: 100%;
+}
+
+.nav-links li button.active {
+  color: var(--accent-color);
+}
+
+.nav-links li button.active::after {
+  width: 100%;
 }
 
 .header-breadcrumbs {
@@ -3820,4 +4039,595 @@ html {
     padding: 6px 12px;
     font-size: 0.75rem;
   }
+}
+
+/* ============================================================
+   Compact Form & Modal Optimizations
+   (Reduced scale to fit on screen without excessive scrolling)
+   ============================================================ */
+
+.elite-wide-modal {
+  max-width: 700px !important;
+  max-height: 88vh !important;
+  padding: 1.2rem !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header-elite {
+  margin-bottom: 0.8rem !important;
+  flex-shrink: 0;
+}
+
+.modal-header-elite h2 {
+  font-size: 1.2rem !important;
+}
+
+.modal-header-elite p {
+  font-size: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.modal-body-elite {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 1rem;
+}
+
+.elite-form-group {
+  margin-bottom: 0.6rem !important;
+}
+
+.elite-form-group label {
+  font-size: 0.7rem !important;
+  margin-bottom: 3px !important;
+  opacity: 0.6;
+}
+
+.elite-form-group input, 
+.elite-form-group textarea,
+.elite-form-group select {
+  padding: 8px 12px !important;
+  font-size: 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+.elite-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem !important;
+}
+
+.itinerary-row-elite {
+  padding: 6px !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
+.day-count {
+  font-size: 0.65rem !important;
+  padding: 2px 6px !important;
+}
+
+.btn-submit-elite {
+  padding: 8px 20px !important;
+  font-size: 0.85rem !important;
+  border-radius: 8px !important;
+}
+
+/* Notice Board Write Form Compact Version */
+.notice-write-form {
+  max-width: 650px !important;
+  padding: 1.2rem !important;
+  margin: 0 auto 2rem !important;
+  border-radius: 16px !important;
+}
+
+.notice-write-form h3 {
+  font-size: 1.4rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.notice-write-form .form-group {
+  margin-bottom: 0.8rem !important;
+}
+
+.notice-write-form label {
+  font-size: 0.75rem !important;
+}
+
+.notice-write-form input,
+.notice-write-form textarea {
+  padding: 10px !important;
+  font-size: 0.9rem !important;
+}
+
+.write-actions {
+  margin-top: 1.2rem !important;
+  gap: 0.8rem !important;
+}
+
+.btn-cancel, .btn-save {
+  padding: 8px 20px !important;
+  font-size: 0.85rem !important;
+}
+
+@media (max-height: 800px) {
+  .elite-wide-modal {
+    max-height: 95vh !important;
+  }
+}
+
+/* ============================================================
+   Elite Dashboard High-Density Optimization
+   (Reduced font sizes and maximized screen space)
+   ============================================================ */
+
+.dashboard-elite-layout {
+  font-size: 0.85rem !important; /* Global Dashboard Font Scale Down */
+}
+
+.elite-sidebar {
+  width: 220px !important; /* Slimmer Sidebar */
+  padding: 1.5rem 1rem !important;
+}
+
+.sidebar-brand h2 {
+  font-size: 1.2rem !important;
+}
+
+.nav-item-elite {
+  padding: 10px 14px !important;
+  font-size: 0.75rem !important;
+  margin-bottom: 4px !important;
+}
+
+.dashboard-main-elite {
+  padding: 1.2rem !important;
+}
+
+.elite-dashboard-content {
+  padding: 0 !important;
+}
+
+.elite-stat-card {
+  padding: 1rem !important;
+}
+
+.stat-label {
+  font-size: 0.65rem !important;
+}
+
+.stat-value {
+  font-size: 1.5rem !important;
+}
+
+.elite-card-header h2 {
+  font-size: 1.3rem !important;
+}
+
+.elite-card-header p {
+  font-size: 0.8rem !important;
+}
+
+/* Compact Tables */
+.elite-dashboard-table th {
+  padding: 10px !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 1px;
+}
+
+.elite-dashboard-table td {
+  padding: 10px !important;
+  font-size: 0.8rem !important;
+}
+
+.elite-dashboard-table td img {
+  width: 50px !important; /* Smaller thumbnails */
+}
+
+/* Compact Grids */
+.elite-proposal-grid {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+.elite-proposal-card {
+  padding: 1rem !important;
+}
+
+.elite-proposal-card h3 {
+  font-size: 1rem !important;
+  margin: 0.5rem 0 !important;
+}
+
+.p-tag, .p-badge {
+  font-size: 0.6rem !important;
+  padding: 2px 8px !important;
+}
+
+.btn-p-view {
+  padding: 5px 12px !important;
+  font-size: 0.75rem !important;
+}
+
+/* Admin Specific */
+.admin-stats-summary {
+  gap: 1rem !important;
+}
+
+.admin-action-btn {
+  padding: 6px 14px !important;
+  font-size: 0.75rem !important;
+}
+
+/* Scrollbar refinement */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Dashboard Text Specific Density Fixes */
+.content-intro h1 {
+  font-size: 1.4rem !important;
+  margin-bottom: 0.3rem !important;
+}
+
+.content-intro p {
+  font-size: 0.85rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.table-header-elite h3 {
+  font-size: 1rem !important;
+  margin-bottom: 0 !important;
+}
+
+.elite-dashboard-table {
+  width: 100% !important;
+}
+
+.elite-dashboard-table tr:hover {
+  background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.btn-table-action {
+  padding: 4px 10px !important;
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+}
+
+.elite-status-pill {
+  font-size: 0.65rem !important;
+  padding: 2px 8px !important;
+}
+
+/* Sidebar refinement */
+.sidebar-nav-elite {
+  gap: 2px !important;
+}
+
+.sidebar-badge {
+  font-size: 0.6rem !important;
+  padding: 1px 5px !important;
+}
+
+/* Tab containers */
+.elite-tab-container {
+  padding: 0 !important;
+}
+
+.elite-card-header-flex h2 {
+  font-size: 1.2rem !important;
+}
+
+.elite-card-header-flex p {
+  font-size: 0.8rem !important;
+}
+
+.btn-elite-add {
+  padding: 8px 16px !important;
+  font-size: 0.8rem !important;
+}
+
+/* ============================================================
+   Mobile Icon-Only Navigation Mode
+   ============================================================ */
+
+/* Default Hide Icons (Desktop) */
+.badge-icon, .m-icon {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* User Badge Optimization */
+  .nav-user-badge {
+    padding: 0 !important;
+    width: 36px !important;
+    height: 36px !important;
+    border-radius: 50% !important;
+  }
+  .badge-text {
+    display: none !important;
+  }
+  .badge-icon {
+    display: block !important;
+    font-size: 1.1rem !important;
+  }
+
+  /* Nav Links Optimization */
+  .m-text {
+    display: none !important;
+  }
+  .m-icon {
+    display: block !important;
+    font-size: 1.2rem !important;
+  }
+  
+  .nav-links {
+    gap: 1.5rem !important;
+  }
+  
+  .nav-links button {
+    padding: 10px !important;
+  }
+  
+  /* Centered Group Adjustment */
+  .nav-container-centered {
+    gap: 0.5rem !important;
+  }
+}
+
+/* ============================================================
+   Dashboard Sidebar Mobile Icon-Only Mode
+   (Main Navbar stays with text, Dashboard Sidebar shows icons only on mobile)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .sidebar-nav-elite {
+    display: flex !important;
+    justify-content: space-around !important;
+    padding: 0.5rem !important;
+  }
+
+  .nav-item-elite {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0 !important; /* Hide text by setting font-size to 0 */
+    width: 50px !important;
+    height: 50px !important;
+    padding: 0 !important;
+    border-radius: 12px !important;
+  }
+
+  .nav-item-elite .icon {
+    font-size: 1.4rem !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .sidebar-badge {
+    position: absolute !important;
+    top: 5px !important;
+    right: 5px !important;
+    margin: 0 !important;
+  }
+}
+
+/* ============================================================
+   Ultra-Compact Dashboard Navigation
+   (Minimizing vertical space and maximizing content area)
+   ============================================================ */
+
+/* Desktop Sidebar Items Tightening */
+.nav-item-elite {
+  height: 40px !important; /* Shorter height */
+  margin-bottom: 2px !important; /* Minimal gap */
+}
+
+.sidebar-nav-elite {
+  gap: 0 !important;
+}
+
+/* Mobile Bar Slimming */
+@media (max-width: 900px) {
+  .elite-sidebar {
+    padding: 0.3rem !important; /* Very thin padding */
+  }
+  
+  .nav-item-elite {
+    height: 45px !important; /* Slimmer mobile buttons */
+    width: 20% !important; /* Spread across screen width */
+    border-radius: 0 !important; /* Squared for seamless look */
+  }
+  
+  .nav-item-elite .icon {
+    font-size: 1.2rem !important;
+  }
+  
+  .dashboard-main-elite {
+    padding: 0.5rem !important; /* Tight content padding */
+  }
+}
+
+/* ============================================================
+   Borderless User Badge Optimization
+   (Removing box borders and backgrounds for a cleaner look)
+   ============================================================ */
+
+.nav-user-badge {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 8px !important;
+}
+
+.nav-user-badge:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: var(--accent-color) !important;
+}
+
+@media (max-width: 768px) {
+  .nav-user-badge {
+    width: auto !important; /* Allow icons to breathe without a fixed circle box */
+    height: auto !important;
+    background: transparent !important;
+  }
+}
+
+/* ============================================================
+   Seamless Dashboard Navigation Items
+   (Removing box borders and backgrounds for sidebar items)
+   ============================================================ */
+
+.nav-item-elite {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.nav-item-elite:hover {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: var(--accent-color) !important;
+}
+
+.nav-item-elite.active {
+  background: transparent !important; /* Keep it transparent even when active */
+  color: var(--accent-color) !important;
+  font-weight: 900 !important;
+}
+
+.nav-item-elite.active .icon {
+  filter: drop-shadow(0 0 8px var(--accent-glow)) !important;
+  transform: scale(1.1);
+}
+
+/* Sidebar structure refinement */
+.elite-sidebar {
+  border-right: 1px solid rgba(255, 255, 255, 0.03) !important; /* Very subtle divider */
+  background: transparent !important;
+}
+
+/* ============================================================
+   Centered Dashboard Navigation
+   (Organizing sidebar items to be perfectly centered)
+   ============================================================ */
+
+.nav-item-elite {
+  justify-content: center !important; /* Icons & Text centered in button */
+  text-align: center !important;
+}
+
+.nav-item-elite .icon {
+  margin-right: 8px !important; /* Small gap even when centered */
+}
+
+@media (min-width: 901px) {
+  .sidebar-nav-elite {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* Center the list itself */
+    padding: 2rem 0 !important;
+  }
+  
+  .nav-item-elite {
+    width: 85% !important; /* Width constrained for better centered look */
+    margin: 0 auto !important;
+  }
+}
+
+/* ============================================================
+   Dashboard Brand Icon Styling
+   ============================================================ */
+
+.sidebar-header-elite {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5rem 0 1rem;
+}
+
+.dashboard-brand-icon {
+  font-size: 1.8rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 10px rgba(0, 210, 255, 0.1));
+}
+
+.dashboard-brand-icon:hover {
+  transform: scale(1.05) rotate(5deg);
+  border-color: var(--accent-brand);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.2);
+}
+
+@media (max-width: 900px) {
+  .sidebar-header-elite {
+    display: none !important;
+  }
+}
+
+/* ============================================================
+   Top Navbar Dashboard Menu Integration
+   ============================================================ */
+
+.nav-user-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dash-trigger-wrap {
+  position: relative;
+}
+
+.nav-dash-trigger {
+  background: rgba(0, 210, 255, 0.1);
+  color: var(--accent-brand);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  padding: 6px 14px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-dash-trigger:hover, .nav-dash-trigger.active {
+  background: rgba(0, 210, 255, 0.2);
+  border-color: rgba(0, 210, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+}
+
+.dash-icon {
+  font-size: 1.1rem;
+}
+
+.dashboard-nav-mode .nav-capsule {
+  display: none !important; /* Hide main links to save space */
+}
+
+/* Make Dashboard Content Full Width */
+.dashboard-elite-layout.no-sidebar {
+  display: block;
+}
+
+.dashboard-elite-layout.no-sidebar .dashboard-main-elite {
+  width: 100%;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
 }

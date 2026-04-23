@@ -5,7 +5,6 @@ import Footer from './shared/Footer';
 import GijoLab from './labs/GijoLab';
 import GijoTourApp from './tour-app/GijoTourApp';
 import SizeControl from './shared/SizeControl';
-import NavigateHub from './shared/NavigateHub';
 
 function App() {
   const [uiScale, setUiScale] = useState(1.0);
@@ -95,18 +94,6 @@ function App() {
 
       {!(location.pathname.includes('/admin') || location.pathname.includes('/designer')) && <Footer />}
       
-      <NavigateHub 
-        isLoggedIn={isLoggedIn} 
-        userName={userName} 
-        userRole={userRole} 
-        onLogout={() => {
-          setIsLoggedIn(false);
-          localStorage.removeItem('gijo_auth');
-          localStorage.removeItem('gijo_user_name');
-        }}
-        uiScale={uiScale}
-        onScaleChange={setUiScale}
-      />
     </div>
   );
 }

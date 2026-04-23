@@ -65,7 +65,13 @@ const NoticeBoard = ({ notices, isLoggedIn, userName, onAddNotice, onDeleteNotic
             </div>
           )}
 
-          {/* 버튼은 사용자 메뉴(Navbar)로 통합됨 */}
+          {isLoggedIn && !isWriting && (
+            <div className="board-actions animate-up delay-1">
+              <button className="btn-write-notice" onClick={() => setIsWriting(true)}>
+                📸 새 소식 등록하기
+              </button>
+            </div>
+          )}
         </div>
 
         {isWriting && (

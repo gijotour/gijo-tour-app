@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const AdminPanel = ({ onLogout, designers, setDesigners, stats, pendingRequests = [], onApprove }) => {
-  const [activeTab, setActiveTab] = useState('active'); // 'active' or 'pending'
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const activeTab = queryParams.get('tab') || 'active';
 
   const toggleStatus = (id) => {
     setDesigners(designers.map(d => {
@@ -15,30 +19,7 @@ const AdminPanel = ({ onLogout, designers, setDesigners, stats, pendingRequests 
   };
 
   return (
-    <div className="dashboard-elite-layout">
-      <aside className="elite-sidebar glass-card">
-        <div className="sidebar-brand">
-          <span className="brand-dot"></span>
-          <h2>GT</h2>
-        </div>
-        <nav className="sidebar-nav-elite">
-          <button className={`nav-item-elite ${activeTab === 'active' ? 'active' : ''}`} onClick={() => setActiveTab('active')}>
-            <span className="icon">📊</span> DASHBOARD
-          </button>
-          <button className={`nav-item-elite ${activeTab === 'pending' ? 'active' : ''}`} onClick={() => setActiveTab('pending')}>
-            <span className="icon">📩</span> 승인 대기 {pendingRequests.length > 0 && <span className="sidebar-badge">{pendingRequests.length}</span>}
-          </button>
-          <button className="nav-item-elite">
-            <span className="icon">🏦</span> FINANCE
-          </button>
-          <button className="nav-item-elite">
-            <span className="icon">⚙️</span> SETTINGS
-          </button>
-        </nav>
-        <div className="sidebar-footer-elite" style={{ border: 'none', opacity: 0.3 }}>
-          <p style={{ fontSize: '0.7rem', textAlign: 'center' }}>GT ADMIN v3.0</p>
-        </div>
-      </aside>
+    <div className="dashboard-elite-layout no-sidebar">
 
       <main className="dashboard-main-elite">
         <div className="elite-dashboard-content custom-scrollbar">

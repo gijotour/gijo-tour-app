@@ -1,26 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const logo = "https://img.icons8.com/isometric/50/experimental-rocket-isometric.png";
-
 const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoardWrite, setBoardFilterAuthor }) => {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [isDashMenuOpen, setIsDashMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const isDashboard = location.pathname.includes('/admin') || location.pathname.includes('/designer');
-  const isHub = location.pathname === '/';
-  
-  // 대시보드나 허브에서도 메뉴바를 표시하도록 차단 로직 제거
-
-  const currentView = location.pathname.startsWith('/gijotour') ? 'home' : 
-                      location.pathname === '/' ? 'lab' : 'other';
+  const isAdmin = location.pathname.includes('/admin');
+  const isDesigner = location.pathname.includes('/designer');
 
   useEffect(() => {
     setIsMenuOpen(false);
     setIsUserMenuOpen(false);
+    setIsDashMenuOpen(false);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -54,183 +50,133 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
   };
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''} ${isDashboard ? 'dashboard-nav' : ''}`}>
-      <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="logo-text" onClick={() => handleNavClick('/gijotour')} style={{ cursor: 'pointer' }}>
-          GIJO TOUR
-        </div>
-
-        <button className="mobile-menu-toggle" onClick={toggleMenu}>
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
-        </button>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''} ${isDashboard ? 'dashboard-nav-mode' : ''}`}>
+      <div className="nav-container-centered">
         
-        <div className={`nav-capsule ${isMenuOpen ? 'open' : ''}`}>
-          {isLoggedIn && (
-            <div className="mobile-nav-profile">
-              <div className="nav-avatar" style={{ backgroundImage: `url(https://api.dicebear.com/7.x/avataaars/svg?seed=${userName})` }}></div>
-              <div className="mobile-profile-info">
-                <span className="name">{userName}님</span>
-                <span className="role">{userRole === 'admin' ? 'SYSTEM ADMIN' : 'TRAVEL DESIGNER'}</span>
+        {/* Top Row: Logo & Dash/User Badge Group */}
+        <div className="nav-brand-group">
+          {!isDashboard && (
+            <div className="brand-logo-wrapper" onClick={() => {
+              if (location.pathname === '/gijotour') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                handleNavClick('/gijotour');
+              }
+            }} style={{ cursor: 'pointer' }}>
+              <div className="gt-symbol">GT</div>
+              <div className="logo-text-group">
+                <span className="logo-gijo">GIJO</span>
+                <span className="logo-tour">TOUR</span>
               </div>
             </div>
           )}
-          <ul className="nav-links">
-            <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
-            <li><button className={location.pathname.includes('/about') ? 'active' : ''} onClick={() => handleNavClick('/gijotour/about')}>GT 소개</button></li>
-            
-            {(location.pathname.startsWith('/gijotour') || isDashboard) && (
-              <>
-                <li>
-                  <button onClick={() => scrollToSection('designer')}>
-                    여행설계사 제안
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    className={location.pathname.includes('/tv') ? 'active' : ''} 
-                    onClick={() => handleNavClick('/gijotour/tv')}
-                  >
-                    여행설계사 TV
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => scrollToSection('notice')}>
-                    이모저모
-                  </button>
-                </li>
-                {isLoggedIn && (
-                  <>
-                    <li className="nav-divider"></li>
-                    <li>
-                      <div className="nav-user-dropdown-container">
-                        <div 
-                          className={`nav-user-trigger ${isUserMenuOpen ? 'active' : ''}`}
-                          onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                        >
-                          <div className="nav-avatar">👤</div>
-                          <span className="nav-username">{userName}님</span>
-                          <span className="dropdown-arrow">{isUserMenuOpen ? '▲' : '▼'}</span>
-                        </div>
 
-                        {isUserMenuOpen && (
-                          <div className="nav-dropdown-menu glass-card animate-down">
-                            <div className="dropdown-header">
-                              <span className="user-role">{userRole === 'admin' ? 'SYSTEM ADMIN' : 'TRAVEL DESIGNER'}</span>
-                              <span className="user-name">{userName}</span>
-                            </div>
-                            <div className="dropdown-divider"></div>
-                            {userRole === 'admin' ? (
-                              <>
-                                <button 
-                                  className="dropdown-item"
-                                  onClick={() => {
-                                    handleNavClick('/gijotour/admin');
-                                    setIsUserMenuOpen(false);
-                                  }}
-                                >
-                                  <span className="icon">🛡️</span> 운영 시스템 (관리자)
-                                </button>
-                                <button 
-                                  className="dropdown-item"
-                                  onClick={() => {
-                                    handleNavClick('/gijotour/designer');
-                                    setIsUserMenuOpen(false);
-                                  }}
-                                >
-                                  <span className="icon">👤</span> 여행설계 하기
-                                </button>
-                              </>
-                            ) : (
-                              <button 
-                                className="dropdown-item"
-                                onClick={() => {
-                                  handleNavClick('/gijotour/designer');
-                                  setIsUserMenuOpen(false);
-                                }}
-                              >
-                                <span className="icon">⚙️</span> 여행설계 하기
-                              </button>
-                            )}
-                            <button 
-                              className="dropdown-item"
-                              onClick={() => {
-                                setForceBoardWrite(true);
-                                scrollToSection('notice');
-                                setIsUserMenuOpen(false);
-                              }}
-                            >
-                              <span className="icon">✍️</span> 이모저모 (게시판 글작성)
-                            </button>
-                            <button 
-                              className="dropdown-item"
-                              onClick={() => {
-                                setBoardFilterAuthor(userName);
-                                scrollToSection('notice');
-                                setIsUserMenuOpen(false);
-                              }}
-                            >
-                              <span className="icon">🗂️</span> 내 게시물 관리
-                            </button>
-                            <div className="dropdown-divider"></div>
-                            <button 
-                              className="dropdown-item logout"
-                              onClick={() => {
-                                onLogout();
-                                setIsUserMenuOpen(false);
-                              }}
-                            >
-                              <span className="icon">🚪</span> 로그아웃
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </li>
-                  </>
+          <div className="nav-user-controls">
+            {/* Dashboard Specific Quick Menu */}
+            {isDashboard && (
+              <div className="dash-trigger-wrap">
+                <button 
+                  className={`nav-dash-trigger ${isDashMenuOpen ? 'active' : ''}`}
+                  onClick={() => setIsDashMenuOpen(!isDashMenuOpen)}
+                >
+                  <span className="dash-icon">{isAdmin ? '🛡️' : '🛰️'}</span>
+                  <span className="dash-text">관리 메뉴</span>
+                </button>
+
+                {isDashMenuOpen && (
+                  <div className="nav-user-dropdown dash-dropdown glass-card animate-up">
+                    <button className="btn-close-dropdown" onClick={() => setIsDashMenuOpen(false)}>✕</button>
+                    <div className="dropdown-header">
+                      <span className="user-name">{isAdmin ? '운영 시스템' : '설계 대시보드'}</span>
+                    </div>
+                    <div className="dropdown-divider"></div>
+                    {isAdmin ? (
+                      <>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=active'); setIsDashMenuOpen(false); }}>📊 DASHBOARD 지표</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=pending'); setIsDashMenuOpen(false); }}>📩 승인 대기 내역</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=finance'); setIsDashMenuOpen(false); }}>🏦 정산 관리</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=settings'); setIsDashMenuOpen(false); }}>⚙️ 플랫폼 설정</button>
+                      </>
+                    ) : (
+                      <>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=proposals'); setIsDashMenuOpen(false); }}>📋 설계 제안 관리</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=tv'); setIsDashMenuOpen(false); }}>📺 여행설계사 TV</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=settlements'); setIsDashMenuOpen(false); }}>💰 정산/수익 보고</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=account'); setIsDashMenuOpen(false); }}>👩‍💼 마스터 프로필</button>
+                      </>
+                    )}
+                  </div>
                 )}
-              </>
+              </div>
             )}
 
-            {location.pathname === '/' && (
-              <li><button onClick={() => handleNavClick('/gijotour')}>GIJO TOUR 진입</button></li>
+            <button 
+              className={`nav-user-badge ${isUserMenuOpen ? 'active' : ''}`}
+              onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+            >
+              {isLoggedIn ? `${userName}님` : '로그인하기'}
+            </button>
+
+            {/* User Menu Dropdown */}
+            {isUserMenuOpen && (
+              <div className="nav-user-dropdown glass-card animate-up">
+                <button className="btn-close-dropdown" onClick={() => setIsUserMenuOpen(false)}>✕</button>
+                {!isLoggedIn ? (
+                  <div className="dropdown-content">
+                    <div className="dropdown-header"><span className="user-name">게스트님</span></div>
+                    <div className="dropdown-divider"></div>
+                    <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/login'); setIsUserMenuOpen(false); }}>
+                      <span className="icon">🔑</span> 여행설계사 로그인
+                    </button>
+                  </div>
+                ) : (
+                  <div className="dropdown-content">
+                    <div className="dropdown-header"><span className="user-name">{userName}님</span></div>
+                    <div className="dropdown-divider"></div>
+                    <button className="dropdown-item" onClick={() => { setForceBoardWrite(true); scrollToSection('notice'); setIsUserMenuOpen(false); }}>
+                      📋 이모저모 (글쓰기)
+                    </button>
+                    <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer'); setIsUserMenuOpen(false); }}>
+                      👤 여행설계 하기
+                    </button>
+                    {userRole === 'admin' && (
+                      <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin'); setIsUserMenuOpen(false); }}>
+                        🛡️ 운영 시스템
+                      </button>
+                    )}
+                    <div className="dropdown-divider"></div>
+                    <button className="dropdown-item logout" onClick={() => { onLogout(); setIsUserMenuOpen(false); }}>
+                      🚪 로그아웃
+                    </button>
+                  </div>
+                )}
+              </div>
             )}
-          </ul>
-        </div>
-      </div>
-
-
-
-      {/* Global Mobile Menu Overlay - Unified Manager */}
-      {isLoggedIn && isUserMenuOpen && (
-        <div className="mobile-user-dropdown glass-card animate-up" onClick={(e) => e.stopPropagation()}>
-          <div className="dropdown-header">
-            <span className="user-name">{userName}님</span>
-            <span className="user-role">{userRole === 'admin' ? 'ADMIN' : 'DESIGNER'}</span>
           </div>
-          <div className="dropdown-divider"></div>
-          <button className="dropdown-item" onClick={() => { scrollToSection('notice'); setIsUserMenuOpen(false); }}>📋 이모저모</button>
-          <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer'); setIsUserMenuOpen(false); }}>👤 설계사 대쉬보드</button>
-          {userRole === 'admin' && (
-            <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin'); setIsUserMenuOpen(false); }}>🛡️ 운영 시스템</button>
-          )}
-          <div className="dropdown-divider"></div>
-          <button className="dropdown-item logout" onClick={onLogout}>🚪 로그아웃</button>
         </div>
-      )}
+        
+        {/* Bottom Row: Main Navigation Links (Hidden in dashboard for extra space) */}
+        {!isDashboard && (
+          <div className={`nav-capsule ${isMenuOpen ? 'open' : ''}`}>
+            <ul className="nav-links">
+              <li><button onClick={() => handleNavClick('/gijotour')}>홈</button></li>
+              <li><button className={location.pathname.includes('/about') ? 'active' : ''} onClick={() => handleNavClick('/gijotour/about')}>GT 소개</button></li>
+              <li><button onClick={() => scrollToSection('designer')}>여행설계사 제안</button></li>
+              <li><button className={location.pathname.includes('/tv') ? 'active' : ''} onClick={() => handleNavClick('/gijotour/tv')}>여행설계사 TV</button></li>
+              <li><button onClick={() => scrollToSection('notice')}>이모저모</button></li>
+            </ul>
+          </div>
+        )}
 
-      {isLoggedIn && (
-        <button 
-          className="fab-mobile" 
-          onClick={() => {
-            setForceBoardWrite(true);
-            scrollToSection('notice');
-          }}
-          title="새 소식 등록"
-        >
-          +
-        </button>
-      )}
+        {/* Mobile Menu Toggle (Only in main view) */}
+        {!isDashboard && (
+          <button className="mobile-menu-toggle" onClick={toggleMenu}>
+            <span className="bar"></span>
+            <span className="bar"></span>
+            <span className="bar"></span>
+          </button>
+        )}
+      </div>
     </nav>
   );
 };

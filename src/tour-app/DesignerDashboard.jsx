@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, tvVideos = [], onAddTvVideo }) => {
-  const [activeTab, setActiveTab] = useState('proposals');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const activeTab = queryParams.get('tab') || 'proposals';
   const [showModal, setShowModal] = useState(false);
   const [showTvModal, setShowTvModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -466,41 +470,7 @@ const DesignerDashboard = ({ userName, onLogout, proposals = [], onAddProposal, 
         </div>
       )}
 
-      <aside className="elite-sidebar glass-card">
-        <div className="sidebar-brand">
-          <span className="brand-dot designer"></span>
-          <h2>GT</h2>
-        </div>
-        <nav className="sidebar-nav-elite">
-          <button 
-            className={`nav-item-elite ${activeTab === 'proposals' ? 'active' : ''}`}
-            onClick={() => setActiveTab('proposals')}
-          >
-            <span className="icon">📋</span> PROPOSALS
-          </button>
-          <button 
-            className={`nav-item-elite ${activeTab === 'tv' ? 'active' : ''}`}
-            onClick={() => setActiveTab('tv')}
-          >
-            <span className="icon">📺</span> 여행설계사 TV
-          </button>
-          <button 
-            className={`nav-item-elite ${activeTab === 'settlements' ? 'active' : ''}`}
-            onClick={() => setActiveTab('settlements')}
-          >
-            <span className="icon">📊</span> REVENUE
-          </button>
-          <button 
-            className={`nav-item-elite ${activeTab === 'account' ? 'active' : ''}`}
-            onClick={() => setActiveTab('account')}
-          >
-            <span className="icon">👩‍💼</span> PROFILE
-          </button>
-        </nav>
-        <div className="sidebar-footer-elite" style={{ border: 'none', opacity: 0.3 }}>
-          <p style={{ fontSize: '0.7rem', textAlign: 'center' }}>GT ELITE v2.5</p>
-        </div>
-      </aside>
+      {/* Sidebar removed for full-width layout */}
 
       <main className="dashboard-main-elite">
         <div className="elite-dashboard-content custom-scrollbar">

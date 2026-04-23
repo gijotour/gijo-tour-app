@@ -294,13 +294,6 @@ function GijoTourApp({
         <Route index element={
           <>
             <Hero />
-            {!isLoggedIn && (
-              <div className="body-top-right-login animate-fade-in">
-                <button className="btn-compact-login glass-card" onClick={() => navigate('/gijotour/login')}>
-                  <span className="icon">🔑</span> 여행설계사 로그인
-                </button>
-              </div>
-            )}
             <NoticeBoard 
               notices={safeNotices} 
               isLoggedIn={isLoggedIn}
