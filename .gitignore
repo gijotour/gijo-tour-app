@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 .env
 .env.production
+venv/
+__pycache__/
+*.pyc
+*.pyo
+gijo.db
+backend/uploads/
