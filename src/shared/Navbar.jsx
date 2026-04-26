@@ -92,6 +92,8 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                       <>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=active'); setIsDashMenuOpen(false); }}>📊 DASHBOARD 지표</button>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=pending'); setIsDashMenuOpen(false); }}>📩 승인 대기 내역</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=cs'); setIsDashMenuOpen(false); }}>🚨 실시간 CS 센터</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=reports'); setIsDashMenuOpen(false); }}>📈 퍼포먼스 리포트</button>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=finance'); setIsDashMenuOpen(false); }}>🏦 정산 관리</button>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/admin?tab=settings'); setIsDashMenuOpen(false); }}>⚙️ 플랫폼 설정</button>
                       </>
@@ -99,8 +101,10 @@ const Navbar = ({ onLogin, isLoggedIn, onLogout, userName, userRole, setForceBoa
                       <>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=proposals'); setIsDashMenuOpen(false); }}>📋 설계 제안 관리</button>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=tv'); setIsDashMenuOpen(false); }}>📺 여행설계사 TV</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=reviews'); setIsDashMenuOpen(false); }}>⭐ 고객 리뷰 관리</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=calendar'); setIsDashMenuOpen(false); }}>📅 스마트 여행 캘린더</button>
                         <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=settlements'); setIsDashMenuOpen(false); }}>💰 정산/수익 보고</button>
-                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=account'); setIsDashMenuOpen(false); }}>👩‍💼 마스터 프로필</button>
+                        <button className="dropdown-item" onClick={() => { handleNavClick('/gijotour/designer?tab=account'); setIsDashMenuOpen(false); }}>🎨 마스터 프로필</button>
                       </>
                     )}
                   </div>
