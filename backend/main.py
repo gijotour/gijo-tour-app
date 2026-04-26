@@ -5,6 +5,9 @@ from fastapi.staticfiles import StaticFiles
 import shutil
 import os
 import uuid
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import models
 import schemas
@@ -62,7 +65,9 @@ def create_video(
     with open(filepath, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
         
-    thumbnail_url = f"http://localhost:8000/uploads/{filename}"
+    # 이미지 URL 생성 (환경변수가 있으면 사용, 없으면 로컬 주소 사용)
+    backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+    thumbnail_url = f"{backend_url}/uploads/{filename}"
     
     db_video = models.Video(
         title=title,
@@ -86,7 +91,8 @@ def upload_image(file: UploadFile = File(...)):
     with open(filepath, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
         
-    return {"url": f"http://localhost:8000/uploads/{filename}"}
+    backend_url = os.getenv("BACKEND_URL", "http://localhost:8000")
+    return {"url": f"{backend_url}/uploads/{filename}"}
 
 if __name__ == "__main__":
     import uvicorn
