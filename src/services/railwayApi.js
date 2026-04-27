@@ -27,15 +27,31 @@ export const railwayApi = {
     method: 'POST',
     body: JSON.stringify(payload)
   }),
+
   getGuides: () => request('/api/guides'),
   createGuide: (payload) => request('/api/guides', {
     method: 'POST',
     body: JSON.stringify(payload)
   }),
+  updateGuide: (id, payload) => request(`/api/guides/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload)
+  }),
+  deleteGuide: (id) => request(`/api/guides/${id}`, {
+    method: 'DELETE'
+  }),
+
   getUsers: () => request('/api/users'),
   createUser: (payload) => request('/api/users', {
     method: 'POST',
     body: JSON.stringify(payload)
+  }),
+  updateUser: (id, payload) => request(`/api/users/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(payload)
+  }),
+  deleteUser: (id) => request(`/api/users/${id}`, {
+    method: 'DELETE'
   })
 };
 
