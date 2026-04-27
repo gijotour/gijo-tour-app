@@ -20,6 +20,7 @@ const PremiumLanding = () => {
           <div className="premium-cta-row">
             <button type="button" onClick={openKakao}>카톡으로 3분 상담</button>
             <a href="#request">무료 여행 설계 받기</a>
+            <a href="/gijotour/proposals" className="ghost">기존 제안 보기</a>
           </div>
           <div className="premium-proof-row">
             <span>한국 상담</span>
@@ -114,6 +115,35 @@ const PremiumLanding = () => {
         </div>
       </section>
 
+      <section className="premium-section premium-linked">
+        <div className="premium-container">
+          <p className="premium-badge">Connected Features</p>
+          <h2>기존 기능은 뒤에서 매출 흐름을 받칩니다</h2>
+          <div className="premium-feature-links">
+            <a href="/gijotour/proposals">
+              <span>제안서 보기</span>
+              <strong>상담 후 고객에게 보여줄 맞춤 제안</strong>
+              <em>기존 DesignerShowcase 연계</em>
+            </a>
+            <a href="/gijotour/reviews">
+              <span>후기/공지</span>
+              <strong>신뢰 확보용 후기와 운영 소식</strong>
+              <em>기존 NoticeBoard 연계</em>
+            </a>
+            <a href="/gijotour/tv">
+              <span>여행설계사 TV</span>
+              <strong>콘텐츠와 영상으로 신뢰 강화</strong>
+              <em>기존 DesignerTV 연계</em>
+            </a>
+            <a href="/gijotour/about">
+              <span>기업 워크샵</span>
+              <strong>B2B 문의와 지역 선택 흐름</strong>
+              <em>기존 B2B/Region 기능 연계</em>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="premium-section premium-price">
         <div className="premium-container">
           <p className="premium-badge">Price</p>
@@ -140,6 +170,11 @@ const PremiumLanding = () => {
             <p className="premium-badge">Request</p>
             <h2>무료 여행 설계 요청</h2>
             <p>상담만 하면 나머지는 GIJO가 설계합니다. 3분 상담으로 여행의 큰 틀을 잡아드립니다.</p>
+            <div className="premium-mini-actions">
+              <a href="/gijotour/proposals">제안서 확인</a>
+              <a href="/gijotour/reviews">후기 보기</a>
+              <a href="/gijotour/login">파트너/관리자 로그인</a>
+            </div>
           </div>
           <form className="premium-form">
             <input placeholder="인원" />
@@ -170,12 +205,13 @@ const PremiumLanding = () => {
         .premium-cta-row { display:flex; gap:14px; flex-wrap:wrap; margin-top:38px; }
         .premium-cta-row button, .premium-cta-row a, .premium-form button { background:#d6b36a; color:#111; border:0; border-radius:999px; padding:17px 25px; font-weight:900; text-decoration:none; cursor:pointer; box-shadow:0 18px 45px rgba(214,179,106,.2); }
         .premium-cta-row a { background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.16); }
+        .premium-cta-row .ghost { background:rgba(214,179,106,.12); color:#d6b36a; border-color:rgba(214,179,106,.35); }
         .premium-proof-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:46px; }
         .premium-proof-row span { padding:11px 15px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); color:#f2f2f2; }
         .premium-grid, .premium-days, .premium-price-grid { display:grid; gap:18px; }
         .premium-grid.four { grid-template-columns:repeat(4, 1fr); }
         .premium-grid.three { grid-template-columns:repeat(3, 1fr); }
-        .premium-grid > div, .premium-days > div, .premium-price-grid > div, .premium-card-list > div { padding:28px; border-radius:26px; background:rgba(255,255,255,.065); border:1px solid rgba(255,255,255,.12); box-shadow:0 18px 55px rgba(0,0,0,.25); }
+        .premium-grid > div, .premium-days > div, .premium-price-grid > div, .premium-card-list > div, .premium-feature-links > a { padding:28px; border-radius:26px; background:rgba(255,255,255,.065); border:1px solid rgba(255,255,255,.12); box-shadow:0 18px 55px rgba(0,0,0,.25); }
         .premium-big-copy { font-size:26px !important; color:#fff !important; margin-top:34px; font-weight:800; }
         .split { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; }
         .premium-card-list { display:grid; gap:14px; }
@@ -185,6 +221,13 @@ const PremiumLanding = () => {
         .premium-product { background:linear-gradient(180deg, #070707, #111, #070707); }
         .premium-days { grid-template-columns:repeat(4, 1fr); margin-top:28px; }
         .premium-days strong { color:#d6b36a; letter-spacing:.08em; }
+        .premium-linked { background:radial-gradient(circle at top right, rgba(214,179,106,.12), transparent 36%), #090909; }
+        .premium-feature-links { display:grid; grid-template-columns:repeat(4, 1fr); gap:18px; margin-top:32px; }
+        .premium-feature-links a { display:flex; flex-direction:column; gap:10px; text-decoration:none; transition:.25s ease; }
+        .premium-feature-links a:hover { transform:translateY(-6px); border-color:rgba(214,179,106,.55); background:rgba(214,179,106,.10); }
+        .premium-feature-links span { color:#d6b36a; font-weight:900; }
+        .premium-feature-links strong { color:#fff; font-size:20px; line-height:1.35; }
+        .premium-feature-links em { color:#aaa; font-style:normal; font-size:14px; }
         .premium-price-grid { grid-template-columns:repeat(2, 1fr); margin-top:30px; }
         .premium-price-grid span { color:#d6b36a; font-weight:900; letter-spacing:.08em; }
         .premium-price-grid strong { display:block; color:#fff; font-size:42px; margin:12px 0; }
@@ -194,7 +237,9 @@ const PremiumLanding = () => {
         .premium-form { display:grid; gap:13px; }
         .premium-form input { width:100%; padding:17px 18px; border-radius:16px; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.075); color:#fff; font:inherit; }
         .premium-form input::placeholder { color:#9b9b9b; }
-        @media (max-width: 900px) { .premium-grid.four, .premium-grid.three, .premium-days, .premium-price-grid, .split { grid-template-columns:1fr; } .premium-section { padding:80px 0; } .premium-hero { min-height:92vh; } }
+        .premium-mini-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:24px; }
+        .premium-mini-actions a { color:#fff; text-decoration:none; padding:11px 14px; border:1px solid rgba(255,255,255,.15); border-radius:999px; background:rgba(255,255,255,.06); font-weight:800; font-size:14px; }
+        @media (max-width: 900px) { .premium-grid.four, .premium-grid.three, .premium-days, .premium-price-grid, .premium-feature-links, .split { grid-template-columns:1fr; } .premium-section { padding:80px 0; } .premium-hero { min-height:92vh; } }
       `}</style>
     </main>
   );
