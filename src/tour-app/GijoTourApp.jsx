@@ -4,6 +4,7 @@ import PremiumLanding from './PremiumLanding';
 import DesignerShowcase from './DesignerShowcase';
 import PaymentPage from './PaymentPage';
 import AdminGuideUserManager from './AdminGuideUserManager';
+import Login from './Login';
 import { railwayApi, isRailwayApiEnabled } from '../services/railwayApi';
 
 function normalizeBudget(rawBudget) {
@@ -11,7 +12,7 @@ function normalizeBudget(rawBudget) {
   return rawBudget.includes('원') || rawBudget.includes('만원') ? rawBudget : `${rawBudget}원`;
 }
 
-function GijoTourApp() {
+function GijoTourApp({ setIsLoggedIn, setUserRole, setUserName }) {
   const navigate = useNavigate();
 
   const [packages, setPackages] = useState([]);
@@ -19,10 +20,7 @@ function GijoTourApp() {
 
   useEffect(() => {
     if (!isRailwayApiEnabled()) return;
-
-    railwayApi.getProposals()
-      .then(data => setPackages(data))
-      .catch(err => console.error(err));
+    railwayApi.getProposals().then(data => setPackages(data)).catch(err => console.error(err));
   }, []);
 
   const handleCreateProposal = async (form) => {
@@ -64,22 +62,20 @@ function GijoTourApp() {
     navigate('/gijotour/payment');
   };
 
+  const handleLoginSuccess = (role, name) => {
+    setIsLoggedIn?.(true);
+    setUserRole?.(role);
+    setUserName?.(name);
+    navigate(role === 'admin' ? '/gijotour/admin' : '/gijotour/proposals');
+  };
+
   return (
     <Routes>
       <Route index element={<PremiumLanding onCreateAutoProposal={handleCreateProposal} />} />
-
       <Route path="proposals" element={<DesignerShowcase packages={packages} onStartPayment={handleStartPayment} />} />
-
-      <Route path="payment" element={
-        selectedPackageForPayment ? (
-          <PaymentPage pkg={selectedPackageForPayment} onBack={() => navigate('/gijotour/proposals')} />
-        ) : (
-          <Navigate to="/gijotour" />
-        )
-      } />
-
+      <Route path="payment" element={selectedPackageForPayment ? <PaymentPage pkg={selectedPackageForPayment} onBack={() => navigate('/gijotour/proposals')} /> : <Navigate to="/gijotour" />} />
       <Route path="admin" element={<AdminGuideUserManager />} />
-
+      <Route path="login" element={<Login onBack={() => navigate('/gijotour')} onLoginSuccess={handleLoginSuccess} initialRole="admin" pendingRequests={[]} activeDesigners={[]} onDesignerSignup={() => alert('제휴 신청이 접수되었습니다.')} />} />
       <Route path="*" element={<Navigate to="." replace />} />
     </Routes>
   );
