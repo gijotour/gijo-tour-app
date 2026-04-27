@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import PremiumLanding from './PremiumLanding';
 import DesignerShowcase from './DesignerShowcase';
 import PaymentPage from './PaymentPage';
+import AdminGuideUserManager from './AdminGuideUserManager';
 import { mockDb } from '../data/mockDb';
 
 function normalizeBudget(rawBudget) {
@@ -42,51 +43,18 @@ function GijoTourApp() {
         '고객 목적 기반 맞춤 일정 설계',
         '예약금 30% · 출발 7일 전 잔금 구조'
       ],
-      customerRequest: {
-        people,
-        date,
-        budget,
-        purpose,
-        contact
-      },
+      customerRequest: { people, date, budget, purpose, contact },
       detailedPlan: {
         pricing: `1인당 약 ${budget} (항공권 별도)`,
         summary: `${people} 고객을 위한 ${purpose} 중심 프리미엄 맞춤 여행 제안입니다. 여행 날짜는 ${date} 기준으로 설계되었습니다.`,
         itinerary: [
-          {
-            day: 1,
-            title: '도착 · 전용 픽업 · 체크인 케어',
-            content: `공항 도착 후 대기 없이 전용 픽업으로 이동합니다. ${people} 구성에 맞춰 호텔 체크인, 주변 동선, 첫 식사까지 GIJO가 정리합니다.`
-          },
-          {
-            day: 2,
-            title: '프라이빗 핵심 일정 · 현지 가이드 케어',
-            content: `${purpose} 목적에 맞춰 호핑, 해변 휴식, 시티투어 중 최적 동선을 구성합니다. 검증된 현지 가이드가 일정 전체를 케어합니다.`
-          },
-          {
-            day: 3,
-            title: '힐링 · 마사지 · 맛집 예약 대행',
-            content: '무리한 패키지 일정을 줄이고, 마사지/자유시간/프리미엄 식사 예약을 조합합니다. 고객 취향에 맞춰 일정 변경도 가능합니다.'
-          },
-          {
-            day: 4,
-            title: '체크아웃 · 공항 이동 · 귀국 케어',
-            content: '체크아웃 시간, 짐 보관, 공항 이동까지 마지막 동선을 사전에 확정해 여행 종료까지 스트레스를 줄입니다.'
-          }
+          { day: 1, title: '도착 · 전용 픽업 · 체크인 케어', content: `공항 도착 후 대기 없이 전용 픽업으로 이동합니다. ${people} 구성에 맞춰 호텔 체크인, 주변 동선, 첫 식사까지 GIJO가 정리합니다.` },
+          { day: 2, title: '프라이빗 핵심 일정 · 현지 가이드 케어', content: `${purpose} 목적에 맞춰 호핑, 해변 휴식, 시티투어 중 최적 동선을 구성합니다. 검증된 현지 가이드가 일정 전체를 케어합니다.` },
+          { day: 3, title: '힐링 · 마사지 · 맛집 예약 대행', content: '무리한 패키지 일정을 줄이고, 마사지/자유시간/프리미엄 식사 예약을 조합합니다. 고객 취향에 맞춰 일정 변경도 가능합니다.' },
+          { day: 4, title: '체크아웃 · 공항 이동 · 귀국 케어', content: '체크아웃 시간, 짐 보관, 공항 이동까지 마지막 동선을 사전에 확정해 여행 종료까지 스트레스를 줄입니다.' }
         ],
-        inclusions: [
-          '여행 전 한국어 상담 및 일정 설계',
-          '현지 전용 픽업/이동 동선 설계',
-          '검증된 현지 가이드 매칭',
-          '숙소/식당/마사지 예약 지원',
-          '여행 중 긴급 커뮤니케이션 지원'
-        ],
-        exclusions: [
-          '왕복 항공권',
-          '개인 쇼핑 및 개인 경비',
-          '일정 외 추가 액티비티',
-          '선택 팁 및 현장 추가 요청 비용'
-        ],
+        inclusions: ['여행 전 한국어 상담 및 일정 설계', '현지 전용 픽업/이동 동선 설계', '검증된 현지 가이드 매칭', '숙소/식당/마사지 예약 지원', '여행 중 긴급 커뮤니케이션 지원'],
+        exclusions: ['왕복 항공권', '개인 쇼핑 및 개인 경비', '일정 외 추가 액티비티', '선택 팁 및 현장 추가 요청 비용'],
         proTip: '상담 후 고객 성향을 확인해 BASIC/ PREMIUM 두 가지 견적안으로 다시 정리하면 결제 전환율이 높습니다.'
       }
     };
@@ -114,6 +82,8 @@ function GijoTourApp() {
           <Navigate to="/gijotour" />
         )
       } />
+
+      <Route path="admin" element={<AdminGuideUserManager />} />
 
       <Route path="*" element={<Navigate to="." replace />} />
     </Routes>
